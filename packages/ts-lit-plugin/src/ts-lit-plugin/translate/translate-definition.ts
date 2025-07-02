@@ -1,12 +1,14 @@
-import { LitDefinition, LitDefinitionTarget } from "lit-analyzer";
+import { LitDefinition, LitDefinitionTarget } from "@jarrodek/lit-analyzer";
 import { DefinitionInfo, DefinitionInfoAndBoundSpan } from "typescript";
+
 import { tsModule } from "../../ts-module.js";
+
 import { translateRange } from "./translate-range.js";
 
 export function translateDefinition(definition: LitDefinition): DefinitionInfoAndBoundSpan {
 	return {
 		definitions: definition.targets.map(translateDefinitionInfo),
-		textSpan: translateRange(definition.fromRange)
+		textSpan: translateRange(definition.fromRange),
 	};
 }
 
@@ -38,11 +40,11 @@ function translateDefinitionInfo(target: LitDefinitionTarget): DefinitionInfo {
 		name: targetName,
 		textSpan: {
 			start: targetStart,
-			length: targetEnd - targetStart
+			length: targetEnd - targetStart,
 		},
 		fileName: targetFileName,
 		containerName: targetFileName,
 		kind: tsModule.ts.ScriptElementKind.memberVariableElement,
-		containerKind: tsModule.ts.ScriptElementKind.functionElement
+		containerKind: tsModule.ts.ScriptElementKind.functionElement,
 	};
 }

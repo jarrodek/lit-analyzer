@@ -30,7 +30,7 @@ function diagnosticTextForFile(file: SourceFile, diagnostic: LitDiagnostic) {
 	// Get start and end position of the line
 	let linePositionRange = {
 		start: file.getPositionOfLineAndCharacter(lineContext.line, 0),
-		end: file.getLineEndOfPosition(diagnostic.location.start)
+		end: file.getLineEndOfPosition(diagnostic.location.start),
 	};
 
 	// Modify the line position range if the width of the line exceeds MAX_LINE_WIDTH
@@ -50,13 +50,14 @@ function diagnosticTextForFile(file: SourceFile, diagnostic: LitDiagnostic) {
 
 	// Highlight the error in the text
 	// The highlighting range is offsetted by subtracting the line start position
-	const highlightingColorFunction = (str: string) => chalk.black(diagnostic.severity === "error" ? chalk.bgRedBright(str) : chalk.bgYellow(str));
+	const highlightingColorFunction = (str: string) =>
+		chalk.black(diagnostic.severity === "error" ? chalk.bgRedBright(str) : chalk.bgYellow(str));
 
 	const markedLine = markText(
 		lineText,
 		{
 			start: diagnostic.location.start - linePositionRange.start,
-			length: diagnostic.location.end - diagnostic.location.start
+			length: diagnostic.location.end - diagnostic.location.start,
 		},
 		highlightingColorFunction
 	).replace(/^\s*/, " ");
@@ -64,7 +65,7 @@ function diagnosticTextForFile(file: SourceFile, diagnostic: LitDiagnostic) {
 	const block = [
 		chalk.bold(`${diagnostic.message}${diagnostic.fixMessage ? ` ${diagnostic.fixMessage}` : ""}`),
 		`${chalk.gray(`${lineContext.line + 1}:`)} ${markedLine}`,
-		diagnostic.source == null ? undefined : chalk.gray(`${diagnostic.source}`)
+		diagnostic.source == null ? undefined : chalk.gray(`${diagnostic.source}`),
 	]
 		.filter(line => line != null)
 		.map(line => `    ${line}`)

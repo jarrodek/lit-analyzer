@@ -8,7 +8,7 @@ import {
 	HtmlProp,
 	HtmlSlot,
 	HtmlTag,
-	NamedHtmlDataCollection
+	NamedHtmlDataCollection,
 } from "../../parse/parse-html-data/html-tag.js";
 import {
 	HtmlNodeAttr,
@@ -16,7 +16,7 @@ import {
 	IHtmlNodeAttr,
 	IHtmlNodeAttrEventListener,
 	IHtmlNodeAttrProp,
-	IHtmlNodeBooleanAttribute
+	IHtmlNodeBooleanAttribute,
 } from "../../types/html-node/html-node-attr-types.js";
 import { HtmlNode } from "../../types/html-node/html-node-types.js";
 import { AnalyzerHtmlStore } from "../analyzer-html-store.js";

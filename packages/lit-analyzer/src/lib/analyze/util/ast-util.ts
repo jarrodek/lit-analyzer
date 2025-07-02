@@ -36,11 +36,11 @@ export function nodeIntersects(nodeA: Node, nodeB: Node): boolean {
 	return intersects(
 		{
 			start: nodeA.getStart(),
-			end: nodeA.getEnd()
+			end: nodeA.getEnd(),
 		},
 		{
 			start: nodeB.getStart(),
-			end: nodeB.getEnd()
+			end: nodeB.getEnd(),
 		}
 	);
 }

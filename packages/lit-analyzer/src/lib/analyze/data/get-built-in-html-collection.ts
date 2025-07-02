@@ -1,6 +1,6 @@
 import { SimpleType } from "ts-simple-type";
 import { HTMLDataV1 } from "vscode-html-languageservice";
-import htmlDataJson from "@vscode/web-custom-data/data/browsers.html-data.json";
+import htmlDataJson from "@vscode/web-custom-data/data/browsers.html-data.json" with { type: "json" };
 import { HtmlAttr, HtmlDataCollection } from "../parse/parse-html-data/html-tag.js";
 import { parseVscodeHtmlData } from "../parse/parse-html-data/parse-vscode-html-data.js";
 import { lazy } from "../util/general-util.js";
@@ -18,7 +18,7 @@ export function getBuiltInHtmlCollection(): HtmlDataCollection {
 		if (valueSet.name === "inputautocomplete") {
 			return {
 				...valueSet,
-				values: [{ name: "on" }, { name: "off" }, ...valueSet.values]
+				values: [{ name: "on" }, { name: "off" }, ...valueSet.values],
 			};
 		}
 
@@ -35,9 +35,9 @@ export function getBuiltInHtmlCollection(): HtmlDataCollection {
 						...tag.attributes,
 						{
 							name: "controlslist",
-							description: ""
-						}
-					]
+							description: "",
+						},
+					],
 				};
 
 			case "video":
@@ -47,19 +47,19 @@ export function getBuiltInHtmlCollection(): HtmlDataCollection {
 						...tag.attributes,
 						{
 							name: "controlslist",
-							description: ""
+							description: "",
 						},
 						{
 							name: "disablepictureinpicture",
-							valueSet: "v" // "v" is the undocumented boolean type
+							valueSet: "v", // "v" is the undocumented boolean type
 						},
 						{
 							name: "playsinline",
 							description:
 								'The playsinline attribute is a boolean attribute. If present, it serves as a hint to the user agent that the video ought to be displayed "inline" in the document by default, constrained to the element\'s playback area, instead of being displayed fullscreen or in an independent resizable window.',
-							valueSet: "v" // "v" is the undocumented boolean type
-						}
-					]
+							valueSet: "v", // "v" is the undocumented boolean type
+						},
+					],
 				};
 		}
 
@@ -70,7 +70,7 @@ export function getBuiltInHtmlCollection(): HtmlDataCollection {
 	tags.push(
 		{
 			name: "svg",
-			attributes: []
+			attributes: [],
 		},
 		{
 			name: "slot",
@@ -78,14 +78,14 @@ export function getBuiltInHtmlCollection(): HtmlDataCollection {
 			attributes: [
 				{
 					name: "name",
-					description: ""
+					description: "",
 				},
 				{
 					name: "onslotchange",
 					description:
-						"The slotchange event is fired on an HTMLSlotElement instance (<slot> element) when the node(s) contained in that slot change.\n\nNote: the slotchange event doesn't fire if the children of a slotted node change — only if you change (e.g. add or delete) the actual nodes themselves."
-				}
-			]
+						"The slotchange event is fired on an HTMLSlotElement instance (<slot> element) when the node(s) contained in that slot change.\n\nNote: the slotchange event doesn't fire if the children of a slotted node change — only if you change (e.g. add or delete) the actual nodes themselves.",
+				},
+			],
 		}
 	);
 
@@ -95,19 +95,19 @@ export function getBuiltInHtmlCollection(): HtmlDataCollection {
 		...EXTRA_HTML5_EVENTS.filter(evt => globalAttributes.some(existingEvt => existingEvt.name === evt.name)),
 		{
 			name: "tabindex",
-			description: ""
+			description: "",
 		},
 		{
 			name: "slot",
-			description: ""
+			description: "",
 		},
 		{
 			name: "part",
-			description: `This attribute specifies a "styleable" part on the element in your shadow tree.`
+			description: `This attribute specifies a "styleable" part on the element in your shadow tree.`,
 		},
 		{
 			name: "theme",
-			description: `This attribute specifies a global "styleable" part on the element.`
+			description: `This attribute specifies a global "styleable" part on the element.`,
 		},
 		{
 			name: "exportparts",
@@ -116,7 +116,7 @@ export function getBuiltInHtmlCollection(): HtmlDataCollection {
 The value must be a comma-separated list of part mappings:
   - "some-box, some-input"
   - "some-input: foo-input"
-`
+`,
 		}
 	);
 
@@ -126,10 +126,10 @@ The value must be a comma-separated list of part mappings:
 			version,
 			globalAttributes,
 			tags,
-			valueSets
+			valueSets,
 		},
 		{
-			builtIn: true
+			builtIn: true,
 		}
 	);
 
@@ -146,9 +146,9 @@ The value must be a comma-separated list of part mappings:
 						() =>
 							({
 								kind: "UNION",
-								types: [{ kind: "STRING" }, { kind: "NULL" }]
-							} as SimpleType)
-					)
+								types: [{ kind: "STRING" }, { kind: "NULL" }],
+							}) as SimpleType
+					),
 				});
 				break;
 
@@ -165,16 +165,16 @@ The value must be a comma-separated list of part mappings:
 								types: [
 									{
 										kind: "STRING_LITERAL",
-										value: "lazy"
+										value: "lazy",
 									},
 									{
 										kind: "STRING_LITERAL",
-										value: "auto"
+										value: "auto",
 									},
-									{ kind: "STRING_LITERAL", value: "eager" }
-								]
-							} as SimpleType)
-					)
+									{ kind: "STRING_LITERAL", value: "eager" },
+								],
+							}) as SimpleType
+					),
 				});
 				break;
 
@@ -188,9 +188,9 @@ The value must be a comma-separated list of part mappings:
 						() =>
 							({
 								kind: "UNION",
-								types: [{ kind: "STRING" }, { kind: "NULL" }]
-							} as SimpleType)
-					)
+								types: [{ kind: "STRING" }, { kind: "NULL" }],
+							}) as SimpleType
+					),
 				});
 				break;
 		}
@@ -204,8 +204,8 @@ The value must be a comma-separated list of part mappings:
 			description: `This attribute specifies a "styleable" part on the element in your shadow tree.`,
 			getType: () => ({ kind: "STRING" }),
 			kind: "property",
-			name: "part"
-		}
+			name: "part",
+		},
 	];
 
 	return {
@@ -213,13 +213,13 @@ The value must be a comma-separated list of part mappings:
 		tags: result.tags.map(tag => ({
 			...tag,
 			builtIn: true,
-			attributes: addMissingAttrTypes(tag.attributes.map(attr => ({ ...attr, builtIn: true })))
+			attributes: addMissingAttrTypes(tag.attributes.map(attr => ({ ...attr, builtIn: true }))),
 		})),
 		global: {
 			...result.global,
 			attributes: addMissingAttrTypes(result.global.attributes?.map(attr => ({ ...attr, builtIn: true })) || []),
-			events: result.global.events?.map(event => ({ ...event, builtIn: true }))
-		}
+			events: result.global.events?.map(event => ({ ...event, builtIn: true })),
+		},
 	};
 }
 
@@ -229,7 +229,7 @@ function addMissingAttrTypes(attrs: HtmlAttr[]): HtmlAttr[] {
 			const newType = html5TagAttrType(attr.name);
 			return {
 				...attr,
-				getType: lazy(() => newType)
+				getType: lazy(() => newType),
 			};
 		}
 

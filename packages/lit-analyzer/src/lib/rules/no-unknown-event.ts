@@ -13,7 +13,7 @@ import { rangeFromHtmlNodeAttr } from "../analyze/util/range-util.js";
 const rule: RuleModule = {
 	id: "no-unknown-event",
 	meta: {
-		priority: "low"
+		priority: "low",
 	},
 	visitHtmlAttribute(htmlAttr, context) {
 		const { htmlStore, config, definitionStore } = context;
@@ -33,7 +33,8 @@ const rule: RuleModule = {
 
 			// Get suggested target
 			const suggestedTarget = suggestTargetForHtmlAttr(htmlAttr, htmlStore);
-			const suggestedMemberName = (suggestedTarget && `${litAttributeModifierForTarget(suggestedTarget)}${suggestedTarget.name}`) || undefined;
+			const suggestedMemberName =
+				(suggestedTarget && `${litAttributeModifierForTarget(suggestedTarget)}${suggestedTarget.name}`) || undefined;
 
 			const suggestion = getSuggestionText({ config, definitionStore, htmlTag });
 
@@ -51,13 +52,13 @@ const rule: RuleModule = {
 									{
 										kind: "changeAttributeName",
 										newName: suggestedMemberName,
-										htmlAttr
-									}
-								]
-						  })
+										htmlAttr,
+									},
+								],
+							}),
 			});
 		}
-	}
+	},
 };
 
 export default rule;
@@ -71,7 +72,7 @@ export default rule;
 function getSuggestionText({
 	config,
 	definitionStore,
-	htmlTag
+	htmlTag,
 }: {
 	config: LitAnalyzerConfig;
 	definitionStore: AnalyzerDefinitionStore;

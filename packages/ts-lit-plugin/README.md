@@ -25,7 +25,7 @@ First, install the plugin:
 
 <!-- prettier-ignore -->
 ```bash
-npm install ts-lit-plugin -D
+npm install @jarrodek/ts-lit-plugin -D
 ```
 
 Then add a `plugins` section to your [`tsconfig.json`](http://www.typescriptlang.org/docs/handbook/tsconfig-json.html):
@@ -36,7 +36,7 @@ Then add a `plugins` section to your [`tsconfig.json`](http://www.typescriptlang
   "compilerOptions": {
     "plugins": [
       {
-        "name": "ts-lit-plugin"
+        "name": "@jarrodek/ts-lit-plugin"
       }
     ]
   }
@@ -64,7 +64,7 @@ You can configure this plugin through your `tsconfig.json`.
   "compilerOptions": {
     "plugins": [
       {
-        "name": "ts-lit-plugin",
+        "name": "@jarrodek/ts-lit-plugin",
         "strict": true,
         "rules": {
           "no-unknown-tag-name": "off",

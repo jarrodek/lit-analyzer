@@ -129,7 +129,7 @@ export class LitAnalyzer {
 						displayName: tagName,
 						range: makeSourceFileRange({ start: nodeUnderCursor.getStart() + 1, end: nodeUnderCursor.getEnd() - 1 }),
 						kind: "label",
-						target: definition
+						target: definition,
 					};
 				}
 			}
@@ -258,7 +258,11 @@ export class LitAnalyzer {
 
 		// Return fixes for intersecting document
 		if (document instanceof HtmlDocument) {
-			return this.litHtmlDocumentAnalyzer.getCodeFixesAtOffsetRange(document, sfRangeToDocumentRange(document, sourceFileRange), this.context);
+			return this.litHtmlDocumentAnalyzer.getCodeFixesAtOffsetRange(
+				document,
+				sfRangeToDocumentRange(document, sourceFileRange),
+				this.context
+			);
 		}
 
 		// Else, return fixes for components in this file
@@ -309,7 +313,7 @@ export class LitAnalyzer {
 
 		return {
 			document,
-			offset: document != null ? document.virtualDocument.sfPositionToDocumentOffset(position) : -1
+			offset: document != null ? document.virtualDocument.sfPositionToDocumentOffset(position) : -1,
 		};
 	}
 

@@ -1,4 +1,4 @@
-import { LitAnalyzer } from "lit-analyzer";
+import { LitAnalyzer } from "@jarrodek/lit-analyzer";
 import {
 	CodeFixAction,
 	CompletionEntryDetails,
@@ -14,8 +14,9 @@ import {
 	RenameLocation,
 	SignatureHelpItems,
 	TextChange,
-	UserPreferences
+	UserPreferences,
 } from "typescript";
+
 import { LitPluginContext } from "./lit-plugin-context.js";
 import { translateCodeFixes } from "./translate/translate-code-fixes.js";
 import { translateCompletionDetails } from "./translate/translate-completion-details.js";
@@ -29,13 +30,18 @@ import { translateRenameInfo } from "./translate/translate-rename-info.js";
 import { translateRenameLocations } from "./translate/translate-rename-locations.js";
 
 export class TsLitPlugin {
-	private litAnalyzer = new LitAnalyzer(this.context);
+	private litAnalyzer: LitAnalyzer;
 
 	private get program(): Program {
 		return this.prevLangService.getProgram()!;
 	}
 
-	constructor(private prevLangService: LanguageService, public readonly context: LitPluginContext) {}
+	constructor(
+		private prevLangService: LanguageService,
+		public readonly context: LitPluginContext
+	) {
+		this.litAnalyzer = new LitAnalyzer(context);
+	}
 
 	// All methods in this file use ...args because these methods should override
 	// the methods on prevLangService, but that object may come from a future
@@ -108,7 +114,7 @@ export class TsLitPlugin {
 	}
 
 	getSignatureHelpItems(...args: Parameters<LanguageService["getSignatureHelpItems"]>): SignatureHelpItems | undefined {
-		const result = this.prevLangService.getSignatureHelpItems(...args);
+		const result = this.prevLangService.getSignatureHelpItems(...args)!;
 
 		// Test if the signature is "html" or "css
 		// Don't return a signature if trying to show signature for the html/css tagged template literal
@@ -150,7 +156,7 @@ export class TsLitPlugin {
 			number,
 			boolean,
 			boolean,
-			UserPreferences
+			UserPreferences,
 		];
 		const file = this.program.getSourceFile(fileName)!;
 

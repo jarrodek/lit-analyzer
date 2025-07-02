@@ -19,7 +19,7 @@ tsTest("Don't report unknown attributes", t => {
 
 tsTest("Don't report unknown attributes on unknown element", t => {
 	const { diagnostics } = getDiagnostics("html`<unknown-element foo=''></unknown-element>`", {
-		rules: { "no-unknown-attribute": true, "no-unknown-tag-name": false }
+		rules: { "no-unknown-attribute": true, "no-unknown-tag-name": false },
 	});
 	hasNoDiagnostics(t, diagnostics);
 });

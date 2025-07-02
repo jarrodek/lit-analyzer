@@ -1,5 +1,5 @@
 import { SourceFile } from "typescript";
-import { ComponentDeclaration, ComponentDefinition, visitAllHeritageClauses } from "web-component-analyzer";
+import { ComponentDeclaration, ComponentDefinition, visitAllHeritageClauses } from "@jarrodek/web-component-analyzer";
 
 export function getDeclarationsInFile(definition: ComponentDefinition, sourceFile: SourceFile): ComponentDeclaration[] {
 	const declarations = new Set<ComponentDeclaration>();
@@ -7,7 +7,11 @@ export function getDeclarationsInFile(definition: ComponentDefinition, sourceFil
 	return Array.from(declarations);
 }
 
-function emitDeclarationsInFile(definition: ComponentDefinition, sourceFile: SourceFile, emit: (decl: ComponentDeclaration) => unknown): void {
+function emitDeclarationsInFile(
+	definition: ComponentDefinition,
+	sourceFile: SourceFile,
+	emit: (decl: ComponentDeclaration) => unknown
+): void {
 	const declaration = definition.declaration;
 
 	if (declaration == null) {

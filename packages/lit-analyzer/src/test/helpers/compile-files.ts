@@ -1,7 +1,9 @@
 import { existsSync, readFileSync } from "fs";
 import { join } from "path";
+
 import { CompilerHost, CompilerOptions, ModuleKind, Program, ScriptKind, ScriptTarget, SourceFile } from "typescript";
-import { getCurrentTsModule, getCurrentTsModuleDirectory } from "./ts-test.js";
+
+import { getCurrentTsModule } from "./ts-test.js";
 
 // tslint:disable:no-any
 
@@ -26,12 +28,12 @@ export function compileFiles(inputFiles: TestFile[] | TestFile = []): { program:
 				? {
 						text: file,
 						fileName: `auto-generated-${Math.floor(Math.random() * 100000)}.ts`,
-						entry: true
-				  }
+						entry: true,
+					}
 				: {
 						...file,
-						fileName: file.fileName || `auto-generated-${Math.floor(Math.random() * 100000)}.ts`
-				  }
+						fileName: file.fileName || `auto-generated-${Math.floor(Math.random() * 100000)}.ts`,
+					}
 		)
 		.map(file => ({ ...file, fileName: file.fileName }));
 
@@ -46,7 +48,8 @@ export function compileFiles(inputFiles: TestFile[] | TestFile = []): { program:
 		}
 
 		if (includeLib) {
-			fileName = fileName.match(/[/\\]/) ? fileName : join(getCurrentTsModuleDirectory(), fileName);
+			// For simplified testing, we can use the node_modules typescript path
+			fileName = fileName.match(/[/\\]/) ? fileName : join(process.cwd(), "node_modules", "typescript", "lib", fileName);
 		}
 
 		if (existsSync(fileName)) {
@@ -64,7 +67,7 @@ export function compileFiles(inputFiles: TestFile[] | TestFile = []): { program:
 		target: ScriptTarget.ESNext,
 		allowJs: true,
 		sourceMap: false,
-		strict: true // if strict = false, "undefined" and "null" will be removed from unions types.
+		strict: true, // if strict = false, "undefined" and "null" will be removed from unions types.
 	};
 
 	const compilerHost: CompilerHost = {
@@ -100,7 +103,7 @@ export function compileFiles(inputFiles: TestFile[] | TestFile = []): { program:
 
 		useCaseSensitiveFileNames() {
 			return ts.sys.useCaseSensitiveFileNames;
-		}
+		},
 	};
 
 	const program = ts.createProgram({
@@ -108,7 +111,7 @@ export function compileFiles(inputFiles: TestFile[] | TestFile = []): { program:
 		rootNames: [...files.map(file => file.fileName!), ...(includeLib ? ["node_modules/typescript/lib/lib.dom.d.ts"] : [])],
 		//rootNames: files.map(file => file.fileName!),
 		options: compilerOptions,
-		host: compilerHost
+		host: compilerHost,
 	});
 
 	// We need to overwrite this so the traversal of external modules can be tested.
@@ -121,6 +124,6 @@ export function compileFiles(inputFiles: TestFile[] | TestFile = []): { program:
 
 	return {
 		program,
-		sourceFile: entrySourceFile
+		sourceFile: entrySourceFile,
 	};
 }

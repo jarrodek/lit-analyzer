@@ -31,7 +31,7 @@ export async function analyzeCommand(globs: string[], cliConfig: LitAnalyzerCliC
 	const context = new DefaultLitAnalyzerContext({
 		getProgram() {
 			return program!;
-		}
+		},
 	});
 
 	// Read config from tsconfig.json
@@ -48,8 +48,8 @@ export async function analyzeCommand(globs: string[], cliConfig: LitAnalyzerCliC
 		// Also merge rules deep
 		rules: {
 			...(configFromTS.rules || {}),
-			...(configFromCLI.rules || {})
-		}
+			...(configFromCLI.rules || {}),
+		},
 	};
 
 	// Generate final config based on CLI and "tsconfig.json"
@@ -125,7 +125,7 @@ export async function analyzeCommand(globs: string[], cliConfig: LitAnalyzerCliC
 					return false;
 				}
 			}
-		}
+		},
 	});
 
 	// Print summary text

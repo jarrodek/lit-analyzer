@@ -9,7 +9,7 @@ tsTest("'no-missing-element-type-definition' reports diagnostic when element is 
 		customElements.define("my-element", MyElement)
 	`,
 		{
-			rules: { "no-missing-element-type-definition": true }
+			rules: { "no-missing-element-type-definition": true },
 		}
 	);
 
@@ -28,7 +28,7 @@ tsTest("'no-missing-element-type-definition' reports no diagnostic when element 
 		}
 	`,
 		{
-			rules: { "no-missing-element-type-definition": true }
+			rules: { "no-missing-element-type-definition": true },
 		}
 	);
 

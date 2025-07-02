@@ -9,7 +9,7 @@ import { rangeFromHtmlNode } from "../analyze/util/range-util.js";
 const rule: RuleModule = {
 	id: "no-unknown-tag-name",
 	meta: {
-		priority: "low"
+		priority: "low",
 	},
 	visitHtmlNode(htmlNode, context) {
 		const { htmlStore, config } = context;
@@ -49,15 +49,15 @@ const rule: RuleModule = {
 									{
 										kind: "changeTagName",
 										htmlNode,
-										newName: suggestedName
-									}
-								]
-						  })
+										newName: suggestedName,
+									},
+								],
+							}),
 			});
 		}
 
 		return;
-	}
+	},
 };
 
 export default rule;

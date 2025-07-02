@@ -12,7 +12,7 @@
 						"if": {
 							"properties": {
 								"name": {
-									"enum": ["ts-lit-plugin"]
+									"enum": ["@jarrodek/ts-lit-plugin"]
 								}
 							},
 							"required": ["name"]

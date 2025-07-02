@@ -83,7 +83,7 @@ function unpackHtmlDocument(textDocument: TextDocument, position?: SourceFilePos
 				} else if (
 					intersects(textDocument.virtualDocument.sfPositionToDocumentOffset(position), {
 						start: rootNode.location.startTag.end,
-						end: rootNode.location.endTag.start
+						end: rootNode.location.endTag.start,
 					})
 				) {
 					return styleHtmlNodeToCssDocument(textDocument, rootNode);
@@ -103,7 +103,7 @@ function styleHtmlNodeToCssDocument(htmlDocument: HtmlDocument, styleNode: IHtml
 	const cssDocumentParts = htmlDocument.virtualDocument.getPartsAtDocumentRange(
 		makeDocumentRange({
 			start: styleNode.location.startTag.start,
-			end: styleNode.location.endTag.start
+			end: styleNode.location.endTag.start,
 		})
 	);
 

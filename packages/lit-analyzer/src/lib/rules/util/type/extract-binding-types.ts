@@ -5,7 +5,7 @@ import {
 	SimpleTypeEnumMember,
 	SimpleTypeString,
 	SimpleTypeStringLiteral,
-	toSimpleType
+	toSimpleType,
 } from "ts-simple-type";
 import { Expression, Type, TypeChecker } from "typescript";
 import { HtmlNodeAttrAssignment, HtmlNodeAttrAssignmentKind } from "../../../analyze/types/html-node/html-node-attr-assignment-types.js";
@@ -15,7 +15,10 @@ import { getDirective } from "../directive/get-directive.js";
 
 const cache = new WeakMap<HtmlNodeAttrAssignment, { typeA: SimpleType; typeB: SimpleType }>();
 
-export function extractBindingTypes(assignment: HtmlNodeAttrAssignment, context: RuleModuleContext): { typeA: SimpleType; typeB: SimpleType } {
+export function extractBindingTypes(
+	assignment: HtmlNodeAttrAssignment,
+	context: RuleModuleContext
+): { typeA: SimpleType; typeB: SimpleType } {
 	if (cache.has(assignment)) {
 		return cache.get(assignment)!;
 	}
@@ -93,25 +96,25 @@ export function relaxType(type: SimpleType): SimpleType {
 		case "UNION":
 			return {
 				...type,
-				types: type.types.map(t => relaxType(t))
+				types: type.types.map(t => relaxType(t)),
 			};
 
 		case "ENUM":
 			return {
 				...type,
-				types: type.types.map(t => relaxType(t) as SimpleTypeEnumMember)
+				types: type.types.map(t => relaxType(t) as SimpleTypeEnumMember),
 			};
 
 		case "ARRAY":
 			return {
 				...type,
-				type: relaxType(type.type)
+				type: relaxType(type.type),
 			};
 
 		case "PROMISE":
 			return {
 				...type,
-				type: relaxType(type.type)
+				type: relaxType(type.type),
 			};
 
 		case "INTERFACE":
@@ -119,7 +122,7 @@ export function relaxType(type: SimpleType): SimpleType {
 		case "FUNCTION":
 		case "CLASS":
 			return {
-				kind: "ANY"
+				kind: "ANY",
 			};
 
 		case "NUMBER_LITERAL":
@@ -134,13 +137,13 @@ export function relaxType(type: SimpleType): SimpleType {
 		case "ENUM_MEMBER":
 			return {
 				...type,
-				type: relaxType(type.type)
+				type: relaxType(type.type),
 			} as SimpleTypeEnumMember;
 
 		case "ALIAS":
 			return {
 				...type,
-				target: relaxType(type.target)
+				target: relaxType(type.target),
 			};
 
 		default:

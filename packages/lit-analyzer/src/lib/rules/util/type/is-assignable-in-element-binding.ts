@@ -15,12 +15,12 @@ export function isAssignableInElementBinding(htmlAttr: HtmlNodeAttr, type: Simpl
 		if (isLit1Directive(type)) {
 			context.report({
 				location: rangeFromHtmlNodeAttr(htmlAttr),
-				message: `Type '${typeToString(type)}' is a lit-html 1.0 directive, not a Lit 2 directive'`
+				message: `Type '${typeToString(type)}' is a lit-html 1.0 directive, not a Lit 2 directive'`,
 			});
 		} else {
 			context.report({
 				location: rangeFromHtmlNodeAttr(htmlAttr),
-				message: `Type '${typeToString(type)}' is not a Lit 2 directive'`
+				message: `Type '${typeToString(type)}' is not a Lit 2 directive'`,
 			});
 		}
 		return false;

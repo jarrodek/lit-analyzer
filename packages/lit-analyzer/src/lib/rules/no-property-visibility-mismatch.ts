@@ -1,5 +1,5 @@
-import { Identifier, ObjectLiteralExpression } from "typescript";
-import { ComponentMember } from "web-component-analyzer";
+import { Identifier, ObjectLiteralExpression, PropertyDeclaration } from "typescript";
+import { ComponentMember } from "@jarrodek/web-component-analyzer";
 import { RuleFixAction, RuleFixActionChangeRange } from "../analyze/types/rule/rule-fix-action.js";
 import { RuleModule } from "../analyze/types/rule/rule-module.js";
 import { RuleModuleContext } from "../analyze/types/rule/rule-module-context.js";
@@ -12,13 +12,13 @@ import { makeSourceFileRange, rangeFromNode } from "../analyze/util/range-util.j
  * @param context
  */
 const getDecoratorIdentifier = (member: ComponentMember, context: RuleModuleContext): Identifier | undefined => {
-	const decorator = member.meta?.node?.decorator;
+	const decorator = member.meta?.node?.decorator!;
 
 	if (decorator == null) {
 		return undefined;
 	}
 
-	return getNodeIdentifier(decorator, context.ts);
+	return getNodeIdentifier(decorator as unknown as PropertyDeclaration, context.ts);
 };
 
 /**
@@ -28,7 +28,7 @@ const getDecoratorIdentifier = (member: ComponentMember, context: RuleModuleCont
 const rule: RuleModule = {
 	id: "no-property-visibility-mismatch",
 	meta: {
-		priority: "medium"
+		priority: "medium",
 	},
 	visitComponentMember(member, context) {
 		// Only run this rule on members of "property" kind
@@ -57,13 +57,13 @@ const rule: RuleModule = {
 				...(inJsFile
 					? {
 							// We are in Javascript context. Add "@properted" or "@private" JSDoc
-					  }
+						}
 					: {
 							// We are in Typescript context. Add "protected" or "private" keyword
 							fixMessage: "Change the property access to 'private' or 'protected'?",
 							fix: () => {
 								// Make sure we operate on a property declaration
-								const propertyDeclaration = member.node;
+								const propertyDeclaration = member.node as unknown as PropertyDeclaration;
 
 								if (!context.ts.isPropertyDeclaration(propertyDeclaration)) {
 									return [];
@@ -73,7 +73,9 @@ const rule: RuleModule = {
 								const modifiers = ["protected", "private"];
 
 								// Get the public modifier if any. If one exists, we want to change that one.
-								const publicModifier = propertyDeclaration.modifiers?.find(modifier => modifier.kind === context.ts.SyntaxKind.PublicKeyword);
+								const publicModifier = propertyDeclaration.modifiers?.find(
+									modifier => modifier.kind === context.ts.SyntaxKind.PublicKeyword
+								);
 
 								if (publicModifier != null) {
 									// Return actions that can replace the modifier
@@ -83,9 +85,9 @@ const rule: RuleModule = {
 											{
 												kind: "changeRange",
 												range: rangeFromNode(publicModifier),
-												newText: keyword
-											} as RuleFixActionChangeRange
-										]
+												newText: keyword,
+											} as RuleFixActionChangeRange,
+										],
 									}));
 								}
 
@@ -100,17 +102,17 @@ const rule: RuleModule = {
 												kind: "changeRange",
 												range: makeSourceFileRange({
 													start: propertyIdentifier.getStart(),
-													end: propertyIdentifier.getStart()
+													end: propertyIdentifier.getStart(),
 												}),
-												newText: `${keyword} `
-											} as RuleFixActionChangeRange
-										]
+												newText: `${keyword} `,
+											} as RuleFixActionChangeRange,
+										],
 									}));
 								}
 
 								return [];
-							}
-					  })
+							},
+						}),
 			});
 		}
 
@@ -129,8 +131,8 @@ const rule: RuleModule = {
 						{
 							kind: "changeIdentifier",
 							identifier: decoratorIdentifier,
-							newText
-						}
+							newText,
+						},
 					];
 
 					// Find the object literal node (the config of the "@property" decorator)
@@ -141,23 +143,27 @@ const rule: RuleModule = {
 					if (objectLiteralNode != null) {
 						// Remove the configuration if the config doesn't have any shared properties with the "internalProperty" config
 						const internalPropertyConfigProperties = ["hasChanged"];
-						if (!objectLiteralNode.properties?.some(propertyNode => internalPropertyConfigProperties.includes(propertyNode.name?.getText() || ""))) {
+						if (
+							!objectLiteralNode.properties?.some(propertyNode =>
+								internalPropertyConfigProperties.includes(propertyNode.name?.getText() || "")
+							)
+						) {
 							actions.push({
 								kind: "changeRange",
 								range: rangeFromNode(objectLiteralNode),
-								newText: ""
+								newText: "",
 							});
 						}
 					}
 
 					return {
 						message: `Change to '${newText}'`,
-						actions
+						actions,
 					};
-				}
+				},
 			});
 		}
-	}
+	},
 };
 
 export default rule;

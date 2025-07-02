@@ -1,4 +1,4 @@
-import { ComponentDeclaration, ComponentDefinition } from "web-component-analyzer";
+import { ComponentDeclaration, ComponentDefinition } from "@jarrodek/web-component-analyzer";
 import { isRuleEnabled, LitAnalyzerRuleId } from "./lit-analyzer-config.js";
 import { LitAnalyzerContext } from "./lit-analyzer-context.js";
 import { HtmlDocument } from "./parse/document/text-document/html-document/html-document.js";
@@ -53,7 +53,7 @@ export class RuleCollection {
 			},
 			break(): void {
 				shouldBreak = true;
-			}
+			},
 		};
 
 		for (const rule of this.rules) {

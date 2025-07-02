@@ -10,7 +10,7 @@ import {
 	Program,
 	readConfigFile,
 	ScriptTarget,
-	SourceFile
+	SourceFile,
 } from "typescript";
 import { LitAnalyzerConfig } from "../analyze/lit-analyzer-config.js";
 
@@ -20,7 +20,7 @@ const requiredCompilerOptions: CompilerOptions = {
 	allowJs: true,
 	//maxNodeModuleJsDepth: 3,
 	strictNullChecks: true, // Type checking will remove all "null" and "undefined" from types if "strictNullChecks" is false
-	skipLibCheck: true
+	skipLibCheck: true,
 };
 
 /**
@@ -37,7 +37,7 @@ const defaultCompilerOptions: CompilerOptions = {
 	allowSyntheticDefaultImports: true,
 	allowUnreachableCode: true,
 	allowUnusedLabels: true,
-	lib: ["lib.esnext.d.ts", "lib.dom.d.ts"]
+	lib: ["lib.esnext.d.ts", "lib.dom.d.ts"],
 };
 
 export interface CompileResult {
@@ -73,7 +73,7 @@ export function getCompilerOptions(): CompilerOptions {
 	if (compilerOptions != null) {
 		const options = {
 			...compilerOptions,
-			...requiredCompilerOptions
+			...requiredCompilerOptions,
 		};
 		// set module resolution to nodejs if it is classic
 		// but if the user has set it to something else, don't override it
@@ -108,7 +108,7 @@ export function resolveTsConfigCompilerOptions(): CompilerOptions | undefined {
 }
 
 /**
- * Resolves the nearest tsconfig.json and returns the configuration seed within the plugins section for "ts-lit-plugin"
+ * Resolves the nearest tsconfig.json and returns the configuration seed within the plugins section for "@jarrodek/ts-lit-plugin"
  */
 export function readLitAnalyzerConfigFromTsConfig(): Partial<LitAnalyzerConfig> | undefined {
 	const compilerOptions = resolveTsConfigCompilerOptions();
@@ -116,7 +116,7 @@ export function readLitAnalyzerConfigFromTsConfig(): Partial<LitAnalyzerConfig> 
 	// Finds the plugin section
 	if (compilerOptions != null && "plugins" in compilerOptions) {
 		const plugins = compilerOptions.plugins as ({ name: string } & Partial<LitAnalyzerConfig>)[];
-		const tsLitPluginOptions = plugins.find(plugin => plugin.name === "ts-lit-plugin");
+		const tsLitPluginOptions = plugins.find(plugin => plugin.name === "@jarrodek/ts-lit-plugin");
 		if (tsLitPluginOptions != null) {
 			return tsLitPluginOptions;
 		}

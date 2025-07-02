@@ -11,6 +11,6 @@ ${(slots || []).map(slot => `        * @slot ${slot}`)}
 			${(properties || []).map(prop => `@property() ${prop}`).join("\n")}
 		};
 		customElements.define("my-element", MyElement);	
-		`
+		`,
 	};
 }

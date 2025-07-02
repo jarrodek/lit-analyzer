@@ -1,6 +1,6 @@
 import { isSimpleType, SimpleType, SimpleTypeAny, toSimpleType } from "ts-simple-type";
 import { TypeChecker } from "typescript";
-import { AnalyzerResult, ComponentDeclaration, ComponentDefinition, ComponentFeatures } from "web-component-analyzer";
+import { AnalyzerResult, ComponentDeclaration, ComponentDefinition, ComponentFeatures } from "@jarrodek/web-component-analyzer";
 import { lazy } from "../util/general-util.js";
 import { HtmlDataCollection, HtmlDataFeatures, HtmlTag } from "./parse-html-data/html-tag.js";
 
@@ -10,13 +10,15 @@ export interface AnalyzeResultConversionOptions {
 }
 
 export function convertAnalyzeResultToHtmlCollection(result: AnalyzerResult, options: AnalyzeResultConversionOptions): HtmlDataCollection {
-	const tags = result.componentDefinitions.map(definition => convertComponentDeclarationToHtmlTag(definition.declaration, definition, options));
+	const tags = result.componentDefinitions.map(definition =>
+		convertComponentDeclarationToHtmlTag(definition.declaration, definition, options)
+	);
 
 	const global = result.globalFeatures == null ? {} : convertComponentFeaturesToHtml(result.globalFeatures, { checker: options.checker });
 
 	return {
 		tags,
-		global
+		global,
 	};
 }
 
@@ -38,7 +40,7 @@ export function convertComponentDeclarationToHtmlTag(
 			properties: [],
 			slots: [],
 			cssParts: [],
-			cssProperties: []
+			cssProperties: [],
 		};
 	}
 
@@ -47,15 +49,19 @@ export function convertComponentDeclarationToHtmlTag(
 		tagName,
 		builtIn,
 		description: declaration.jsDoc?.description,
-		...convertComponentFeaturesToHtml(declaration, { checker, builtIn, fromTagName: tagName })
+		...convertComponentFeaturesToHtml(declaration, { checker, builtIn, fromTagName: tagName }),
 	};
 
 	if (addDeclarationPropertiesAsAttributes && !builtIn) {
 		for (const htmlProp of htmlTag.properties) {
-			if (htmlProp.declaration != null && htmlProp.declaration.attrName == null && htmlProp.declaration.node.getSourceFile().isDeclarationFile) {
+			if (
+				htmlProp.declaration != null &&
+				htmlProp.declaration.attrName == null &&
+				htmlProp.declaration.node.getSourceFile().isDeclarationFile
+			) {
 				htmlTag.attributes.push({
 					...htmlProp,
-					kind: "attribute"
+					kind: "attribute",
 				});
 			}
 		}
@@ -74,7 +80,7 @@ export function convertComponentFeaturesToHtml(
 		properties: [],
 		slots: [],
 		cssParts: [],
-		cssProperties: []
+		cssProperties: [],
 	};
 
 	for (const event of features.events) {
@@ -92,23 +98,23 @@ export function convertComponentFeaturesToHtml(
 				return isSimpleType(type) ? type : toSimpleType(type, checker);
 			}),
 			fromTagName,
-			builtIn
+			builtIn,
 		});
 
 		result.attributes.push({
 			kind: "attribute",
 			name: `on${event.name}`,
 			description: event.jsDoc?.description,
-			getType: lazy(() => ({ kind: "STRING" } as SimpleType)),
+			getType: lazy(() => ({ kind: "STRING" }) as SimpleType),
 			declaration: {
 				attrName: `on${event.name}`,
 				jsDoc: event.jsDoc,
 				kind: "attribute",
 				node: event.node,
-				type: () => ({ kind: "ANY" })
+				type: () => ({ kind: "ANY" }),
 			},
 			builtIn,
-			fromTagName
+			fromTagName,
 		});
 	}
 
@@ -117,7 +123,7 @@ export function convertComponentFeaturesToHtml(
 			declaration: cssPart,
 			description: cssPart.jsDoc?.description,
 			name: cssPart.name || "",
-			fromTagName
+			fromTagName,
 		});
 	}
 
@@ -127,7 +133,7 @@ export function convertComponentFeaturesToHtml(
 			description: cssProp.jsDoc?.description,
 			name: cssProp.name || "",
 			typeHint: cssProp.typeHint,
-			fromTagName
+			fromTagName,
 		});
 	}
 
@@ -136,7 +142,7 @@ export function convertComponentFeaturesToHtml(
 			declaration: slot,
 			description: slot.jsDoc?.description,
 			name: slot.name || "",
-			fromTagName
+			fromTagName,
 		});
 	}
 
@@ -169,7 +175,7 @@ export function convertComponentFeaturesToHtml(
 				return isSimpleType(type) ? type : toSimpleType(type, checker);
 			}),
 			builtIn,
-			fromTagName
+			fromTagName,
 		};
 
 		if (member.kind === "property") {
@@ -177,7 +183,7 @@ export function convertComponentFeaturesToHtml(
 				...base,
 				kind: "property",
 				name: member.propName,
-				required: member.required
+				required: member.required,
 			});
 		}
 
@@ -186,7 +192,7 @@ export function convertComponentFeaturesToHtml(
 				...base,
 				kind: "attribute",
 				name: member.attrName,
-				required: member.required
+				required: member.required,
 			});
 		}
 	}

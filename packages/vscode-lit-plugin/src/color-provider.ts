@@ -38,7 +38,7 @@ function hexToRGBA(hex: string): { red: number; green: number; blue: number; alp
 			red: parseInt(result[1], 16),
 			green: parseInt(result[2], 16),
 			blue: parseInt(result[3], 16),
-			alpha: result[4] == null ? 255 : parseInt(result[4], 16)
+			alpha: result[4] == null ? 255 : parseInt(result[4], 16),
 		};
 	}
 
@@ -49,7 +49,7 @@ function hexToRGBA(hex: string): { red: number; green: number; blue: number; alp
 			red: parseInt(shorthandResult[1] + shorthandResult[1], 16),
 			green: parseInt(shorthandResult[2] + shorthandResult[2], 16),
 			blue: parseInt(shorthandResult[3] + shorthandResult[3], 16),
-			alpha: shorthandResult[4] == null ? 255 : parseInt(shorthandResult[4] + shorthandResult[4], 16)
+			alpha: shorthandResult[4] == null ? 255 : parseInt(shorthandResult[4] + shorthandResult[4], 16),
 		};
 	}
 
@@ -67,7 +67,7 @@ function vscodeColorToHex(vscodeColor: vscode.Color): string {
 		red: Math.floor(red * 255),
 		green: Math.floor(green * 255),
 		blue: Math.floor(blue * 255),
-		alpha: Math.floor(alpha * 255)
+		alpha: Math.floor(alpha * 255),
 	});
 }
 
@@ -124,7 +124,10 @@ function findColorsInDocument(document: vscode.TextDocument): vscode.ColorInform
 			const documentOffset = taggedTemplateStart + colorStart;
 
 			colors.push(
-				new vscode.ColorInformation(new vscode.Range(document.positionAt(documentOffset), document.positionAt(documentOffset + hex.length)), color)
+				new vscode.ColorInformation(
+					new vscode.Range(document.positionAt(documentOffset), document.positionAt(documentOffset + hex.length)),
+					color
+				)
 			);
 		}
 	}

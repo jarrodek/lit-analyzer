@@ -9,7 +9,7 @@ import { rangeFromHtmlNode } from "../analyze/util/range-util.js";
 const rule: RuleModule = {
 	id: "no-missing-import",
 	meta: {
-		priority: "low"
+		priority: "low",
 	},
 	visitHtmlNode(htmlNode, context) {
 		const { htmlStore, config, definitionStore, dependencyStore, file } = context;
@@ -45,14 +45,14 @@ const rule: RuleModule = {
 							{
 								kind: "import",
 								path: importPath,
-								file: context.file
-							}
-						]
+								file: context.file,
+							},
+						],
 					};
-				}
+				},
 			});
 		}
-	}
+	},
 };
 
 export default rule;

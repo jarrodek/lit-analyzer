@@ -48,7 +48,7 @@ export function visitIndirectImportsFromSourceFile(sourceFile: SourceFile, conte
 			...context,
 			emitDirectImport(file: SourceFile) {
 				directImports!.add(file);
-			}
+			},
 		};
 
 		// Emit all direct imports
@@ -95,7 +95,7 @@ export function visitIndirectImportsFromSourceFile(sourceFile: SourceFile, conte
 		// Visit direct imported source files recursively
 		visitIndirectImportsFromSourceFile(file, {
 			...context,
-			depth: newDepth
+			depth: newDepth,
 		});
 	}
 }
@@ -110,7 +110,10 @@ function visitDirectImports(node: Node, context: IVisitDependenciesContext): voi
 	if (node == null) return;
 
 	// Handle top level imports/exports: (import "..."), (import { ... } from "..."), (export * from "...")
-	if ((context.ts.isImportDeclaration(node) && !node.importClause?.isTypeOnly) || (context.ts.isExportDeclaration(node) && !node.isTypeOnly)) {
+	if (
+		(context.ts.isImportDeclaration(node) && !node.importClause?.isTypeOnly) ||
+		(context.ts.isExportDeclaration(node) && !node.isTypeOnly)
+	) {
 		if (node.moduleSpecifier != null && context.ts.isStringLiteral(node.moduleSpecifier) && context.ts.isSourceFile(node.parent)) {
 			// Potentially ignore all imports/exports with named imports/exports because importing an interface would not
 			//    necessarily result in the custom element being defined. An even better solution would be to ignore all
@@ -161,7 +164,7 @@ function emitDirectModuleImportWithName(moduleSpecifier: string, node: Node, con
 		let mode: tsModule.ModuleKind.CommonJS | tsModule.ModuleKind.ESNext | undefined = undefined;
 		if (context.ts.isImportDeclaration(node) || context.ts.isExportDeclaration(node)) {
 			if (node.moduleSpecifier != null && context.ts.isStringLiteral(node.moduleSpecifier) && context.ts.isSourceFile(node.parent)) {
-				mode = tsModule.getModeForUsageLocation(fromSourceFile, node.moduleSpecifier);
+				mode = tsModule.getModeForUsageLocation(fromSourceFile, node.moduleSpecifier, {});
 			}
 		}
 

@@ -15,7 +15,7 @@ Then add a `plugins` section to your [`tsconfig.json`](http://www.typescriptlang
   "compilerOptions": {
     "plugins": [
       {
-        "name": "ts-lit-plugin"
+        "name": "@jarrodek/ts-lit-plugin"
       }
     ]
   }

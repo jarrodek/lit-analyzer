@@ -26,7 +26,7 @@ const DEFAULT_MARKDOWN_TABLE_OPTIONS: MarkdownTableOptions = {
 	removeEmptyColumns: true,
 	minCellWidth: 3,
 	maxCellWidth: 50,
-	cellPadding: 1
+	cellPadding: 1,
 };
 
 /**

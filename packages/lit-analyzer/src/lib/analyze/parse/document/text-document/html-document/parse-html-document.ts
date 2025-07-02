@@ -21,7 +21,7 @@ export function parseHtmlDocument(node: TaggedTemplateExpression): HtmlDocument 
 		document,
 		getPartsAtOffsetRange(range: DocumentRange): (Expression | string)[] {
 			return virtualDocument.getPartsAtDocumentRange(range);
-		}
+		},
 	};
 
 	document.rootNodes = parseHtmlNodes(htmlAst.childNodes, undefined, context);

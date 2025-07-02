@@ -7,7 +7,7 @@ import {
 	HtmlProp,
 	HtmlSlot,
 	HtmlTag,
-	NamedHtmlDataCollection
+	NamedHtmlDataCollection,
 } from "../../parse/parse-html-data/html-tag.js";
 
 export class HtmlDataSource {

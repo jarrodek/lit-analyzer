@@ -32,7 +32,7 @@ export class LitCssDocumentAnalyzer {
 		return {
 			name,
 			kind: completionWithName.kind,
-			primaryInfo
+			primaryInfo,
 		};
 	}
 
@@ -69,8 +69,8 @@ export class LitCssDocumentAnalyzer {
 						fromRange: documentRangeToSFRange(document, { start, end }),
 						targets: nodes.map(node => ({
 							kind: "node",
-							node: getNodeIdentifier(node, context.ts) || node
-						}))
+							node: getNodeIdentifier(node, context.ts) || node,
+						})),
 					};
 				}
 			}
@@ -88,9 +88,9 @@ export class LitCssDocumentAnalyzer {
 					targets: [
 						{
 							kind: "node",
-							node: getNodeIdentifier(node, context.ts) || node
-						}
-					]
+							node: getNodeIdentifier(node, context.ts) || node,
+						},
+					],
 				};
 			}
 		}

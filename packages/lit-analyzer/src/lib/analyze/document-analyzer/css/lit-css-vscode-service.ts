@@ -57,11 +57,11 @@ export class LitCssVscodeService {
 						source: "no-invalid-css",
 						location: documentRangeToSFRange(document, {
 							start: vscTextDocument.offsetAt(diagnostic.range.start),
-							end: vscTextDocument.offsetAt(diagnostic.range.end)
+							end: vscTextDocument.offsetAt(diagnostic.range.end),
 						}),
 						message: diagnostic.message,
-						file: context.currentFile
-					} as LitDiagnostic)
+						file: context.currentFile,
+					}) as LitDiagnostic
 			);
 	}
 
@@ -93,7 +93,10 @@ export class LitCssVscodeService {
 		return {
 			primaryInfo: primaryInfo || "",
 			secondaryInfo,
-			range: documentRangeToSFRange(document, { start: vscTextDocument.offsetAt(hover.range.start), end: vscTextDocument.offsetAt(hover.range.end) })
+			range: documentRangeToSFRange(document, {
+				start: vscTextDocument.offsetAt(hover.range.start),
+				end: vscTextDocument.offsetAt(hover.range.end),
+			}),
 		};
 	}
 
@@ -110,14 +113,14 @@ export class LitCssVscodeService {
 					startOffset: offset - positionContext.leftWord.length - 1,
 					stopChar: /[^:]/,
 					direction: "left",
-					text: document.virtualDocument.text
+					text: document.virtualDocument.text,
 				}) +
 				positionContext.leftWord;
 		}
 
 		const range = documentRangeToSFRange(document, {
 			start: positionContext.offset - positionContext.leftWord.length,
-			end: positionContext.offset + positionContext.rightWord.length
+			end: positionContext.offset + positionContext.rightWord.length,
 		});
 
 		const vscTextDocument = makeVscTextDocument(document);
@@ -133,10 +136,12 @@ export class LitCssVscodeService {
 					name: i.label,
 					insert: i.label, //replacePrefix(i.label, positionContext.leftWord),
 					kindModifiers: i.kind === vscode.CompletionItemKind.Color ? "color" : undefined,
-					documentation: lazy(() => (typeof i.documentation === "string" || i.documentation == null ? i.documentation : i.documentation.value)),
+					documentation: lazy(() =>
+						typeof i.documentation === "string" || i.documentation == null ? i.documentation : i.documentation.value
+					),
 					sortText: i.sortText,
-					range
-				} as LitCompletion)
+					range,
+				}) as LitCompletion
 		);
 
 		// Add completions for css custom properties
@@ -151,7 +156,7 @@ export class LitCssVscodeService {
 				insert: cssProp.name,
 				sortText: positionContext.leftWord.startsWith("-") ? "0" : "e_0",
 				documentation: lazy(() => documentationForCssProperty(cssProp)),
-				range
+				range,
 			});
 		}
 
@@ -161,7 +166,7 @@ export class LitCssVscodeService {
 				startOffset: offset - positionContext.leftWord.length - 1,
 				stopChar: /[^-A-Za-z]/,
 				direction: "left",
-				text: document.virtualDocument.text
+				text: document.virtualDocument.text,
 			});
 
 			// Add completions for css shadow parts
@@ -173,7 +178,7 @@ export class LitCssVscodeService {
 						insert: cssPart.name,
 						sortText: "0",
 						documentation: lazy(() => documentationForCssPart(cssPart)),
-						range
+						range,
 					});
 				}
 			}
@@ -239,8 +244,8 @@ class LitVscodeCSSDataProvider {
 						browsers: [],
 						description: `Unlike ::part, ::theme matches elements parts with that theme name, anywhere in the document.`,
 						name: "::theme",
-						status: "nonstandard"
-					}
+						status: "nonstandard",
+					},
 				];
 			},
 			provideAtDirectives(): IAtDirectiveData[] {
@@ -251,7 +256,7 @@ class LitVscodeCSSDataProvider {
 			},
 			provideProperties(): IPropertyData[] {
 				return [];
-			}
+			},
 		};
 	})();
 
@@ -268,8 +273,8 @@ class LitVscodeCSSDataProvider {
 						browsers: [],
 						description: documentationForHtmlTag(tag),
 						name: tag.tagName,
-						status: "standard"
-					} as IPseudoElementData)
+						status: "standard",
+					}) as IPseudoElementData
 			)
 		);
 	}

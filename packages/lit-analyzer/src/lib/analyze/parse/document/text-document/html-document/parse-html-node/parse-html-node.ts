@@ -54,7 +54,7 @@ export function parseHtmlNode(p5Node: IP5TagNode, parent: HtmlNode | undefined, 
 		location: makeHtmlNodeLocation(p5Node, context),
 		children: [],
 		document: context.document,
-		parent
+		parent,
 	};
 
 	const htmlNode = parseHtmlNodeBase(htmlNodeBase);
@@ -93,19 +93,19 @@ function makeHtmlNodeLocation(p5Node: IP5TagNode, context: ParseHtmlContext): IH
 		end: loc.endOffset,
 		name: {
 			start: loc.startTag.startOffset + 1, // take '<' into account
-			end: loc.startTag.startOffset + 1 + p5Node.tagName.length
+			end: loc.startTag.startOffset + 1 + p5Node.tagName.length,
 		},
 		startTag: {
 			start: loc.startTag.startOffset,
-			end: loc.startTag.endOffset
+			end: loc.startTag.endOffset,
 		},
 		endTag:
 			loc.endTag == null
 				? undefined
 				: {
 						start: loc.endTag.startOffset,
-						end: loc.endTag.endOffset
-				  }
+						end: loc.endTag.endOffset,
+					},
 	};
 }
 
@@ -114,20 +114,20 @@ function parseHtmlNodeBase(htmlNodeBase: IHtmlNodeBase): HtmlNode {
 		return {
 			kind: HtmlNodeKind.STYLE,
 			...htmlNodeBase,
-			children: []
+			children: [],
 		};
 	} else if (htmlNodeBase.tagName === "svg") {
 		// Ignore children of "svg" for now
 		return {
 			kind: HtmlNodeKind.SVG,
 			...htmlNodeBase,
-			children: []
+			children: [],
 		};
 	}
 
 	return {
 		kind: HtmlNodeKind.NODE,
-		...htmlNodeBase
+		...htmlNodeBase,
 	};
 
 	/*if (component != null) {

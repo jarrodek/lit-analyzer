@@ -20,7 +20,7 @@ export function isAssignableInPropertyBinding(
 	if (!isAssignableToType({ typeA, typeB }, context)) {
 		context.report({
 			location: rangeFromHtmlNodeAttr(htmlAttr),
-			message: `Type '${typeToString(typeB)}' is not assignable to '${typeToString(typeA)}'`
+			message: `Type '${typeToString(typeB)}' is not assignable to '${typeToString(typeA)}'`,
 		});
 
 		return false;

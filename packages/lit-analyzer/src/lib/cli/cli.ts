@@ -15,7 +15,7 @@ const DEFAULT_CONFIG: LitAnalyzerCliConfig = {
 	failFast: false,
 	format: "code",
 	//strict: false,
-	rules: {}
+	rules: {},
 };
 
 /**

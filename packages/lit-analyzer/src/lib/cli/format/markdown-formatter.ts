@@ -10,7 +10,7 @@ export class MarkdownDiagnosticFormatter implements DiagnosticFormatter {
 ${markdownHeader(2, "Summary")}
 ${markdownTable([
 	["Files analyzed", "Files with problems", "Problems", "Errors", "Warnings"],
-	[stats.totalFiles, stats.filesWithProblems, stats.diagnostics, stats.errors, stats.warnings].map(v => v.toString())
+	[stats.totalFiles, stats.filesWithProblems, stats.diagnostics, stats.errors, stats.warnings].map(v => v.toString()),
 ])}`;
 	}
 
@@ -34,7 +34,7 @@ function markdownDiagnosticTable(file: SourceFile, diagnostics: LitDiagnostic[])
 			(lineContext.character + 1).toString(),
 			diagnostic.severity === "error" ? markdownHighlight("error") : "warning",
 			diagnostic.source || "",
-			diagnostic.message
+			diagnostic.message,
 		];
 	});
 

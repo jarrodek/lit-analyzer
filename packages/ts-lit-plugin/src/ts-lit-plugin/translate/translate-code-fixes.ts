@@ -1,5 +1,6 @@
-import { LitCodeFix, LitCodeFixAction } from "lit-analyzer";
+import { LitCodeFix, LitCodeFixAction } from "@jarrodek/lit-analyzer";
 import { CodeFixAction, FileTextChanges, SourceFile } from "typescript";
+
 import { translateRange } from "./translate-range.js";
 
 export function translateCodeFixes(codeFixes: LitCodeFix[], file: SourceFile): CodeFixAction[] {
@@ -10,7 +11,7 @@ export function translateCodeFix(file: SourceFile, codeFix: LitCodeFix): CodeFix
 	return {
 		fixName: codeFix.name,
 		description: codeFix.message,
-		changes: codeFix.actions.map(action => translateCodeFixAction(file, action))
+		changes: codeFix.actions.map(action => translateCodeFixAction(file, action)),
 	};
 }
 
@@ -20,8 +21,8 @@ function translateCodeFixAction(file: SourceFile, action: LitCodeFixAction): Fil
 		textChanges: [
 			{
 				span: translateRange(action.range),
-				newText: action.newText
-			}
-		]
+				newText: action.newText,
+			},
+		],
 	};
 }

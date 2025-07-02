@@ -1,7 +1,7 @@
 import * as tsMod from "typescript";
 import { HostCancellationToken, Program, SourceFile, TypeChecker } from "typescript";
 import * as tsServer from "typescript/lib/tsserverlibrary.js";
-import { analyzeHTMLElement, analyzeSourceFile } from "web-component-analyzer";
+import { analyzeHTMLElement, analyzeSourceFile } from "@jarrodek/web-component-analyzer";
 import { ALL_RULES } from "../rules/all-rules.js";
 import { MAX_RUNNING_TIME_PER_OPERATION } from "./constants.js";
 import { getBuiltInHtmlCollection } from "./data/get-built-in-html-collection.js";
@@ -11,7 +11,7 @@ import { LitAnalyzerContext, LitAnalyzerContextBaseOptions, LitPluginContextHand
 import { DefaultLitAnalyzerLogger, LitAnalyzerLoggerLevel } from "./lit-analyzer-logger.js";
 import {
 	convertAnalyzeResultToHtmlCollection,
-	convertComponentDeclarationToHtmlTag
+	convertComponentDeclarationToHtmlTag,
 } from "./parse/convert-component-definitions-to-html-collection.js";
 import { parseDependencies } from "./parse/parse-dependencies/parse-dependencies.js";
 import { RuleCollection } from "./rule-collection.js";
@@ -234,8 +234,8 @@ export class DefaultLitAnalyzerContext implements LitAnalyzerContext {
 				analyzeDefaultLib: true,
 				analyzeDependencies: true,
 				analyzeAllDeclarations: false,
-				excludedDeclarationNames: ["HTMLElement"]
-			}
+				excludedDeclarationNames: ["HTMLElement"],
+			},
 		});
 
 		const reg = isDefaultLibrary ? HtmlDataSourceKind.BUILT_IN_DECLARED : HtmlDataSourceKind.DECLARED;
@@ -252,8 +252,8 @@ export class DefaultLitAnalyzerContext implements LitAnalyzerContext {
 						cssParts: existingResult.globalFeatures?.cssParts.map(s => s.name || ""),
 						cssProperties: existingResult.globalFeatures?.cssProperties.map(s => s.name || ""),
 						attributes: existingResult.globalFeatures?.members.filter(m => m.kind === "attribute").map(m => m.attrName || ""),
-						properties: existingResult.globalFeatures?.members.filter(m => m.kind === "property").map(m => m.propName || "")
-					}
+						properties: existingResult.globalFeatures?.members.filter(m => m.kind === "property").map(m => m.propName || ""),
+					},
 				},
 				reg
 			);
@@ -264,7 +264,7 @@ export class DefaultLitAnalyzerContext implements LitAnalyzerContext {
 		this.definitionStore.absorbAnalysisResult(sourceFile, analyzeResult);
 		const htmlCollection = convertAnalyzeResultToHtmlCollection(analyzeResult, {
 			checker: this.checker,
-			addDeclarationPropertiesAsAttributes: this.program.isSourceFileFromExternalLibrary(sourceFile)
+			addDeclarationPropertiesAsAttributes: this.program.isSourceFileFromExternalLibrary(sourceFile),
 		});
 		this.htmlStore.absorbCollection(htmlCollection, reg);
 	}

@@ -9,7 +9,7 @@ import {
 	HtmlTag,
 	mergeHtmlAttrs,
 	mergeHtmlEvents,
-	mergeHtmlTags
+	mergeHtmlTags,
 } from "../parse/parse-html-data/html-tag.js";
 import { parseVscodeHtmlData } from "../parse/parse-html-data/parse-vscode-html-data.js";
 import { lazy } from "../util/general-util.js";
@@ -28,8 +28,8 @@ export function getUserConfigHtmlCollection(config: LitAnalyzerConfig): HtmlData
 					tags: mergeHtmlTags([...collection.tags, ...parsedCollection.tags]),
 					global: {
 						attributes: mergeHtmlAttrs([...(collection.global.attributes || []), ...(parsedCollection.global.attributes || [])]),
-						events: mergeHtmlEvents([...(collection.global.events || []), ...(parsedCollection.global.events || [])])
-					}
+						events: mergeHtmlEvents([...(collection.global.events || []), ...(parsedCollection.global.events || [])]),
+					},
 				};
 			} catch (e) {
 				//logger.error("Error parsing user configuration 'customHtmlData'", e, customHtmlData);
@@ -47,8 +47,8 @@ export function getUserConfigHtmlCollection(config: LitAnalyzerConfig): HtmlData
 				events: [],
 				slots: [],
 				cssParts: [],
-				cssProperties: []
-			} as HtmlTag)
+				cssProperties: [],
+			}) as HtmlTag
 	);
 
 	const attrs = config.globalAttributes.map(
@@ -56,8 +56,8 @@ export function getUserConfigHtmlCollection(config: LitAnalyzerConfig): HtmlData
 			({
 				name: attrName,
 				kind: "attribute",
-				getType: lazy(() => ({ kind: "ANY" } as SimpleType))
-			} as HtmlAttr)
+				getType: lazy(() => ({ kind: "ANY" }) as SimpleType),
+			}) as HtmlAttr
 	);
 
 	const events = config.globalEvents.map(
@@ -65,15 +65,15 @@ export function getUserConfigHtmlCollection(config: LitAnalyzerConfig): HtmlData
 			({
 				name: eventName,
 				kind: "event",
-				getType: lazy(() => ({ kind: "ANY" } as SimpleType))
-			} as HtmlEvent)
+				getType: lazy(() => ({ kind: "ANY" }) as SimpleType),
+			}) as HtmlEvent
 	);
 
 	return {
 		tags: [...tags, ...collection.tags],
 		global: {
 			attributes: [...attrs, ...(collection.global.attributes || [])],
-			events: [...events, ...(collection.global.events || [])]
-		}
+			events: [...events, ...(collection.global.events || [])],
+		},
 	};
 }

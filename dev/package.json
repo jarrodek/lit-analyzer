@@ -5,7 +5,7 @@
 	"dependencies": {
 		"lit-element": "^2.3.1",
 		"lit-html": "^1.2.1",
-		"ts-lit-plugin": "file:../packages/ts-lit-plugin"
+		"@jarrodek/ts-lit-plugin": "3.0.0"
 	},
 	"devDependencies": {
 		"typescript": "~4.4.3"

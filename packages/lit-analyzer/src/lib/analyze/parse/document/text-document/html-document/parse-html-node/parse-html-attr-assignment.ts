@@ -31,7 +31,7 @@ export function parseHtmlAttrAssignment(
 				kind: HtmlNodeAttrAssignmentKind.ELEMENT_EXPRESSION,
 				htmlAttr,
 				location: htmlAttr.location,
-				expression: values[0] as Expression
+				expression: values[0] as Expression,
 			};
 		}
 		return { kind: HtmlNodeAttrAssignmentKind.BOOLEAN, htmlAttr };
@@ -48,14 +48,14 @@ export function parseHtmlAttrAssignment(
 				kind: HtmlNodeAttrAssignmentKind.STRING,
 				location,
 				value,
-				htmlAttr
+				htmlAttr,
 			};
 		} else {
 			return {
 				kind: HtmlNodeAttrAssignmentKind.EXPRESSION,
 				location,
 				expression: value,
-				htmlAttr
+				htmlAttr,
 			};
 		}
 	} else {
@@ -63,12 +63,17 @@ export function parseHtmlAttrAssignment(
 			kind: HtmlNodeAttrAssignmentKind.MIXED,
 			location,
 			values,
-			htmlAttr
+			htmlAttr,
 		};
 	}
 }
 
-function getAssignmentLocation(p5Node: IP5TagNode, p5Attr: IP5NodeAttr, htmlAttr: HtmlNodeAttr, context: ParseHtmlContext): Range | undefined {
+function getAssignmentLocation(
+	p5Node: IP5TagNode,
+	p5Attr: IP5NodeAttr,
+	htmlAttr: HtmlNodeAttr,
+	context: ParseHtmlContext
+): Range | undefined {
 	const sourceLocation = getSourceLocation(p5Node);
 	if (sourceLocation == null) {
 		return undefined;
@@ -92,14 +97,14 @@ function getAssignmentLocation(p5Node: IP5TagNode, p5Attr: IP5NodeAttr, htmlAttr
 	if (firstQuote == null || lastQuote == null) {
 		return {
 			start: nameEndOffset + firstEquals + 1,
-			end: htmlAttrLocation.endOffset
+			end: htmlAttrLocation.endOffset,
 		};
 	}
 
 	// Example: attr="myvalue"
 	return {
 		start: nameEndOffset + firstQuote + 1,
-		end: nameEndOffset + lastQuote
+		end: nameEndOffset + lastQuote,
 	};
 }
 

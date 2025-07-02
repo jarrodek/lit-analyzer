@@ -15,7 +15,7 @@ import { rangeFromHtmlNodeAttr } from "../analyze/util/range-util.js";
 const rule: RuleModule = {
 	id: "no-unknown-attribute",
 	meta: {
-		priority: "low"
+		priority: "low",
 	},
 	visitHtmlAttribute(htmlAttr, context) {
 		const { htmlStore, config, definitionStore } = context;
@@ -59,9 +59,9 @@ const rule: RuleModule = {
 								{
 									kind: "changeAttributeName",
 									newName: `data-${htmlAttr.name}`,
-									htmlAttr
-								}
-							]
+									htmlAttr,
+								},
+							],
 						} as RuleFix,
 						...(suggestedMemberName == null
 							? []
@@ -72,22 +72,22 @@ const rule: RuleModule = {
 											{
 												kind: "changeAttributeName",
 												newName: suggestedMemberName,
-												htmlAttr
+												htmlAttr,
 											},
 											{
 												kind: "changeAttributeModifier",
 												newModifier: suggestedModifier,
-												htmlAttr
-											}
-										]
-									} as RuleFix
-							  ])
-					] as RuleFix[]
+												htmlAttr,
+											},
+										],
+									} as RuleFix,
+								]),
+					] as RuleFix[],
 			});
 		}
 
 		return;
-	}
+	},
 };
 
 export default rule;
@@ -101,7 +101,7 @@ export default rule;
 function getSuggestionText({
 	config,
 	definitionStore,
-	htmlTag
+	htmlTag,
 }: {
 	config: LitAnalyzerConfig;
 	definitionStore: AnalyzerDefinitionStore;
@@ -118,8 +118,8 @@ function getSuggestionText({
 	return tagIsBuiltIn
 		? `This is a built in tag. Please consider using a 'data-*' attribute, adding the attribute to 'globalAttributes' or disabling the 'no-unknown-attribute' rule.`
 		: tagIsFromLibrary
-		? `If you are not the author of this component please consider using a 'data-*' attribute, adding the attribute to 'globalAttributes' or disabling the 'no-unknown-attribute' rule.`
-		: tagHasDeclaration
-		? `Please consider adding it as an attribute on the component, adding '@attr' tag to jsdoc on the component class or using a 'data-*' attribute instead.`
-		: `Please consider using a 'data-*' attribute.`;
+			? `If you are not the author of this component please consider using a 'data-*' attribute, adding the attribute to 'globalAttributes' or disabling the 'no-unknown-attribute' rule.`
+			: tagHasDeclaration
+				? `Please consider adding it as an attribute on the component, adding '@attr' tag to jsdoc on the component class or using a 'data-*' attribute instead.`
+				: `Please consider using a 'data-*' attribute.`;
 }

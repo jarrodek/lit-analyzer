@@ -16,7 +16,7 @@ import {
 	mergeHtmlTags,
 	NamedHtmlDataCollection,
 	HtmlCssProperty,
-	mergeCssProperties
+	mergeCssProperties,
 } from "../../parse/parse-html-data/html-tag.js";
 import { lazy } from "../../util/general-util.js";
 import { iterableDefined } from "../../util/iterable-util.js";
@@ -26,7 +26,7 @@ export enum HtmlDataSourceKind {
 	DECLARED = 0,
 	USER = 1,
 	BUILT_IN = 2,
-	BUILT_IN_DECLARED = 3
+	BUILT_IN_DECLARED = 3,
 }
 
 export class HtmlDataSourceMerged {
@@ -49,7 +49,7 @@ export class HtmlDataSourceMerged {
 		slots: new Map<string, ReadonlyMap<string, HtmlSlot>>(),
 		props: new Map<string, ReadonlyMap<string, HtmlProp>>(),
 		cssParts: new Map<string, ReadonlyMap<string, HtmlCssPart>>(),
-		cssProperties: new Map<string, ReadonlyMap<string, HtmlCssProperty>>()
+		cssProperties: new Map<string, ReadonlyMap<string, HtmlCssProperty>>(),
 	};
 
 	get globalTags(): ReadonlyMap<string, HtmlTag> {
@@ -59,7 +59,7 @@ export class HtmlDataSourceMerged {
 	invalidateCache(collection: NamedHtmlDataCollection): void {
 		const {
 			tags,
-			global: { attributes, events, cssParts }
+			global: { attributes, events, cssParts },
 		} = collection;
 
 		if (tags && tags.length > 0) {
@@ -105,7 +105,7 @@ export class HtmlDataSourceMerged {
 	mergeDataSourcesAndInvalidate(collection: NamedHtmlDataCollection): void {
 		const {
 			tags,
-			global: { events, attributes, properties, slots, cssParts, cssProperties }
+			global: { events, attributes, properties, slots, cssParts, cssProperties },
 		} = collection;
 
 		this.invalidateCache(collection);
@@ -210,8 +210,8 @@ export class HtmlDataSourceMerged {
 				properties: collection.global?.properties?.map(p => p.name),
 				slots: collection.global?.slots?.map(s => s.name),
 				cssParts: collection.global?.cssParts?.map(s => s.name),
-				cssProperties: collection.global?.cssProperties?.map(s => s.name)
-			}
+				cssProperties: collection.global?.cssProperties?.map(s => s.name),
+			},
 		});
 	}
 
@@ -451,7 +451,7 @@ function mergeRelatedMembers<T extends HtmlMember>(members: Iterable<T>): Readon
 				builtIn: existingMember.required && member.required,
 				fromTagName: existingMember.fromTagName || member.fromTagName,
 				getType: lazy(() => mergeRelatedTypeToUnion(prevType(), member.getType())),
-				related: existingMember.related == null ? [existingMember, member] : [...existingMember.related, member]
+				related: existingMember.related == null ? [existingMember, member] : [...existingMember.related, member],
 			});
 		}
 	}
@@ -473,14 +473,14 @@ function mergeRelatedTypeToUnion(typeA: SimpleType, typeB: SimpleType): SimpleTy
 			} else {
 				return {
 					...typeA,
-					types: [...typeA.types, typeB]
+					types: [...typeA.types, typeB],
 				};
 			}
 	}
 
 	return {
 		kind: "UNION",
-		types: [typeA, typeB]
+		types: [typeA, typeB],
 	} as SimpleTypeUnion;
 }
 
@@ -496,7 +496,7 @@ function mergeNamedRelated<T extends { name: string; related?: T[] }>(items: Ite
 		if (existingItem != null) {
 			merged.set(name, {
 				...item,
-				related: existingItem.related == null ? [existingItem, item] : [existingItem.related, item]
+				related: existingItem.related == null ? [existingItem, item] : [existingItem.related, item],
 			});
 		} else {
 			merged.set(name, item);
@@ -535,7 +535,7 @@ function mergeRelatedEvents(events: Iterable<HtmlEvent>): ReadonlyMap<string, Ht
 				description: undefined,
 				getType: lazy(() => mergeRelatedTypeToUnion(prevType(), event.getType())),
 				related: existingEvent.related == null ? [existingEvent, event] : [...existingEvent.related, event],
-				fromTagName: existingEvent.fromTagName || event.fromTagName
+				fromTagName: existingEvent.fromTagName || event.fromTagName,
 			});
 		}
 	}

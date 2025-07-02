@@ -23,7 +23,7 @@ export function findBestMatch<T extends string | object>(find: string, elements:
 			threshold: options.threshold,
 			matchPath: [options.matchKey] as [string],
 			returnType: dym.ReturnTypeEnums.FIRST_CLOSEST_MATCH,
-			trimSpaces: false
+			trimSpaces: false,
 		}) || undefined
 	);
 }

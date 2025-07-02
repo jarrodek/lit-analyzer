@@ -10,7 +10,7 @@ export function isAssignableToType(
 	const expandedOptions = {
 		...(inJsFile ? { strict: false } : {}),
 		options: context.ts,
-		...(options || {})
+		...(options || {}),
 	};
 	return _isAssignableToType(typeA, typeB, context.program, expandedOptions);
 }

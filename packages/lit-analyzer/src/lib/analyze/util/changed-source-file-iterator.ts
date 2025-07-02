@@ -22,6 +22,6 @@ export function changedSourceFileIterator(): ChangedSourceFileIterator {
 	return Object.assign(iterator, {
 		invalidate(sourceFile: SourceFile) {
 			sourceFileCache.delete(sourceFile);
-		}
+		},
 	});
 }

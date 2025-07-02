@@ -47,7 +47,7 @@ export class LitHtmlDocumentAnalyzer {
 		return {
 			name,
 			kind: completionWithName.kind,
-			primaryInfo
+			primaryInfo,
 		};
 	}
 
@@ -94,7 +94,7 @@ export class LitHtmlDocumentAnalyzer {
 				displayName: hit.tagName,
 				range: documentRangeToSFRange(document, { ...hit.location.name }),
 				document,
-				target: hit
+				target: hit,
 			};
 		}
 		return;
@@ -139,7 +139,7 @@ export class LitHtmlDocumentAnalyzer {
 					autoCollapse: false,
 					bannerText: node.tagName,
 					kind: LitOutliningSpanKind.Code,
-					location: documentRangeToSFRange(document, { start: node.location.startTag.end, end: endIndex })
+					location: documentRangeToSFRange(document, { start: node.location.startTag.end, end: endIndex }),
 				} as LitOutliningSpan;
 			})
 		);

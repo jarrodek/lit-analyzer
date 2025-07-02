@@ -78,7 +78,9 @@ tsTest("Can use 'unsafeHTML' directive text binding", t => {
 });
 
 tsTest("Can use 'unsafeSVG' directive text binding", t => {
-	const { diagnostics } = getDiagnostics('type unsafeSVG = Function; html`<svg>${unsafeSVG("<circle cx="50" cy="50" r="40" fill="red" />")}"</svg>`');
+	const { diagnostics } = getDiagnostics(
+		'type unsafeSVG = Function; html`<svg>${unsafeSVG("<circle cx="50" cy="50" r="40" fill="red" />")}"</svg>`'
+	);
 	hasNoDiagnostics(t, diagnostics);
 });
 

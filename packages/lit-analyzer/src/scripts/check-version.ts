@@ -1,7 +1,9 @@
 import * as fs from "fs";
 import * as path from "path";
 
-const pkg = require("../package.json");
+// @ts-expect-error after compilation this will be located in the parent directory
+import pkg from "../package.json" with { type: "json" };
+
 const { version } = pkg;
 
 const constantsPath = path.resolve("src/lib/analyze/constants.ts");

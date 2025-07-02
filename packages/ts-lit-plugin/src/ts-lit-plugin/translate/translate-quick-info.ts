@@ -1,6 +1,8 @@
-import { LitQuickInfo } from "lit-analyzer";
+import { LitQuickInfo } from "@jarrodek/lit-analyzer";
 import { QuickInfo } from "typescript";
+
 import { tsModule } from "../../ts-module.js";
+
 import { translateRange } from "./translate-range.js";
 
 export function translateQuickInfo(quickInfo: LitQuickInfo): QuickInfo {
@@ -11,8 +13,8 @@ export function translateQuickInfo(quickInfo: LitQuickInfo): QuickInfo {
 		displayParts: [
 			{
 				text: quickInfo.primaryInfo,
-				kind: "text"
-			}
+				kind: "text",
+			},
 		],
 		documentation:
 			quickInfo.secondaryInfo == null
@@ -20,8 +22,8 @@ export function translateQuickInfo(quickInfo: LitQuickInfo): QuickInfo {
 				: [
 						{
 							kind: "text",
-							text: quickInfo.secondaryInfo
-						}
-				  ]
+							text: quickInfo.secondaryInfo,
+						},
+					],
 	};
 }

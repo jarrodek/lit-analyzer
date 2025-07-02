@@ -5,12 +5,12 @@ export function removeUndefinedFromType(type: SimpleType): SimpleType {
 		case "ALIAS":
 			return {
 				...type,
-				target: removeUndefinedFromType(type.target)
+				target: removeUndefinedFromType(type.target),
 			};
 		case "UNION":
 			return {
 				...type,
-				types: type.types.filter(t => !isAssignableToSimpleTypeKind(t, "UNDEFINED"))
+				types: type.types.filter(t => !isAssignableToSimpleTypeKind(t, "UNDEFINED")),
 			};
 	}
 

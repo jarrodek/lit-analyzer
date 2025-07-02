@@ -8,7 +8,11 @@ import { findParent, getNodeAtPosition } from "../../util/ast-util.js";
  * @param templateTags
  */
 export function findTaggedTemplates(sourceFile: SourceFile, templateTags: string[]): TaggedTemplateExpression[];
-export function findTaggedTemplates(sourceFile: SourceFile, templateTags: string[], position?: number): TaggedTemplateExpression | undefined;
+export function findTaggedTemplates(
+	sourceFile: SourceFile,
+	templateTags: string[],
+	position?: number
+): TaggedTemplateExpression | undefined;
 export function findTaggedTemplates(
 	sourceFile: SourceFile,
 	templateTags: string[],
@@ -34,7 +38,7 @@ export function findTaggedTemplates(
 			},
 			emitTaggedTemplateNode(node: TaggedTemplateExpression) {
 				taggedTemplates.push(node);
-			}
+			},
 		});
 
 		return taggedTemplates;

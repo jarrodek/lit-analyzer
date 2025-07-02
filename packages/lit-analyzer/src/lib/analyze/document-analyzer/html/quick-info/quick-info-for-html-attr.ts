@@ -11,6 +11,6 @@ export function quickInfoForHtmlAttr(htmlAttr: HtmlNodeAttr, { htmlStore }: LitA
 	return {
 		range: rangeFromHtmlNodeAttr(htmlAttr),
 		primaryInfo: targetKindAndTypeText(target, { modifier: htmlAttr.modifier }),
-		secondaryInfo: descriptionForTarget(target, { markdown: true })
+		secondaryInfo: descriptionForTarget(target, { markdown: true }),
 	};
 }

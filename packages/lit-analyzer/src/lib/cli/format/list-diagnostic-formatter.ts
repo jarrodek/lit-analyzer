@@ -28,11 +28,11 @@ function litDiagnosticToErrorText(file: SourceFile, diagnostic: LitDiagnostic): 
 	const lineContext = file.getLineAndCharacterOfPosition(diagnostic.location.start);
 	const linePart = `${textPad(`${lineContext.line + 1}`, { width: 5 })}:${textPad(`${lineContext.character}`, {
 		width: 4,
-		dir: "right"
+		dir: "right",
 	})}`;
 	const severityPart = `${textPad(diagnostic.severity === "warning" ? chalk.yellow("warning") : chalk.red("error"), {
 		width: 18,
-		dir: "right"
+		dir: "right",
 	})}`;
 	const messagePart = diagnostic.message;
 	return `${linePart} ${severityPart} ${messagePart}`;

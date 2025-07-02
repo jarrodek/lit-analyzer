@@ -23,7 +23,11 @@ export interface AnalyzeGlobsContext {
  * @param config
  * @param context
  */
-export async function analyzeGlobs(globs: string[], config: LitAnalyzerCliConfig, context: AnalyzeGlobsContext = {}): Promise<CompileResult> {
+export async function analyzeGlobs(
+	globs: string[],
+	config: LitAnalyzerCliConfig,
+	context: AnalyzeGlobsContext = {}
+): Promise<CompileResult> {
 	// Expand the globs
 	const filePaths = await expandGlobs(globs);
 
@@ -68,7 +72,7 @@ async function expandGlobs(globs: string | string[]): Promise<string[]> {
 					if (dirExists) {
 						return fastGlob([...IGNORE_GLOBS, join(g, DEFAULT_DIR_GLOB)], {
 							absolute: true,
-							followSymbolicLinks: true
+							followSymbolicLinks: true,
 						});
 					}
 				} catch {
@@ -78,7 +82,7 @@ async function expandGlobs(globs: string | string[]): Promise<string[]> {
 				// Return the result of globbing
 				return fastGlob([...IGNORE_GLOBS, g], {
 					absolute: true,
-					followSymbolicLinks: false
+					followSymbolicLinks: false,
 				});
 			})
 		)

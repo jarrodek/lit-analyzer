@@ -41,23 +41,23 @@ interface SecurityOverrideMap {
 
 const closureScopedOverrides: TagNameToSecurityOverrideMap = {
 	iframe: {
-		src: ["TrustedResourceUrl"]
+		src: ["TrustedResourceUrl"],
 	},
 	a: {
-		href: ["TrustedResourceUrl", "SafeUrl", "string"]
+		href: ["TrustedResourceUrl", "SafeUrl", "string"],
 	},
 	img: {
-		src: ["TrustedResourceUrl", "SafeUrl", "string"]
+		src: ["TrustedResourceUrl", "SafeUrl", "string"],
 	},
 	script: {
-		src: ["TrustedResourceUrl"]
+		src: ["TrustedResourceUrl"],
 	},
 	source: {
-		src: ["TrustedResourceUrl", "SafeUrl"]
-	}
+		src: ["TrustedResourceUrl", "SafeUrl"],
+	},
 };
 const closureGlobalOverrides: SecurityOverrideMap = {
-	style: ["SafeStyle", "string"]
+	style: ["SafeStyle", "string"],
 };
 
 function checkClosureSecurityAssignability(typeB: SimpleType, htmlAttr: HtmlNodeAttr, context: RuleModuleContext): boolean | undefined {
@@ -85,7 +85,7 @@ function checkClosureSecurityAssignability(typeB: SimpleType, htmlAttr: HtmlNode
 
 		context.report({
 			location: rangeFromHtmlNodeAttr(htmlAttr),
-			message: `Type '${typeToString(typeB)}' is not assignable to '${overriddenTypes.join(" | ")}'. This is due to Closure Safe Type enforcement.`
+			message: `Type '${typeToString(typeB)}' is not assignable to '${overriddenTypes.join(" | ")}'. This is due to Closure Safe Type enforcement.`,
 		});
 		return false;
 	}

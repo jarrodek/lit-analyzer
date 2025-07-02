@@ -27,7 +27,7 @@ tsTest("Don't report known custom element", t => {
 	const { diagnostics } = getDiagnostics(
 		"class MyElement extends HTMLElement {}; customElements.define('my-element', MyElement); html`<my-element></my-element>`",
 		{
-			rules: { "no-unknown-tag-name": true }
+			rules: { "no-unknown-tag-name": true },
 		}
 	);
 	hasNoDiagnostics(t, diagnostics);

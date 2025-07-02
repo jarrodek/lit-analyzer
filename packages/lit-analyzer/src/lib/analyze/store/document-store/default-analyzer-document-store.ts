@@ -11,7 +11,7 @@ export class DefaultAnalyzerDocumentStore implements AnalyzerDocumentStore {
 			sourceFile,
 			{
 				htmlTags: options.htmlTemplateTags,
-				cssTags: options.cssTemplateTags
+				cssTags: options.cssTemplateTags,
 			},
 			position
 		);
@@ -20,7 +20,7 @@ export class DefaultAnalyzerDocumentStore implements AnalyzerDocumentStore {
 	getDocumentsInFile(sourceFile: SourceFile, config: LitAnalyzerConfig): TextDocument[] {
 		return parseDocumentsInSourceFile(sourceFile, {
 			htmlTags: config.htmlTemplateTags,
-			cssTags: config.cssTemplateTags
+			cssTags: config.cssTemplateTags,
 		});
 	}
 }

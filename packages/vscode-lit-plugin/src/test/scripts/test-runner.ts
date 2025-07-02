@@ -27,7 +27,9 @@ async function main() {
 		if (!inCI) {
 			setTimeout(function () {
 				// eslint-disable-next-line no-console
-				console.log(`[tests completed successfully, but some resource leak is preventing the test runner from exiting, so manually exiting]`);
+				console.log(
+					`[tests completed successfully, but some resource leak is preventing the test runner from exiting, so manually exiting]`
+				);
 				process.exit(0);
 			}, 1_000).unref();
 		}

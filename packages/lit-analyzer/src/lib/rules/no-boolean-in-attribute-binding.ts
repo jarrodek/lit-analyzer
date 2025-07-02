@@ -15,7 +15,7 @@ import { isAssignableToType } from "./util/type/is-assignable-to-type.js";
 const rule: RuleModule = {
 	id: "no-boolean-in-attribute-binding",
 	meta: {
-		priority: "medium"
+		priority: "medium",
 	},
 	visitHtmlAssignment(assignment, context) {
 		// Don't validate boolean attribute bindings.
@@ -51,11 +51,11 @@ const rule: RuleModule = {
 							{
 								kind: "changeAttributeName",
 								htmlAttr,
-								newName
-							}
-						]
+								newName,
+							},
+						],
 					};
-				}
+				},
 			});
 		}
 
@@ -67,7 +67,7 @@ const rule: RuleModule = {
 			isAssignableToType(
 				{
 					typeA: { kind: "BOOLEAN" },
-					typeB: typeA
+					typeB: typeA,
 				},
 				context
 			)
@@ -85,14 +85,14 @@ const rule: RuleModule = {
 							{
 								kind: "changeAttributeName",
 								htmlAttr,
-								newName
-							}
-						]
+								newName,
+							},
+						],
 					};
-				}
+				},
 			});
 		}
-	}
+	},
 };
 
 export default rule;

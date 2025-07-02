@@ -31,13 +31,13 @@ export function completionsForHtmlNodes(
 				importance: "high",
 				range: documentRangeToSFRange(document, {
 					start: offset - leftWord.length - 2,
-					end: offset + rightWord.length
+					end: offset + rightWord.length,
 				}),
 				documentation: lazy(() => {
 					const htmlTag = htmlStore.getHtmlTag(intersectingClosestNode);
 					return htmlTag != null ? documentationForHtmlTag(htmlTag) : undefined;
-				})
-			} as LitCompletion
+				}),
+			} as LitCompletion,
 		];
 	}
 
@@ -56,9 +56,9 @@ export function completionsForHtmlNodes(
 			importance: isBuiltIn ? "low" : hasDeclaration ? "high" : "medium",
 			range: documentRangeToSFRange(document, {
 				start: offset - leftWord.length - (isClosingTag ? 2 : 0),
-				end: offset + rightWord.length + (isClosingTag && afterWord === ">" ? 1 : 0)
+				end: offset + rightWord.length + (isClosingTag && afterWord === ">" ? 1 : 0),
 			}),
-			documentation: lazy(() => documentationForHtmlTag(htmlTag))
+			documentation: lazy(() => documentationForHtmlTag(htmlTag)),
 		} as LitCompletion;
 	});
 }

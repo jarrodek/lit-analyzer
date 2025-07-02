@@ -6,7 +6,7 @@ const partTypeNames: ReadonlySet<string | undefined> = new Set([
 	"AttributePart",
 	"BooleanAttributePart",
 	"PropertyPart",
-	"EventPart"
+	"EventPart",
 ]);
 
 /**

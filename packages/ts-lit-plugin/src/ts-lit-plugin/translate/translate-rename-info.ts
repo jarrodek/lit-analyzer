@@ -1,7 +1,8 @@
-import { LitRenameInfo } from "lit-analyzer";
+import { LitRenameInfo } from "@jarrodek/lit-analyzer";
 import { RenameInfo } from "typescript";
-import { translateTargetKind } from "./translate-target-kind.js";
+
 import { translateRange } from "./translate-range.js";
+import { translateTargetKind } from "./translate-target-kind.js";
 
 export function translateRenameInfo({ displayName, fullDisplayName, kind, range }: LitRenameInfo): RenameInfo {
 	const triggerSpan = translateRange(range);
@@ -12,6 +13,6 @@ export function translateRenameInfo({ displayName, fullDisplayName, kind, range 
 		kindModifiers: "",
 		displayName,
 		fullDisplayName,
-		triggerSpan
+		triggerSpan,
 	};
 }

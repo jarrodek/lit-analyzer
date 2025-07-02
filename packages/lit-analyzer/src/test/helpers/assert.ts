@@ -1,4 +1,5 @@
 import { ExecutionContext } from "ava";
+
 import { LitAnalyzerRuleId } from "../../lib/analyze/lit-analyzer-config.js";
 import { LitDiagnostic } from "../../lib/analyze/types/lit-diagnostic.js";
 

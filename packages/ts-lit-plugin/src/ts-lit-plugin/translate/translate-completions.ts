@@ -1,5 +1,6 @@
-import { LitCompletion } from "lit-analyzer";
+import { LitCompletion } from "@jarrodek/lit-analyzer";
 import { CompletionEntry, CompletionInfo } from "typescript";
+
 import { translateRange } from "./translate-range.js";
 import { translateTargetKind } from "./translate-target-kind.js";
 
@@ -11,7 +12,7 @@ export function translateCompletions(completions: LitCompletion[]): CompletionIn
 			isGlobalCompletion: false,
 			isMemberCompletion: false,
 			isNewIdentifierLocation: false,
-			entries
+			entries,
 		};
 	}
 
@@ -27,6 +28,6 @@ function translateCompletion(completion: LitCompletion): CompletionEntry {
 		kindModifiers: completion.kindModifiers,
 		sortText: completion.sortText != null ? completion.sortText : importance === "high" ? "0" : importance === "medium" ? "1" : "2",
 		insertText: insert,
-		...(range != null ? { replacementSpan: translateRange(range) } : {})
+		...(range != null ? { replacementSpan: translateRange(range) } : {}),
 	};
 }

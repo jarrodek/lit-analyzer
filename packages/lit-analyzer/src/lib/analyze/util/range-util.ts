@@ -30,14 +30,14 @@ export function rangeFromNode(node: Node): SourceFileRange {
 export function documentRangeToSFRange(document: TextDocument, range: DocumentRange | Range): SourceFileRange {
 	return makeSourceFileRange({
 		start: document.virtualDocument.documentOffsetToSFPosition(range.start),
-		end: document.virtualDocument.documentOffsetToSFPosition(range.end)
+		end: document.virtualDocument.documentOffsetToSFPosition(range.end),
 	});
 }
 
 export function sfRangeToDocumentRange(document: TextDocument, range: SourceFileRange | Range): DocumentRange {
 	return makeDocumentRange({
 		start: document.virtualDocument.sfPositionToDocumentOffset(range.start),
-		end: document.virtualDocument.sfPositionToDocumentOffset(range.end)
+		end: document.virtualDocument.sfPositionToDocumentOffset(range.end),
 	});
 }
 

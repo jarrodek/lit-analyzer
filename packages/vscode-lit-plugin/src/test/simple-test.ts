@@ -1,6 +1,7 @@
 import * as assert from "assert";
-import { after } from "mocha";
 import * as path from "path";
+
+import { after } from "mocha";
 
 // You can import and use all API from the 'vscode' module
 // as well as import your extension to test it
@@ -36,7 +37,9 @@ suite("Extension Test Suite", () => {
 		const config = vscode.workspace.getConfiguration();
 		config.update("lit-plugin.logging", "verbose", true);
 		config.update("lit-plugin.rules.no-missing-element-type-definition", "error", true);
-		const doc = await vscode.workspace.openTextDocument(vscode.Uri.file(path.join(__dirname, "../../src/test/fixtures/missing-elem-type.ts")));
+		const doc = await vscode.workspace.openTextDocument(
+			vscode.Uri.file(path.join(__dirname, "../../src/test/fixtures/missing-elem-type.ts"))
+		);
 		await vscode.window.showTextDocument(doc);
 
 		const diagnostics = await getDiagnostics(doc.uri);
@@ -106,7 +109,10 @@ suite("Extension Test Suite", () => {
 
 		const elemCompletions = await getCompletions("complete-me");
 		const elemLabels = elemCompletions.map(c => c.label);
-		assert.ok(elemLabels.includes("complete-me"), `Expected to find completion 'complete-me' in completions: ${JSON.stringify(elemLabels)}`);
+		assert.ok(
+			elemLabels.includes("complete-me"),
+			`Expected to find completion 'complete-me' in completions: ${JSON.stringify(elemLabels)}`
+		);
 
 		editor.selection = new vscode.Selection(propertyCompletionPosition, propertyCompletionPosition);
 		// type a '.' character

@@ -20,7 +20,7 @@ export function isAssignableInAttributeBinding(
 		if (!isAssignableToType({ typeA, typeB }, context)) {
 			context.report({
 				location: rangeFromHtmlNodeAttr(htmlAttr),
-				message: `Type '${typeToString(typeB)}' is not assignable to '${typeToString(typeA)}'`
+				message: `Type '${typeToString(typeB)}' is not assignable to '${typeToString(typeA)}'`,
 			});
 
 			return false;
@@ -50,7 +50,7 @@ export function isAssignableInAttributeBinding(
 		if (!isAssignableToType({ typeA, typeB }, context, { isAssignable: isAssignableToTypeWithStringCoercion })) {
 			context.report({
 				location: rangeFromHtmlNodeAttr(htmlAttr),
-				message: `Type '${typeToString(typeB)}' is not assignable to '${typeToString(typeA)}'`
+				message: `Type '${typeToString(typeB)}' is not assignable to '${typeToString(typeA)}'`,
 			});
 
 			return false;
@@ -98,7 +98,7 @@ export function isAssignableToTypeWithStringCoercion(
 				typeA,
 				{
 					kind: "STRING_LITERAL",
-					value: "[object Object]"
+					value: "[object Object]",
 				},
 				safeOptions
 			);
@@ -122,7 +122,7 @@ export function isAssignableToTypeWithStringCoercion(
 						typeA,
 						{
 							kind: "NUMBER_LITERAL",
-							value: Number(typeB.value)
+							value: Number(typeB.value),
 						},
 						safeOptions
 					)
@@ -143,10 +143,10 @@ export function isAssignableToTypeWithStringCoercion(
 					types: [
 						{
 							kind: "STRING_LITERAL",
-							value: "true"
+							value: "true",
 						},
-						{ kind: "STRING_LITERAL", value: "false" }
-					]
+						{ kind: "STRING_LITERAL", value: "false" },
+					],
 				},
 				safeOptions
 			);
@@ -160,7 +160,7 @@ export function isAssignableToTypeWithStringCoercion(
 				typeA,
 				{
 					kind: "STRING_LITERAL",
-					value: String(typeB.value)
+					value: String(typeB.value),
 				},
 				safeOptions
 			);
@@ -181,7 +181,7 @@ export function isAssignableToTypeWithStringCoercion(
 					typeA,
 					{
 						kind: "STRING_LITERAL",
-						value: String(typeB.value)
+						value: String(typeB.value),
 					},
 					safeOptions
 				)
@@ -226,7 +226,9 @@ export function isAssignableInPrimitiveArray(
 			if (value.match(/\s+/) == null && value !== "") {
 				// Make sure that the the value is assignable to the union
 				if (
-					!isAssignableToType({ typeA, typeB: { kind: "STRING_LITERAL", value } }, context, { isAssignable: isAssignableToTypeWithStringCoercion })
+					!isAssignableToType({ typeA, typeB: { kind: "STRING_LITERAL", value } }, context, {
+						isAssignable: isAssignableToTypeWithStringCoercion,
+					})
 				) {
 					valuesNotAssignable.push(value);
 
@@ -235,9 +237,9 @@ export function isAssignableInPrimitiveArray(
 						context.report({
 							location: documentRangeToSFRange(assignment.htmlAttr.document, {
 								start: startOffset + offset,
-								end: startOffset + offset + value.length
+								end: startOffset + offset + value.length,
 							}),
-							message: `The value '${value}' is not assignable to '${typeToString(typeA)}'`
+							message: `The value '${value}' is not assignable to '${typeToString(typeA)}'`,
 						});
 					}
 				}
@@ -253,7 +255,7 @@ export function isAssignableInPrimitiveArray(
 				location: rangeFromHtmlNodeAttr(assignment.htmlAttr),
 				message: `The value${multiple ? "s" : ""} ${valuesNotAssignable.map(v => `'${v}'`).join(", ")} ${
 					multiple ? "are" : "is"
-				} not assignable to '${typeToString(typeA)}'`
+				} not assignable to '${typeToString(typeA)}'`,
 			});
 		}
 

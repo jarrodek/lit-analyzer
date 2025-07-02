@@ -1,13 +1,14 @@
 {
 	"include": ["./src"],
 	"compilerOptions": {
-		"target": "es5",
-		"module": "commonjs",
-		"lib": ["esnext"],
+		"target": "ES2022",
+		"module": "ESNext",
+		"lib": ["ES2022", "DOM"],
 		"outDir": "./lib",
 		"downlevelIteration": true,
 		"strict": true,
 		"esModuleInterop": true,
+		"allowSyntheticDefaultImports": true,
 		"experimentalDecorators": true,
 		"noUnusedLocals": true,
 		"noFallthroughCasesInSwitch": true,
@@ -15,8 +16,12 @@
 		"noImplicitAny": true,
 		"noImplicitReturns": true,
 		"skipLibCheck": true,
+		"skipDefaultLibCheck": true,
 		"declaration": true,
 		"declarationMap": true,
-		"incremental": true
+		"incremental": true,
+		"moduleResolution": "bundler",
+		"forceConsistentCasingInFileNames": true,
+		"exactOptionalPropertyTypes": false
 	}
 }

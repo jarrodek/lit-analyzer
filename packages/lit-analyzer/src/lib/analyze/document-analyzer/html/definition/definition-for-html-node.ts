@@ -15,8 +15,8 @@ export function definitionForHtmlNode(htmlNode: HtmlNode, { htmlStore, ts }: Lit
 		targets: [
 			{
 				kind: "node",
-				node: getNodeIdentifier(node, ts) || node
-			}
-		]
+				node: getNodeIdentifier(node, ts) || node,
+			},
+		],
 	};
 }

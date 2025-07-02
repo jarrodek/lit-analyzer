@@ -30,7 +30,7 @@ function parseVscodeDataV1(data: HTMLDataV1, config: ParseVscodeHtmlDataConfig):
 
 	const newConfig = {
 		...config,
-		typeMap: valueSetTypeMap
+		typeMap: valueSetTypeMap,
 	};
 
 	const globalAttributes = (data.globalAttributes || []).map(tagDataAttr => tagDataToHtmlTagAttr(tagDataAttr, newConfig));
@@ -41,8 +41,8 @@ function parseVscodeDataV1(data: HTMLDataV1, config: ParseVscodeHtmlDataConfig):
 		tags: (data.tags || []).map(tagData => tagDataToHtmlTag(tagData, newConfig)),
 		global: {
 			attributes: globalAttributes,
-			events: globalEvents
-		}
+			events: globalEvents,
+		},
 	};
 }
 
@@ -62,7 +62,7 @@ function tagDataToHtmlTag(tagData: ITagData, config: ParseVscodeHtmlDataConfig):
 		slots: [],
 		builtIn: config.builtIn,
 		cssParts: [],
-		cssProperties: []
+		cssProperties: [],
 	};
 }
 
@@ -77,7 +77,7 @@ function tagDataToHtmlTagAttr(tagDataAttr: IAttributeData, config: ParseVscodeHt
 		description: stringOrMarkupContentToString(description),
 		fromTagName,
 		getType: lazy(() => type || { kind: "ANY" }),
-		builtIn: config.builtIn
+		builtIn: config.builtIn,
 	};
 }
 
@@ -94,9 +94,9 @@ function attrValuesToUnion(attrValues: IValueData[]): SimpleType {
 			value =>
 				({
 					value: value.name,
-					kind: "STRING_LITERAL"
-				} as SimpleTypeStringLiteral)
-		)
+					kind: "STRING_LITERAL",
+				}) as SimpleTypeStringLiteral
+		),
 	};
 }
 
@@ -115,7 +115,7 @@ function attrsToEvents(htmlAttrs: HtmlAttr[]): HtmlEvent[] {
 			name: htmlAttr.name.replace(/^on/, ""),
 			description: htmlAttr.description,
 			fromTagName: htmlAttr.fromTagName,
-			getType: lazy(() => ({ kind: "ANY" } as SimpleType)),
-			builtIn: htmlAttr.builtIn
+			getType: lazy(() => ({ kind: "ANY" }) as SimpleType),
+			builtIn: htmlAttr.builtIn,
 		}));
 }

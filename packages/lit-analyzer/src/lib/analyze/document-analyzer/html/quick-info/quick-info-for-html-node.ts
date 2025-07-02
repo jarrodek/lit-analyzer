@@ -11,6 +11,6 @@ export function quickInfoForHtmlNode(htmlNode: HtmlNode, { htmlStore }: LitAnaly
 	return {
 		range: rangeFromHtmlNode(htmlNode),
 		primaryInfo: `<${htmlNode.tagName}>`,
-		secondaryInfo: documentationForHtmlTag(htmlTag, { markdown: true })
+		secondaryInfo: documentationForHtmlTag(htmlTag, { markdown: true }),
 	};
 }

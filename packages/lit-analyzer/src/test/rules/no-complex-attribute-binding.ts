@@ -14,14 +14,17 @@ tsTest("Complex types are assignable using a property binding", t => {
 });
 
 tsTest("Primitives are not assignable to complex type using an attribute binding", t => {
-	const { diagnostics } = getDiagnostics([makeElement({ properties: ["complex = {foo: string}"] }), 'html`<my-element complex="bar"></my-element>`']);
+	const { diagnostics } = getDiagnostics([
+		makeElement({ properties: ["complex = {foo: string}"] }),
+		'html`<my-element complex="bar"></my-element>`',
+	]);
 	hasDiagnostic(t, diagnostics, "no-complex-attribute-binding");
 });
 
 tsTest("Complex types are assignable using property binding", t => {
 	const { diagnostics } = getDiagnostics([
 		makeElement({ properties: ["complex = {foo: string}"] }),
-		'html`<my-element .complex="${{foo: "bar"}}"></my-element>`'
+		'html`<my-element .complex="${{foo: "bar"}}"></my-element>`',
 	]);
 	hasNoDiagnostics(t, diagnostics);
 });

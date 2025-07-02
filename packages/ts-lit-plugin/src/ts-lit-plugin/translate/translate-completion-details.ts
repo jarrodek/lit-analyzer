@@ -1,5 +1,6 @@
-import { LitCompletionDetails } from "lit-analyzer";
+import { LitCompletionDetails } from "@jarrodek/lit-analyzer";
 import { CompletionEntryDetails } from "typescript";
+
 import { LitPluginContext } from "../lit-plugin-context.js";
 
 export function translateCompletionDetails(completionDetails: LitCompletionDetails, context: LitPluginContext): CompletionEntryDetails {
@@ -10,8 +11,8 @@ export function translateCompletionDetails(completionDetails: LitCompletionDetai
 		displayParts: [
 			{
 				text: completionDetails.primaryInfo,
-				kind: "text"
-			}
+				kind: "text",
+			},
 		],
 		documentation:
 			completionDetails.secondaryInfo == null
@@ -19,8 +20,8 @@ export function translateCompletionDetails(completionDetails: LitCompletionDetai
 				: [
 						{
 							kind: "text",
-							text: completionDetails.secondaryInfo
-						}
-				  ]
+							text: completionDetails.secondaryInfo,
+						},
+					],
 	};
 }

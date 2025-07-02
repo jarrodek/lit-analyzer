@@ -61,7 +61,7 @@ export class VirtualAstDocument implements VirtualDocument {
 
 				const literalPartRange: Range = {
 					start: startOffset + startPadding,
-					end: offset - endPadding
+					end: offset - endPadding,
 				};
 
 				if (
@@ -80,7 +80,7 @@ export class VirtualAstDocument implements VirtualDocument {
 
 				const expressionPartRange: Range = {
 					start: startOffset,
-					end: offset
+					end: offset,
 				};
 
 				if (intersects(expressionPartRange, range)) {
@@ -123,7 +123,7 @@ export class VirtualAstDocument implements VirtualDocument {
 
 			this.location = makeSourceFileRange({
 				start: astNodeOrParts.template.getStart() + 1,
-				end: astNodeOrParts.template.getEnd() - 1
+				end: astNodeOrParts.template.getEnd() - 1,
 			});
 
 			this.fileName = this.fileName = astNodeOrParts.getSourceFile().fileName;

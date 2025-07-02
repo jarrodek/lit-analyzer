@@ -29,7 +29,9 @@ export function relativeFileName(fileName: string): string {
 
 export function markText(text: string, range: TextSpan, colorFunction: (str: string) => string = chalk.bgRedBright): string {
 	return (
-		text.substring(0, range.start) + chalk.bold(colorFunction(text.substr(range.start, range.length))) + text.substring(range.start + range.length)
+		text.substring(0, range.start) +
+		chalk.bold(colorFunction(text.substr(range.start, range.length))) +
+		text.substring(range.start + range.length)
 	);
 }
 

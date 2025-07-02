@@ -28,7 +28,7 @@ export class LitHtmlVscodeService {
 
 		// Html returns completions with snippet placeholders. Strip these out.
 		return {
-			newText: tagComplete.replace(/\$\d/g, "")
+			newText: tagComplete.replace(/\$\d/g, ""),
 		};
 	}
 
@@ -36,7 +36,7 @@ export class LitHtmlVscodeService {
 		const parts = document.virtualDocument.getPartsAtDocumentRange(
 			makeDocumentRange({
 				start: 0,
-				end: document.virtualDocument.location.end - document.virtualDocument.location.start
+				end: document.virtualDocument.location.end - document.virtualDocument.location.start,
 			})
 		);
 
@@ -56,7 +56,7 @@ export class LitHtmlVscodeService {
 			indentHandlebars: false,
 			endWithNewline: false,
 			extraLiners: "head, body, /html",
-			wrapAttributes: "auto"
+			wrapAttributes: "auto",
 		});
 
 		const hasLeadingNewline = originalHtml.startsWith("\n");

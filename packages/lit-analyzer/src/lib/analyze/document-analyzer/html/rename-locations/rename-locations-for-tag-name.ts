@@ -21,7 +21,7 @@ export function renameLocationsForTagName(tagName: string, context: LitAnalyzerC
 						tagName,
 						emitRenameLocation(location: LitRenameLocation): void {
 							locations.push(location);
-						}
+						},
 					})
 				);
 			}
@@ -42,7 +42,7 @@ export function renameLocationsForTagName(tagName: string, context: LitAnalyzerC
 				if (stringLiteralNode != null) {
 					locations.push({
 						fileName,
-						range: makeSourceFileRange({ start: stringLiteralNode.getStart() + 1, end: stringLiteralNode.getEnd() - 1 })
+						range: makeSourceFileRange({ start: stringLiteralNode.getStart() + 1, end: stringLiteralNode.getEnd() - 1 }),
 					});
 				}
 			} else if (definitionNode.kind === context.ts.SyntaxKind.JSDocTag) {
@@ -53,7 +53,7 @@ export function renameLocationsForTagName(tagName: string, context: LitAnalyzerC
 
 					locations.push({
 						fileName,
-						range: makeSourceFileRange({ start, end: start + jsDocTagNode.comment.length })
+						range: makeSourceFileRange({ start, end: start + jsDocTagNode.comment.length }),
 					});
 				}
 			} else if (context.ts.isInterfaceDeclaration(definitionNode)) {
@@ -62,7 +62,7 @@ export function renameLocationsForTagName(tagName: string, context: LitAnalyzerC
 				if (stringLiteralNode != null) {
 					locations.push({
 						fileName,
-						range: makeSourceFileRange({ start: stringLiteralNode.getStart() + 1, end: stringLiteralNode.getEnd() - 1 })
+						range: makeSourceFileRange({ start: stringLiteralNode.getStart() + 1, end: stringLiteralNode.getEnd() - 1 }),
 					});
 				}
 			}
@@ -82,14 +82,14 @@ function visitHtmlNode(node: HtmlNode, context: VisitHtmlNodeContext) {
 	if (node.tagName === context.tagName) {
 		context.emitRenameLocation({
 			range: documentRangeToSFRange(context.document, node.location.name),
-			fileName: context.document.virtualDocument.fileName
+			fileName: context.document.virtualDocument.fileName,
 		});
 
 		if (node.location.endTag != null) {
 			const { start, end } = node.location.endTag;
 			context.emitRenameLocation({
 				range: documentRangeToSFRange(context.document, { start: start + 2, end: end - 1 }),
-				fileName: context.document.virtualDocument.fileName
+				fileName: context.document.virtualDocument.fileName,
 			});
 		}
 	}

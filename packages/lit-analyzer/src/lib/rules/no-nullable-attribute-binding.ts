@@ -11,7 +11,7 @@ import { extractBindingTypes } from "./util/type/extract-binding-types.js";
 const rule: RuleModule = {
 	id: "no-nullable-attribute-binding",
 	meta: {
-		priority: "high"
+		priority: "high",
 	},
 	visitHtmlAssignment(assignment, context) {
 		// Only validate "expression" kind bindings.
@@ -34,10 +34,10 @@ const rule: RuleModule = {
 				fixMessage: "Use the 'ifDefined' directive?",
 				fix: () => ({
 					message: `Use the 'ifDefined' directive.`,
-					actions: [{ kind: "changeAssignment", assignment, newValue: `ifDefined(${assignment.expression.getText()})` }]
-				})
+					actions: [{ kind: "changeAssignment", assignment, newValue: `ifDefined(${assignment.expression.getText()})` }],
+				}),
 			});
 		}
-	}
+	},
 };
 export default rule;

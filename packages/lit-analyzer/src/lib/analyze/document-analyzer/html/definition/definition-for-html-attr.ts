@@ -18,9 +18,9 @@ export function definitionForHtmlAttr(htmlAttr: HtmlNodeAttr, { htmlStore, ts }:
 				{
 					kind: "node",
 					node: getNodeIdentifier(node, ts) || node,
-					name: target.name
-				}
-			]
+					name: target.name,
+				},
+			],
 		};
 	} else if (isHtmlEvent(target) && target.declaration != null) {
 		const node = target.declaration.node;
@@ -31,9 +31,9 @@ export function definitionForHtmlAttr(htmlAttr: HtmlNodeAttr, { htmlStore, ts }:
 				{
 					kind: "node",
 					node: getNodeIdentifier(node, ts) || node,
-					name: target.name
-				}
-			]
+					name: target.name,
+				},
+			],
 		};
 	}
 	return;

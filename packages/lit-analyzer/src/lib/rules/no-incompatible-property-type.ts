@@ -1,6 +1,6 @@
 import { isAssignableToSimpleTypeKind, isSimpleType, SimpleType, SimpleTypeKind, toSimpleType, typeToString } from "ts-simple-type";
 import { Node } from "typescript";
-import { LitElementPropertyConfig } from "web-component-analyzer";
+import { LitElementPropertyConfig } from "@jarrodek/web-component-analyzer";
 import { RuleModule } from "../analyze/types/rule/rule-module.js";
 import { RuleModuleContext } from "../analyze/types/rule/rule-module-context.js";
 import { joinArray } from "../analyze/util/array-util.js";
@@ -10,7 +10,7 @@ import { rangeFromNode } from "../analyze/util/range-util.js";
 const rule: RuleModule = {
 	id: "no-incompatible-property-type",
 	meta: {
-		priority: "low"
+		priority: "low",
 	},
 	visitComponentMember(member, context) {
 		if (member.kind !== "property" || member.modifiers?.has("static") || member.meta == null) return;
@@ -25,11 +25,11 @@ const rule: RuleModule = {
 			member.meta,
 			{
 				propName: member.propName,
-				simplePropType: isSimpleType(type) ? type : toSimpleType(type, context.program.getTypeChecker())
+				simplePropType: isSimpleType(type) ? type : toSimpleType(type, context.program.getTypeChecker()),
 			},
 			context
 		);
-	}
+	},
 };
 
 /**
@@ -123,7 +123,8 @@ function validateLitPropertyConfig(
 		context.report({
 			location: rangeFromNode(node),
 			message: `'${litConfig.type}' is not a valid type for the default converter.`,
-			fixMessage: litConfig.attribute !== false ? "Have you considered '{attribute: false}' instead?" : "Have you considered removing 'type'?"
+			fixMessage:
+				litConfig.attribute !== false ? "Have you considered '{attribute: false}' instead?" : "Have you considered removing 'type'?",
 		});
 	}
 
@@ -149,7 +150,7 @@ function validateLitPropertyConfig(
 
 				context.report({
 					location: rangeFromNode(node),
-					message: `@property type should be ${potentialKindText} instead of '${toLitPropertyTypeString(litConfig.type.kind)}'`
+					message: `@property type should be ${potentialKindText} instead of '${toLitPropertyTypeString(litConfig.type.kind)}'`,
 				});
 			}
 
@@ -158,7 +159,7 @@ function validateLitPropertyConfig(
 			else if (litConfig.type.kind !== "OBJECT") {
 				context.report({
 					location: rangeFromNode(node),
-					message: `@property type '${typeToString(litConfig.type)}' is not assignable to the actual type '${typeToString(simplePropType)}'`
+					message: `@property type '${typeToString(litConfig.type)}' is not assignable to the actual type '${typeToString(simplePropType)}'`,
 				});
 			}
 		}
@@ -182,7 +183,7 @@ function validateLitPropertyConfig(
 			const acceptedTypeText = joinArray(
 				[
 					...acceptedTypeKinds().map(kind => `'{type: ${toLitPropertyTypeString(kind)}}'`),
-					...(isAssignableTo("ARRAY") || isAssignableTo("OBJECT") ? ["'{attribute: false}'"] : [])
+					...(isAssignableTo("ARRAY") || isAssignableTo("OBJECT") ? ["'{attribute: false}'"] : []),
 				],
 				", ",
 				"or"
@@ -190,13 +191,13 @@ function validateLitPropertyConfig(
 
 			context.report({
 				location: rangeFromNode(node),
-				message: `Missing ${acceptedTypeText} on @property decorator for '${propName}'`
+				message: `Missing ${acceptedTypeText} on @property decorator for '${propName}'`,
 			});
 		} else {
 			context.report({
 				location: rangeFromNode(node),
 				message: `The built in converter doesn't handle the property type '${typeToString(simplePropType)}'.`,
-				fixMessage: `Please add '{attribute: false}' on @property decorator for '${propName}'`
+				fixMessage: `Please add '{attribute: false}' on @property decorator for '${propName}'`,
 			});
 		}
 	}

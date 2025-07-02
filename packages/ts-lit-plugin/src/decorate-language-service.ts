@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { LanguageService } from "typescript";
+
 import { logger } from "./logger.js";
 import { TsLitPlugin } from "./ts-lit-plugin/ts-lit-plugin.js";
 
@@ -14,19 +15,19 @@ export function decorateLanguageService(languageService: LanguageService, plugin
 		getJsxClosingTagAtPosition: plugin.getJsxClosingTagAtPosition.bind(plugin),
 		getRenameInfo: plugin.getRenameInfo.bind(plugin),
 		findRenameLocations: plugin.findRenameLocations.bind(plugin),
-		getSignatureHelpItems: plugin.getSignatureHelpItems.bind(plugin)
+		getSignatureHelpItems: plugin.getSignatureHelpItems.bind(plugin),
 		//getOutliningSpans: plugin.getOutliningSpans.bind(plugin)
 		//getFormattingEditsForRange: plugin.getFormattingEditsForRange.bind(plugin)
 	};
 
 	const decoratedLanguageService: LanguageService = {
 		...languageService,
-		...languageServiceExtension
+		...languageServiceExtension,
 	};
 
 	// Make sure to call the old service if config.disable === true
 	for (const methodName of Object.getOwnPropertyNames(languageServiceExtension) as (keyof LanguageService)[]) {
-		const newMethod: Function | undefined = decoratedLanguageService[methodName]!;
+		const newMethod: Function | undefined = decoratedLanguageService[methodName];
 		const oldMethod: Function | undefined = languageService[methodName];
 
 		decoratedLanguageService[methodName] = function (): any {

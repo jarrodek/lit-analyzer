@@ -1,5 +1,6 @@
-import { LitAnalyzerContext, LitDiagnostic } from "lit-analyzer";
+import { LitAnalyzerContext, LitDiagnostic } from "@jarrodek/lit-analyzer";
 import { DiagnosticMessageChain, DiagnosticWithLocation, SourceFile } from "typescript";
+
 import { translateRange } from "./translate-range.js";
 
 export function translateDiagnostics(reports: LitDiagnostic[], file: SourceFile, context: LitAnalyzerContext): DiagnosticWithLocation[] {
@@ -29,10 +30,10 @@ function translateDiagnostic(diagnostic: LitDiagnostic, file: SourceFile, contex
 						{
 							messageText: diagnostic.suggestion,
 							code: 0,
-							category: context.ts.DiagnosticCategory.Suggestion
-						}
-					]
-			  }
+							category: context.ts.DiagnosticCategory.Suggestion,
+						},
+					],
+				}
 			: getMessageTextFromDiagnostic(diagnostic);
 
 	if (Number(context.ts.versionMajorMinor) < 3.6 && typeof messageText !== "string") {
@@ -50,6 +51,6 @@ function translateDiagnostic(diagnostic: LitDiagnostic, file: SourceFile, contex
 		messageText,
 		category,
 		code,
-		source: diagnostic.source == null ? undefined : `lit-plugin(${diagnostic.source})`
+		source: diagnostic.source == null ? undefined : `lit-plugin(${diagnostic.source})`,
 	};
 }

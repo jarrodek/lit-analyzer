@@ -1,9 +1,16 @@
 import { isAssignableToSimpleTypeKind, SimpleType, typeToString } from "ts-simple-type";
-import { ComponentCssPart, ComponentCssProperty, ComponentDeclaration, ComponentEvent, ComponentMember, ComponentSlot } from "web-component-analyzer";
+import {
+	ComponentCssPart,
+	ComponentCssProperty,
+	ComponentDeclaration,
+	ComponentEvent,
+	ComponentMember,
+	ComponentSlot,
+} from "@jarrodek/web-component-analyzer";
 import {
 	LIT_HTML_BOOLEAN_ATTRIBUTE_MODIFIER,
 	LIT_HTML_EVENT_LISTENER_ATTRIBUTE_MODIFIER,
-	LIT_HTML_PROP_ATTRIBUTE_MODIFIER
+	LIT_HTML_PROP_ATTRIBUTE_MODIFIER,
 } from "../../constants.js";
 import { iterableDefined } from "../../util/iterable-util.js";
 
@@ -200,7 +207,10 @@ export function documentationForHtmlTag(htmlTag: HtmlTag, options: DescriptionOp
 	return desc || undefined;
 }
 
-export function documentationForTarget(target: HtmlAttrTarget, options: DescriptionOptions & { modifier?: string } = {}): string | undefined {
+export function documentationForTarget(
+	target: HtmlAttrTarget,
+	options: DescriptionOptions & { modifier?: string } = {}
+): string | undefined {
 	const typeText = targetKindAndTypeText(target, options);
 	const documentation = descriptionForTarget(target, options);
 
@@ -289,7 +299,7 @@ export function mergeHtmlTags(tags: HtmlTag[]): HtmlTag[] {
 				attributes: mergeHtmlAttrs([...tag.attributes, ...existingTag.attributes]),
 				properties: mergeHtmlProps([...tag.properties, ...existingTag.properties]),
 				events: mergeHtmlEvents([...tag.events, ...existingTag.events]),
-				slots: mergeHtmlSlots([...tag.slots, ...existingTag.slots])
+				slots: mergeHtmlSlots([...tag.slots, ...existingTag.slots]),
 			});
 		} else {
 			mergedTags.set(tag.tagName, tag);

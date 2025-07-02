@@ -19,7 +19,7 @@ tsTest("Don't report known events", t => {
 
 tsTest("Don't report unknown events on unknown element", t => {
 	const { diagnostics } = getDiagnostics("html`<unknown-element @foo='${console.log}'></unknown-element>`", {
-		rules: { "no-unknown-event": true, "no-unknown-tag-name": false }
+		rules: { "no-unknown-event": true, "no-unknown-tag-name": false },
 	});
 	hasNoDiagnostics(t, diagnostics);
 });

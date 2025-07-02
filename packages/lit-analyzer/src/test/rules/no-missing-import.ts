@@ -1,8 +1,8 @@
 import { getDiagnostics, getCodeFixesAtRange } from "../helpers/analyze.js";
 import { hasDiagnostic, hasNoDiagnostics } from "../helpers/assert.js";
+import { TestFile } from "../helpers/compile-files.js";
 import { makeElement } from "../helpers/generate-test-file.js";
 import { tsTest } from "../helpers/ts-test.js";
-import { TestFile } from "../helpers/compile-files.js";
 
 tsTest("Report missing imports of custom elements", t => {
 	const { diagnostics } = getDiagnostics([makeElement({}), "html`<my-element></my-element>`"], { rules: { "no-missing-import": true } });
@@ -11,7 +11,7 @@ tsTest("Report missing imports of custom elements", t => {
 
 tsTest("Don't report missing imports when the custom element has been imported 1", t => {
 	const { diagnostics } = getDiagnostics([makeElement({}), "import './my-element'; html`<my-element></my-element>`"], {
-		rules: { "no-missing-import": true }
+		rules: { "no-missing-import": true },
 	});
 	hasNoDiagnostics(t, diagnostics);
 });
@@ -22,9 +22,9 @@ tsTest("Don't report missing imports when the custom element has been imported 2
 			makeElement({}),
 			{
 				fileName: "file2.ts",
-				text: "import './my-element'"
+				text: "import './my-element'",
 			},
-			"import './file2'; html`<my-element></my-element>`"
+			"import './file2'; html`<my-element></my-element>`",
 		],
 		{ rules: { "no-missing-import": true } }
 	);
@@ -72,9 +72,13 @@ tsTest("Suggest adding correct import statement for element in nested folder", t
 		class MyElement extends HTMLElement {
 		};
 		customElements.define("my-element", MyElement);
-		`
+		`,
 	};
-	const { codeFixes } = getCodeFixesAtRange([nestedElement, fileContentWithMissingImport], { start, end }, { rules: { "no-missing-import": true } });
+	const { codeFixes } = getCodeFixesAtRange(
+		[nestedElement, fileContentWithMissingImport],
+		{ start, end },
+		{ rules: { "no-missing-import": true } }
+	);
 
 	const correctCodeFixCreated = codeFixes.some(litCodeFix =>
 		litCodeFix.actions.some(litCodeFixAction => litCodeFixAction.newText === '\nimport "./1/2/3/4/5/my-element";')

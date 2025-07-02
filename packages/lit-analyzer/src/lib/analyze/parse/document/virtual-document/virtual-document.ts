@@ -20,7 +20,7 @@ export function textPartsToRanges(parts: (Expression | string)[]): Range[] {
 				offset += p.length;
 				return {
 					start: startOffset,
-					end: offset
+					end: offset,
 				} as Range;
 			} else {
 				offset += p.getText().length + 3;

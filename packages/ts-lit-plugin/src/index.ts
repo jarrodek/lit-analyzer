@@ -1,9 +1,9 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { LitAnalyzerConfig, LitAnalyzerLoggerLevel, makeConfig, VERSION } from "lit-analyzer";
+import { LitAnalyzerConfig, LitAnalyzerLoggerLevel, makeConfig, VERSION } from "@jarrodek/lit-analyzer";
+import { VERSION as WCA_VERSION } from "@jarrodek/web-component-analyzer";
 import * as ts from "typescript";
 import { CompilerOptions } from "typescript";
 import * as tsServer from "typescript/lib/tsserverlibrary.js";
-import { VERSION as WCA_VERSION } from "web-component-analyzer";
+
 import { decorateLanguageService } from "./decorate-language-service.js";
 import { logger } from "./logger.js";
 import { LitPluginContext } from "./ts-lit-plugin/lit-plugin-context.js";
@@ -56,7 +56,7 @@ export function init({ typescript }: { typescript: typeof ts }): tsServer.server
 					},
 					getProject: () => {
 						return info.project;
-					}
+					},
 				});
 
 				context.updateConfig(makeConfig(info.config));
@@ -99,24 +99,24 @@ export function init({ typescript }: { typescript: typeof ts }): tsServer.server
 				// Also merge rules deep
 				rules: {
 					...(tsLitPluginOptions?.rules || {}),
-					...(externalConfig.rules || {})
-				}
+					...(externalConfig.rules || {}),
+				},
 			};
 
 			context.updateConfig(makeConfig(configSeed));
 			if (printDebugOnce != null) printDebugOnce();
-		}
+		},
 	};
 }
 
 /**
- * Resolves the nearest tsconfig.json and returns the configuration seed within the plugins section for "ts-lit-plugin"
+ * Resolves the nearest tsconfig.json and returns the configuration seed within the plugins section for "@jarrodek/ts-lit-plugin"
  */
 function readLitAnalyzerConfigFromCompilerOptions(compilerOptions: CompilerOptions): Partial<LitAnalyzerConfig> | undefined {
 	// Finds the plugin section
 	if ("plugins" in compilerOptions) {
 		const plugins = compilerOptions.plugins as ({ name: string } & Partial<LitAnalyzerConfig>)[];
-		const tsLitPluginOptions = plugins.find(plugin => plugin.name === "ts-lit-plugin");
+		const tsLitPluginOptions = plugins.find(plugin => plugin.name === "@jarrodek/ts-lit-plugin");
 		if (tsLitPluginOptions != null) {
 			return tsLitPluginOptions;
 		}

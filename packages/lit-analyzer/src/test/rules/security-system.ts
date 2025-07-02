@@ -48,13 +48,17 @@ tsTest(testName, t => {
 
 testName = "May pass a TrustedResourceUrl to script src with ClosureSafeTypes config";
 tsTest(testName, t => {
-	const { diagnostics } = getDiagnostics(preface + "html`<script src=${trustedResourceUrl}></script>`", { securitySystem: "ClosureSafeTypes" });
+	const { diagnostics } = getDiagnostics(preface + "html`<script src=${trustedResourceUrl}></script>`", {
+		securitySystem: "ClosureSafeTypes",
+	});
 	hasNoDiagnostics(t, diagnostics);
 });
 
 testName = "May pass a TrustedResourceUrl to script .src with ClosureSafeTypes config";
 tsTest(testName, t => {
-	const { diagnostics } = getDiagnostics(preface + "html`<script .src=${trustedResourceUrl}></script>`", { securitySystem: "ClosureSafeTypes" });
+	const { diagnostics } = getDiagnostics(preface + "html`<script .src=${trustedResourceUrl}></script>`", {
+		securitySystem: "ClosureSafeTypes",
+	});
 	hasNoDiagnostics(t, diagnostics);
 });
 
@@ -89,21 +93,21 @@ tsTest(testName, t => {
 	hasNoDiagnostics(
 		t,
 		getDiagnostics(preface + "html`<img src=${trustedResourceUrl}>`", {
-			securitySystem: "ClosureSafeTypes"
+			securitySystem: "ClosureSafeTypes",
 		}).diagnostics
 	);
 
 	hasNoDiagnostics(
 		t,
 		getDiagnostics(preface + "html`<img src=${'/img.webp'}>`", {
-			securitySystem: "ClosureSafeTypes"
+			securitySystem: "ClosureSafeTypes",
 		}).diagnostics
 	);
 
 	hasNoDiagnostics(
 		t,
 		getDiagnostics(preface + "html`<img src=${anyValue}>`", {
-			securitySystem: "ClosureSafeTypes"
+			securitySystem: "ClosureSafeTypes",
 		}).diagnostics
 	);
 });
@@ -115,21 +119,21 @@ tsTest(testName, t => {
 	hasNoDiagnostics(
 		t,
 		getDiagnostics(preface + "html`<img .src=${trustedResourceUrl}>`", {
-			securitySystem: "ClosureSafeTypes"
+			securitySystem: "ClosureSafeTypes",
 		}).diagnostics
 	);
 
 	hasNoDiagnostics(
 		t,
 		getDiagnostics(preface + "html`<img .src=${'/img.webp'}>`", {
-			securitySystem: "ClosureSafeTypes"
+			securitySystem: "ClosureSafeTypes",
 		}).diagnostics
 	);
 
 	hasNoDiagnostics(
 		t,
 		getDiagnostics(preface + "html`<img .src=${anyValue}>`", {
-			securitySystem: "ClosureSafeTypes"
+			securitySystem: "ClosureSafeTypes",
 		}).diagnostics
 	);
 });
@@ -186,11 +190,11 @@ tsTest(testName, t => {
 					class module$some$clutz$name_TrustedResourceUrl {}
 
 					html\`<script src='\${"abc" as module$some$clutz$name_TrustedResourceUrl}'></script>\`;
-				`
-			}
+				`,
+			},
 		],
 		{
-			securitySystem: "ClosureSafeTypes"
+			securitySystem: "ClosureSafeTypes",
 		}
 	);
 	hasNoDiagnostics(t, diagnostics);

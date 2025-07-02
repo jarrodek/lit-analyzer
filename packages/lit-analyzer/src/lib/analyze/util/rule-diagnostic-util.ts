@@ -15,6 +15,6 @@ export function convertRuleDiagnosticToLitDiagnostic(reported: ReportedRuleDiagn
 		source,
 		file: context.currentFile,
 		severity: litDiagnosticRuleSeverity(context.config, source),
-		code: ruleIdCode(source)
+		code: ruleIdCode(source),
 	};
 }

@@ -1,9 +1,15 @@
-module.exports = {
+/** @type {import("prettier").Config} */
+export default {
 	useTabs: true,
 	tabWidth: 2,
+	printWidth: 140,
 	singleQuote: false,
-	printWidth: 150,
+	quoteProps: "as-needed",
+	trailingComma: "es5",
 	bracketSpacing: true,
+	bracketSameLine: false,
 	arrowParens: "avoid",
-	trailingComma: "none"
+	endOfLine: "lf",
+	semi: true,
+	singleAttributePerLine: false,
 };

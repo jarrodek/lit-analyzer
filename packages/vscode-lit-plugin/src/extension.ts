@@ -1,9 +1,12 @@
-import { ALL_RULE_IDS, LitAnalyzerConfig } from "lit-analyzer";
 import { join } from "path";
-import { ColorProvider } from "./color-provider.js";
+
+import { ALL_RULE_IDS, LitAnalyzerConfig } from "@jarrodek/lit-analyzer";
 import * as vscode from "vscode";
 
-const tsLitPluginId = "ts-lit-plugin";
+import { ColorProvider } from "./color-provider.js";
+
+
+const tsLitPluginId = "@jarrodek/ts-lit-plugin";
 const typeScriptExtensionId = "vscode.typescript-language-features";
 const configurationSection = "lit-plugin";
 const configurationExperimentalHtmlSection = "html.experimental";
@@ -20,7 +23,7 @@ export async function activate(context: vscode.ExtensionContext): Promise<void> 
 	}
 
 	await extension.activate();
-	if (!extension.exports || !extension.exports.getAPI) {
+	if (!extension.exports?.getAPI) {
 		return;
 	}
 
@@ -47,7 +50,7 @@ export async function activate(context: vscode.ExtensionContext): Promise<void> 
 	const registration = vscode.languages.registerColorProvider(
 		[
 			{ scheme: "file", language: "typescript" },
-			{ scheme: "file", language: "javascript" }
+			{ scheme: "file", language: "javascript" },
 		],
 		colorProvider
 	);
@@ -87,7 +90,7 @@ function getConfig(): Partial<LitAnalyzerConfig> {
 		"skipUnknownProperties",
 		"skipUnknownSlots",
 		"skipMissingImports",
-		"skipTypeChecking"
+		"skipTypeChecking",
 	].forEach(deprecatedRuleName => {
 		withConfigValue(config, deprecatedRuleName, value => {
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -194,8 +197,8 @@ function toWorkspacePath(path: string): string {
 }
 
 function getCwd(): string {
-	const folder = vscode.workspace.workspaceFolders && vscode.workspace.workspaceFolders[0];
-	return (folder && folder.uri.path) || process.cwd();
+	const folder = vscode.workspace.workspaceFolders?.[0];
+	return (folder?.uri.path) || process.cwd();
 }
 
 function handleAnalyzeCommand() {
@@ -203,15 +206,15 @@ function handleAnalyzeCommand() {
 		.showInputBox({
 			value: defaultAnalyzeGlob,
 			prompt: "Please enter a directory/path/glob to analyze",
-			placeHolder: "directory/path/glob"
+			placeHolder: "directory/path/glob",
 		})
 		.then((glob: string | undefined) => {
 			if (glob == null) return;
 
 			defaultAnalyzeGlob = glob;
 
-			const cliCommand = `npx lit-analyzer "${glob}"`;
-			const terminal = vscode.window.createTerminal("lit-analyzer");
+			const cliCommand = `npx @jarrodek/lit-analyzer "${glob}"`;
+			const terminal = vscode.window.createTerminal("@jarrodek/lit-analyzer");
 			terminal.sendText(cliCommand, true);
 			terminal.show(true);
 		});

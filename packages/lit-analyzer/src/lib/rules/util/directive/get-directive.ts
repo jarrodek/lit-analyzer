@@ -58,7 +58,7 @@ export function getDirective(assignment: HtmlNodeAttrAssignment, context: RuleMo
 				return {
 					kind: "ifDefined",
 					actualType,
-					args
+					args,
 				};
 			}
 
@@ -76,7 +76,7 @@ export function getDirective(assignment: HtmlNodeAttrAssignment, context: RuleMo
 				return {
 					kind: "live",
 					actualType,
-					args
+					args,
 				};
 			}
 
@@ -101,7 +101,7 @@ export function getDirective(assignment: HtmlNodeAttrAssignment, context: RuleMo
 				return {
 					kind: "guard",
 					actualType,
-					args
+					args,
 				};
 			}
 
@@ -110,7 +110,7 @@ export function getDirective(assignment: HtmlNodeAttrAssignment, context: RuleMo
 				return {
 					kind: functionName,
 					actualType: () => ({ kind: "STRING" }),
-					args
+					args,
 				};
 
 			case "unsafeHTML":
@@ -122,7 +122,7 @@ export function getDirective(assignment: HtmlNodeAttrAssignment, context: RuleMo
 			case "asyncAppend":
 				return {
 					kind: functionName,
-					args
+					args,
 				};
 
 			default:
@@ -142,10 +142,10 @@ export function getDirective(assignment: HtmlNodeAttrAssignment, context: RuleMo
 						// Now we have an unknown (user defined) directive.
 						return {
 							kind: {
-								name: functionName
+								name: functionName,
 							},
 							args,
-							actualType
+							actualType,
 						};
 					}
 				}

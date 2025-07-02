@@ -11,7 +11,7 @@ import { extractBindingTypes } from "./util/type/extract-binding-types.js";
 const rule: RuleModule = {
 	id: "no-noncallable-event-binding",
 	meta: {
-		priority: "high"
+		priority: "high",
 	},
 	visitHtmlAssignment(assignment, context) {
 		// Only validate event listener bindings.
@@ -24,10 +24,10 @@ const rule: RuleModule = {
 		if (!isTypeBindableToEventListener(typeB)) {
 			context.report({
 				location: rangeFromHtmlNodeAttr(htmlAttr),
-				message: `You are setting up an event listener with a non-callable type '${typeToString(typeB)}'`
+				message: `You are setting up an event listener with a non-callable type '${typeToString(typeB)}'`,
 			});
 		}
-	}
+	},
 };
 
 export default rule;

@@ -15,14 +15,14 @@ tsTest("Report unknown properties on known element", t => {
 
 tsTest("Don't report known properties", t => {
 	const { diagnostics } = getDiagnostics([makeElement({ properties: ["foo: string"] }), "html`<my-element .foo='${''}'></my-element>`"], {
-		rules: { "no-unknown-property": true }
+		rules: { "no-unknown-property": true },
 	});
 	hasNoDiagnostics(t, diagnostics);
 });
 
 tsTest("Don't report unknown properties on unknown element", t => {
 	const { diagnostics } = getDiagnostics("html`<unknown-element .foo='${''}'></unknown-element>`", {
-		rules: { "no-unknown-property": true, "no-unknown-tag-name": false }
+		rules: { "no-unknown-property": true, "no-unknown-tag-name": false },
 	});
 	hasNoDiagnostics(t, diagnostics);
 });

@@ -1,3 +1,4 @@
+import type { Node } from "typescript";
 import { RuleModule } from "../analyze/types/rule/rule-module.js";
 import { findParent, getNodeIdentifier } from "../analyze/util/ast-util.js";
 import { iterableFind } from "../analyze/util/iterable-util.js";
@@ -9,7 +10,7 @@ import { rangeFromNode } from "../analyze/util/range-util.js";
 const rule: RuleModule = {
 	id: "no-missing-element-type-definition",
 	meta: {
-		priority: "low"
+		priority: "low",
 	},
 	visitComponentDefinition(definition, context) {
 		// Don't run this rule on non-typescript files and declaration files
@@ -19,11 +20,14 @@ const rule: RuleModule = {
 
 		// Try to find the tag name node on "interface HTMLElementTagNameMap"
 		const htmlElementTagNameMapTagNameNode = iterableFind(
-			definition.tagNameNodes,
+			definition.tagNameNodes as unknown as Set<Node>,
 			node =>
 				findParent(
 					node,
-					node => context.ts.isInterfaceDeclaration(node) && context.ts.isModuleBlock(node.parent) && node.name.getText() === "HTMLElementTagNameMap"
+					node =>
+						context.ts.isInterfaceDeclaration(node) &&
+						context.ts.isModuleBlock(node.parent) &&
+						node.name.getText() === "HTMLElementTagNameMap"
 				) != null
 		);
 
@@ -33,7 +37,8 @@ const rule: RuleModule = {
 		}
 
 		// Find the identifier node
-		const declarationIdentifier = definition.declaration != null ? getNodeIdentifier(definition.declaration.node, context.ts) : undefined;
+		const declarationIdentifier =
+			definition.declaration != null ? getNodeIdentifier(definition.declaration.node as unknown as Node, context.ts) : undefined;
 		if (declarationIdentifier == null) {
 			return;
 		}
@@ -53,14 +58,14 @@ const rule: RuleModule = {
 								kind: "extendGlobalDeclaration",
 								file: context.file,
 								name: "HTMLElementTagNameMap",
-								newMembers: [`"${definition.tagName}": ${declarationIdentifier.text}`]
-							}
-						]
+								newMembers: [`"${definition.tagName}": ${declarationIdentifier.text}`],
+							},
+						],
 					};
-				}
+				},
 			});
 		}
-	}
+	},
 };
 
 export default rule;

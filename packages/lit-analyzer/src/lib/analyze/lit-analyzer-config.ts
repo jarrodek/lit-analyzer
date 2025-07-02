@@ -57,7 +57,7 @@ const DEFAULT_RULES_SEVERITY: Record<LitAnalyzerRuleId, [LitAnalyzerRuleSeverity
 	"no-invalid-css": ["warn", "error"],
 	"no-property-visibility-mismatch": ["off", "warning"],
 	"no-legacy-attribute": ["off", "off"],
-	"no-missing-element-type-definition": ["off", "off"]
+	"no-missing-element-type-definition": ["off", "off"],
 };
 
 // All rule names order alphabetically
@@ -68,10 +68,13 @@ export const ALL_RULE_IDS = Object.keys(DEFAULT_RULES_SEVERITY).sort() as LitAna
 //   should not be depended on by the user.
 // The user should always use the "rule id" string.
 // Consider if this map should be manually maintained in the future.
-export const RULE_ID_CODE_MAP = ALL_RULE_IDS.reduce((acc, ruleId, i) => {
-	acc[ruleId] = i + 2300;
-	return acc;
-}, {} as Record<LitAnalyzerRuleId, number>);
+export const RULE_ID_CODE_MAP = ALL_RULE_IDS.reduce(
+	(acc, ruleId, i) => {
+		acc[ruleId] = i + 2300;
+		return acc;
+	},
+	{} as Record<LitAnalyzerRuleId, number>
+);
 
 export function ruleIdCode(ruleId: LitAnalyzerRuleId): number {
 	return RULE_ID_CODE_MAP[ruleId];
@@ -169,7 +172,7 @@ export function makeConfig(userOptions: Partial<LitAnalyzerConfig> = {}): LitAna
 		logging: userOptions.logging || "off",
 		cwd: userOptions.cwd || process.cwd(),
 		format: {
-			disable: userOptions.format != null ? userOptions.format.disable : undefined || false // always disable formating for now
+			disable: userOptions.format != null ? userOptions.format.disable : false, // always disable formatting for now
 		},
 		dontSuggestConfigChanges: userOptions.dontSuggestConfigChanges || false,
 		dontShowSuggestions: userOptions.dontShowSuggestions || getDeprecatedOption(userOptions, "skipSuggestions") || false,
@@ -184,7 +187,7 @@ export function makeConfig(userOptions: Partial<LitAnalyzerConfig> = {}): LitAna
 		globalTags: userOptions.globalTags || getDeprecatedOption(userOptions, "externalHtmlTagNames") || [],
 		globalAttributes: userOptions.globalAttributes || [],
 		globalEvents: userOptions.globalEvents || [],
-		customHtmlData: userOptions.customHtmlData || []
+		customHtmlData: userOptions.customHtmlData || [],
 	};
 }
 
@@ -211,11 +214,14 @@ function getUserRules(userOptions: Partial<LitAnalyzerConfig>): LitAnalyzerRules
 function getDefaultRules(userOptions: Partial<LitAnalyzerConfig>): LitAnalyzerRules {
 	const isStrict = userOptions.strict || false;
 
-	return ALL_RULE_IDS.reduce((acc, ruleId) => {
-		const severities = DEFAULT_RULES_SEVERITY[ruleId];
-		acc[ruleId] = isStrict ? severities[1] : severities[0];
-		return acc;
-	}, {} as unknown as LitAnalyzerRules);
+	return ALL_RULE_IDS.reduce(
+		(acc, ruleId) => {
+			const severities = DEFAULT_RULES_SEVERITY[ruleId];
+			acc[ruleId] = isStrict ? severities[1] : severities[0];
+			return acc;
+		},
+		{} as unknown as LitAnalyzerRules
+	);
 }
 
 function getDeprecatedMappedRules(userOptions: Partial<LitAnalyzerConfig>): LitAnalyzerRules {
@@ -257,7 +263,7 @@ function getDeprecatedMappedRules(userOptions: Partial<LitAnalyzerConfig>): LitA
 			"no-complex-attribute-binding": "off",
 			"no-nullable-attribute-binding": "off",
 			"no-incompatible-type-binding": "off",
-			"no-incompatible-property-type": "off"
+			"no-incompatible-property-type": "off",
 		} as LitAnalyzerRules);
 	}
 

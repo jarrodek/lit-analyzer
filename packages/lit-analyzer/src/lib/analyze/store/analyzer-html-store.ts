@@ -7,14 +7,14 @@ import {
 	HtmlMember,
 	HtmlProp,
 	HtmlSlot,
-	HtmlTag
+	HtmlTag,
 } from "../parse/parse-html-data/html-tag.js";
 import {
 	HtmlNodeAttr,
 	IHtmlNodeAttr,
 	IHtmlNodeAttrEventListener,
 	IHtmlNodeAttrProp,
-	IHtmlNodeBooleanAttribute
+	IHtmlNodeBooleanAttribute,
 } from "../types/html-node/html-node-attr-types.js";
 import { HtmlNode } from "../types/html-node/html-node-types.js";
 

@@ -10,7 +10,7 @@ import { rangeFromHtmlNode, rangeFromHtmlNodeAttr } from "../analyze/util/range-
 const rule: RuleModule = {
 	id: "no-unknown-slot",
 	meta: {
-		priority: "high"
+		priority: "high",
 	},
 	visitHtmlNode(htmlNode, context) {
 		const { htmlStore } = context;
@@ -47,10 +47,10 @@ const rule: RuleModule = {
 									kind: "addAttribute",
 									htmlNode,
 									name: "slot",
-									value: `"${slotName}"`
-								}
-							]
-						}))
+									value: `"${slotName}"`,
+								},
+							],
+						})),
 				});
 			}
 		}
@@ -93,10 +93,10 @@ const rule: RuleModule = {
 
 			context.report({
 				location: rangeFromHtmlNodeAttr(htmlAttr),
-				message
+				message,
 			});
 		}
-	}
+	},
 };
 
 export default rule;

@@ -1,8 +1,8 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { appendFileSync, writeFileSync } from "fs";
-import { DefaultLitAnalyzerLogger, LitAnalyzerLoggerLevel } from "lit-analyzer";
 import { join } from "path";
 import { inspect } from "util";
+
+import { DefaultLitAnalyzerLogger, LitAnalyzerLoggerLevel } from "@jarrodek/lit-analyzer";
 import * as tsServer from "typescript/lib/tsserverlibrary.js";
 
 const LOG_FILE_NAME = "lit-plugin.log";
@@ -84,14 +84,17 @@ export class Logger extends DefaultLitAnalyzerLogger {
 				colors: true,
 				depth: 6,
 				breakLength: 50,
-				maxArrayLength: 10
+				maxArrayLength: 10,
 			});
 			try {
 				appendFileSync(this.logPath, `${prefix}${message}\n`);
 			} catch {
 				// ignore
 			}
-			this.tsLogger?.msg(`[ts-lit-plugin] ${message}`, level === LitAnalyzerLoggerLevel.ERROR ? tsServer.server.Msg.Err : tsServer.server.Msg.Info);
+			this.tsLogger?.msg(
+				`[ts-lit-plugin] ${message}`,
+				level === LitAnalyzerLoggerLevel.ERROR ? tsServer.server.Msg.Err : tsServer.server.Msg.Info
+			);
 		}
 	}
 

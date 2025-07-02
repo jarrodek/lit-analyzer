@@ -25,14 +25,14 @@ export function getPositionContextInDocument(document: TextDocument, offset: Doc
 		direction: "left",
 		startOffset: offset,
 		stopChar,
-		text
+		text,
 	});
 
 	const rightWord = grabWordInDirection({
 		direction: "right",
 		startOffset: offset,
 		stopChar,
-		text
+		text,
 	});
 
 	const word = leftWord + rightWord;
@@ -47,7 +47,7 @@ export function getPositionContextInDocument(document: TextDocument, offset: Doc
 		leftWord,
 		rightWord,
 		beforeWord,
-		afterWord
+		afterWord,
 	};
 }
 
@@ -63,7 +63,7 @@ export function grabWordInDirection({
 	startOffset,
 	stopChar,
 	direction,
-	text
+	text,
 }: {
 	stopChar: RegExp;
 	direction: "left" | "right";

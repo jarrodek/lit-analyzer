@@ -162,18 +162,22 @@ tsTest("Attribute binding: Boolean attribute is assignable to boolean", t => {
 
 tsTest("Attribute binding: Boolean type expression is assignable to 'true'|'false'", t => {
 	const { diagnostics } = getDiagnostics('let b = true; html`<input aria-expanded="${b}" />`', {
-		rules: { "no-boolean-in-attribute-binding": false }
+		rules: { "no-boolean-in-attribute-binding": false },
 	});
 	hasNoDiagnostics(t, diagnostics);
 });
 
 tsTest("Attribute binding: Boolean type expression (true) is assignable to 'true'|'false'", t => {
-	const { diagnostics } = getDiagnostics('html`<input aria-expanded="${true}" />`', { rules: { "no-boolean-in-attribute-binding": false } });
+	const { diagnostics } = getDiagnostics('html`<input aria-expanded="${true}" />`', {
+		rules: { "no-boolean-in-attribute-binding": false },
+	});
 	hasNoDiagnostics(t, diagnostics);
 });
 
 tsTest("Attribute binding: Boolean type expression (false) is assignable to 'true'|'false'", t => {
-	const { diagnostics } = getDiagnostics('html`<input aria-expanded="${false}" />`', { rules: { "no-boolean-in-attribute-binding": false } });
+	const { diagnostics } = getDiagnostics('html`<input aria-expanded="${false}" />`', {
+		rules: { "no-boolean-in-attribute-binding": false },
+	});
 	hasNoDiagnostics(t, diagnostics);
 });
 
@@ -198,22 +202,34 @@ tsTest("Boolean binding: String is not assignable in boolean attribute binding",
 });
 
 tsTest("Property binding: String literal type expression is not assignable to boolean property", t => {
-	const { diagnostics } = getDiagnostics([makeElement({ properties: ["required = false"] }), 'html`<my-element .required="${"foo"}"></my-element>`']);
+	const { diagnostics } = getDiagnostics([
+		makeElement({ properties: ["required = false"] }),
+		'html`<my-element .required="${"foo"}"></my-element>`',
+	]);
 	hasDiagnostic(t, diagnostics, "no-incompatible-type-binding");
 });
 
 tsTest("Property binding: String literal (0 length) type expression is not assignable to boolean property", t => {
-	const { diagnostics } = getDiagnostics([makeElement({ properties: ["required = false"] }), 'html`<my-element .required="${""}"></my-element>`']);
+	const { diagnostics } = getDiagnostics([
+		makeElement({ properties: ["required = false"] }),
+		'html`<my-element .required="${""}"></my-element>`',
+	]);
 	hasDiagnostic(t, diagnostics, "no-incompatible-type-binding");
 });
 
 tsTest("Property binding: Number type expression is not assignable to boolean property", t => {
-	const { diagnostics } = getDiagnostics([makeElement({ properties: ["required = false"] }), 'html`<my-element .required="${123}"></my-element>`']);
+	const { diagnostics } = getDiagnostics([
+		makeElement({ properties: ["required = false"] }),
+		'html`<my-element .required="${123}"></my-element>`',
+	]);
 	hasDiagnostic(t, diagnostics, "no-incompatible-type-binding");
 });
 
 tsTest("Property binding: Boolean type expression is not assignable to boolean property", t => {
-	const { diagnostics } = getDiagnostics([makeElement({ properties: ["required = false"] }), 'html`<my-element .required="${true}"></my-element>`']);
+	const { diagnostics } = getDiagnostics([
+		makeElement({ properties: ["required = false"] }),
+		'html`<my-element .required="${true}"></my-element>`',
+	]);
 	hasNoDiagnostics(t, diagnostics);
 });
 
@@ -223,7 +239,9 @@ tsTest("Attribute binding: 'ifDefined' directive correctly removes 'undefined' f
 });
 
 tsTest("Attribute binding: 'ifDefined' directive correctly removes 'undefined' from the type union 2", t => {
-	const { diagnostics } = getDiagnostics('type ifDefined = Function; html`<input maxlength="${ifDefined({} as number | string | undefined)}" />`');
+	const { diagnostics } = getDiagnostics(
+		'type ifDefined = Function; html`<input maxlength="${ifDefined({} as number | string | undefined)}" />`'
+	);
 	hasDiagnostic(t, diagnostics, "no-incompatible-type-binding");
 });
 
@@ -233,7 +251,9 @@ tsTest("Attribute binding: 'guard' directive correctly infers correct type from 
 });
 
 tsTest("Attribute binding: 'guard' directive correctly infers correct type from the callback 2", t => {
-	const { diagnostics } = getDiagnostics('type guard = Function; html`<input maxlength="${guard([""], () => ({} as string | number))}" />`');
+	const { diagnostics } = getDiagnostics(
+		'type guard = Function; html`<input maxlength="${guard([""], () => ({} as string | number))}" />`'
+	);
 	hasDiagnostic(t, diagnostics, "no-incompatible-type-binding");
 });
 

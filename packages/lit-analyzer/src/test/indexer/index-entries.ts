@@ -1,12 +1,12 @@
 import { ExecutionContext } from "ava";
 import { Node, SourceFile } from "typescript";
 
-import { getCurrentTsModule, tsTest } from "../helpers/ts-test.js";
-import { getIndexEntries } from "../helpers/analyze.js";
 
 import { LitIndexEntry } from "../../lib/analyze/document-analyzer/html/lit-html-document-analyzer.js";
-import { HtmlNodeKind } from "../../lib/analyze/types/html-node/html-node-types.js";
 import { HtmlNodeAttrKind } from "../../lib/analyze/types/html-node/html-node-attr-types.js";
+import { HtmlNodeKind } from "../../lib/analyze/types/html-node/html-node-types.js";
+import { getIndexEntries } from "../helpers/analyze.js";
+import { getCurrentTsModule, tsTest } from "../helpers/ts-test.js";
 
 tsTest("No entries are created for HTML-like template strings if the template tags are not named `html`.", t => {
 	const { indexEntries } = getIndexEntries([
@@ -19,8 +19,8 @@ tsTest("No entries are created for HTML-like template strings if the template ta
 
 				const nothtml = x => x;
 				nothtml\`<some-element></some-element>\`;
-			`
-		}
+			`,
+		},
 	]);
 
 	const entries = Array.from(indexEntries);
@@ -37,8 +37,8 @@ tsTest("No entries are created for elements that are not defined with `customEle
 
 				const html = x => x;
 				html\`<some-element></some-element>\`;
-			`
-		}
+			`,
+		},
 	]);
 
 	const entries = Array.from(indexEntries);
@@ -62,8 +62,8 @@ tsTest("No entries are created for tags that don't match any definition.", t => 
 
 				const html = x => x;
 				html\`<unknown-element></unknown-element>\`;
-			`
-		}
+			`,
+		},
 	]);
 
 	const entries = Array.from(indexEntries);
@@ -78,7 +78,7 @@ const assertIdentifiesClass = ({
 	t,
 	identifier,
 	sourceFile,
-	className
+	className,
 }: {
 	t: ExecutionContext;
 	identifier: Node;
@@ -91,7 +91,7 @@ const assertIdentifiesClass = ({
 		throw new Error("The definition target's node should be an identifier.");
 	}
 
-	t.is(identifier.getSourceFile(), sourceFile, "The identifier is not in the expected source file.");
+	t.is(identifier.getSourceFile(), sourceFile!, "The identifier is not in the expected source file.");
 	t.is(identifier.text, className, `The identifier's text should be \`${className}\`.`);
 
 	const { parent: identParent } = identifier;
@@ -112,7 +112,7 @@ const assertEntryTargetsClass = ({
 	entry,
 	sourceFile,
 	tagName,
-	className
+	className,
 }: {
 	t: ExecutionContext;
 	entry: LitIndexEntry;
@@ -150,8 +150,8 @@ tsTest("Element references can reference elements defined in the same file. (JS)
 
 				const html = x => x;
 				html\`<some-element></some-element>\`;
-			`
-		}
+			`,
+		},
 	]);
 
 	const entries = Array.from(indexEntries);
@@ -162,7 +162,7 @@ tsTest("Element references can reference elements defined in the same file. (JS)
 		entry: entries[0],
 		sourceFile,
 		tagName: "some-element",
-		className: "SomeElement"
+		className: "SomeElement",
 	});
 });
 
@@ -183,8 +183,8 @@ tsTest("Element references can reference elements defined in the same file. (TS)
 
 				const html = x => x;
 				html\`<some-element></some-element>\`;
-			`
-		}
+			`,
+		},
 	]);
 
 	const entries = Array.from(indexEntries);
@@ -195,16 +195,18 @@ tsTest("Element references can reference elements defined in the same file. (TS)
 		entry: entries[0],
 		sourceFile,
 		tagName: "some-element",
-		className: "SomeElement"
+		className: "SomeElement",
 	});
 });
 
-tsTest("An entry is created for elements that are not defined with `customElements` if they are added to `HTMLElementTagNameMap` in TS.", t => {
-	const { indexEntries, sourceFile } = getIndexEntries([
-		{
-			fileName: "main.ts",
-			entry: true,
-			text: `
+tsTest(
+	"An entry is created for elements that are not defined with `customElements` if they are added to `HTMLElementTagNameMap` in TS.",
+	t => {
+		const { indexEntries, sourceFile } = getIndexEntries([
+			{
+				fileName: "main.ts",
+				entry: true,
+				text: `
 				class SomeElement extends HTMLElement {}
 
 				declare global {
@@ -215,21 +217,22 @@ tsTest("An entry is created for elements that are not defined with `customElemen
 
 				const html = x => x;
 				html\`<some-element></some-element>\`;
-			`
-		}
-	]);
+			`,
+			},
+		]);
 
-	const entries = Array.from(indexEntries);
-	t.is(entries.length, 1);
+		const entries = Array.from(indexEntries);
+		t.is(entries.length, 1);
 
-	assertEntryTargetsClass({
-		t,
-		entry: entries[0],
-		sourceFile,
-		tagName: "some-element",
-		className: "SomeElement"
-	});
-});
+		assertEntryTargetsClass({
+			t,
+			entry: entries[0],
+			sourceFile,
+			tagName: "some-element",
+			className: "SomeElement",
+		});
+	}
+);
 
 tsTest("Element references can reference elements defined in a different file.", t => {
 	const { indexEntries, program } = getIndexEntries([
@@ -241,7 +244,7 @@ tsTest("Element references can reference elements defined in a different file.",
 
 				const html = x => x;
 				html\`<some-element></some-element>\`;
-			`
+			`,
 		},
 		{
 			fileName: "some-element.ts",
@@ -254,8 +257,8 @@ tsTest("Element references can reference elements defined in a different file.",
 						'some-element': SomeElement;
 					}
 				}
-			`
-		}
+			`,
+		},
 	]);
 
 	const entries = Array.from(indexEntries);
@@ -266,7 +269,7 @@ tsTest("Element references can reference elements defined in a different file.",
 		entry: entries[0],
 		sourceFile: program.getSourceFile("some-element.ts"),
 		tagName: "some-element",
-		className: "SomeElement"
+		className: "SomeElement",
 	});
 });
 
@@ -289,8 +292,8 @@ tsTest("Attribute references are not created for attributes that don't map to kn
 
 				const html = x => x;
 				html\`<some-element .unknown="abc" other-unknown="def"></some-element>\`;
-			`
-		}
+			`,
+		},
 	]);
 
 	const entries = Array.from(indexEntries).filter(entry => entry.kind === "ATTRIBUTE-REFERENCE");
@@ -305,7 +308,7 @@ const assertIsAttrRefAndGetTarget = ({
 	t,
 	entry,
 	name,
-	kind
+	kind,
 }: {
 	t: ExecutionContext;
 	entry: LitIndexEntry;
@@ -337,7 +340,7 @@ const assertIsAttrRefTargetingClass = ({
 	name,
 	kind,
 	sourceFile,
-	className
+	className,
 }: {
 	t: ExecutionContext;
 	entry: LitIndexEntry;
@@ -352,7 +355,7 @@ const assertIsAttrRefTargetingClass = ({
 		t,
 		entry,
 		name,
-		kind
+		kind,
 	});
 
 	t.is(targetNode.getSourceFile(), sourceFile, "The target node is not in the expected source file.");
@@ -374,7 +377,7 @@ const assertIsAttrRefTargetingClass = ({
 		t,
 		identifier: ancestor.name,
 		sourceFile,
-		className: className
+		className: className,
 	});
 };
 
@@ -401,8 +404,8 @@ tsTest("Attribute references can reference properties defined in the static `pro
 
 				const html = x => x;
 				html\`<some-element .prop="abc"></some-element>\`;
-			`
-		}
+			`,
+		},
 	]);
 
 	const entries = Array.from(indexEntries).filter(entry => entry.kind === "ATTRIBUTE-REFERENCE");
@@ -414,7 +417,7 @@ tsTest("Attribute references can reference properties defined in the static `pro
 		name: "prop",
 		kind: HtmlNodeAttrKind.PROPERTY,
 		sourceFile,
-		className: "SomeElement"
+		className: "SomeElement",
 	});
 });
 
@@ -437,8 +440,8 @@ tsTest("Attribute references can reference properties defined with a class field
 
 				const html = x => x;
 				html\`<some-element .prop="abc"></some-element>\`;
-			`
-		}
+			`,
+		},
 	]);
 
 	const entries = Array.from(indexEntries).filter(entry => entry.kind === "ATTRIBUTE-REFERENCE");
@@ -450,7 +453,7 @@ tsTest("Attribute references can reference properties defined with a class field
 		name: "prop",
 		kind: HtmlNodeAttrKind.PROPERTY,
 		sourceFile,
-		className: "SomeElement"
+		className: "SomeElement",
 	});
 });
 
@@ -473,8 +476,8 @@ tsTest("Attribute references can reference properties defined with a setter.", t
 
 				const html = x => x;
 				html\`<some-element .prop="abc"></some-element>\`;
-			`
-		}
+			`,
+		},
 	]);
 
 	const entries = Array.from(indexEntries).filter(entry => entry.kind === "ATTRIBUTE-REFERENCE");
@@ -486,7 +489,7 @@ tsTest("Attribute references can reference properties defined with a setter.", t
 		name: "prop",
 		kind: HtmlNodeAttrKind.PROPERTY,
 		sourceFile,
-		className: "SomeElement"
+		className: "SomeElement",
 	});
 });
 
@@ -512,8 +515,8 @@ tsTest("Attribute references can reference properties defined by assignment in t
 
 				const html = x => x;
 				html\`<some-element .prop="abc"></some-element>\`;
-			`
-		}
+			`,
+		},
 	]);
 
 	const entries = Array.from(indexEntries).filter(entry => entry.kind === "ATTRIBUTE-REFERENCE");
@@ -525,7 +528,7 @@ tsTest("Attribute references can reference properties defined by assignment in t
 		name: "prop",
 		kind: HtmlNodeAttrKind.PROPERTY,
 		sourceFile,
-		className: "SomeElement"
+		className: "SomeElement",
 	});
 });
 
@@ -550,8 +553,8 @@ tsTest("Attribute references can reference properties defined in `observedAttrib
 
 				const html = x => x;
 				html\`<some-element some-attr="abc"></some-element>\`;
-			`
-		}
+			`,
+		},
 	]);
 
 	const entries = Array.from(indexEntries).filter(entry => entry.kind === "ATTRIBUTE-REFERENCE");
@@ -563,7 +566,7 @@ tsTest("Attribute references can reference properties defined in `observedAttrib
 		name: "some-attr",
 		kind: HtmlNodeAttrKind.ATTRIBUTE,
 		sourceFile,
-		className: "SomeElement"
+		className: "SomeElement",
 	});
 });
 
@@ -590,8 +593,8 @@ tsTest("Boolean attribute references have the right kind.", t => {
 
 				const html = x => x;
 				html\`<some-element ?prop="abc"></some-element>\`;
-			`
-		}
+			`,
+		},
 	]);
 
 	const entries = Array.from(indexEntries).filter(entry => entry.kind === "ATTRIBUTE-REFERENCE");
@@ -603,7 +606,7 @@ tsTest("Boolean attribute references have the right kind.", t => {
 		name: "prop",
 		kind: HtmlNodeAttrKind.BOOLEAN_ATTRIBUTE,
 		sourceFile,
-		className: "SomeElement"
+		className: "SomeElement",
 	});
 });
 
@@ -632,8 +635,8 @@ tsTest("Attribute references have the right kind.", t => {
 
 				const html = x => x;
 				html\`<some-element prop="abc"></some-element>\`;
-			`
-		}
+			`,
+		},
 	]);
 
 	const entries = Array.from(indexEntries).filter(entry => entry.kind === "ATTRIBUTE-REFERENCE");
@@ -645,7 +648,7 @@ tsTest("Attribute references have the right kind.", t => {
 		name: "prop",
 		kind: HtmlNodeAttrKind.ATTRIBUTE,
 		sourceFile,
-		className: "SomeElement"
+		className: "SomeElement",
 	});
 });
 
@@ -687,8 +690,8 @@ tsTest("Event listeners do not produce entries.", t => {
 
 				const html = x => x;
 				html\`<some-element @someEvent=$\{(e) => console.log(e)}></some-element>\`;
-			`
-		}
+			`,
+		},
 	]);
 
 	const entries = Array.from(indexEntries).filter(entry => entry.kind === "ATTRIBUTE-REFERENCE");

@@ -26,7 +26,7 @@ export function completionsAtOffset(document: HtmlDocument, offset: DocumentOffs
 		// Make sure that every entry overwrites the entire attribute name.
 		return entries.map(entry => ({
 			...entry,
-			range: rangeFromHtmlNodeAttr(intersectingAttr)
+			range: rangeFromHtmlNodeAttr(intersectingAttr),
 		}));
 	} else if (intersectingAttrAssignment != null) {
 		return completionsForHtmlAttrValues(intersectingAttrAssignment, positionContext, context);
