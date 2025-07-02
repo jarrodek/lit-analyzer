@@ -7,6 +7,7 @@
   "publisher": "runem",
   "icon": "docs/assets/lit-plugin@256w.png",
   "license": "MIT",
+  "type": "module",
   "engines": {
     "vscode": "^1.63.0",
     "node": ">=18.0.0"
