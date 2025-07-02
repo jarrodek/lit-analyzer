@@ -1,23 +1,23 @@
-import { ComponentDefinition } from "@jarrodek/web-component-analyzer";
-import { HtmlDocument } from "../parse/document/text-document/html-document/html-document.js";
-import { HtmlNode } from "./html-node/html-node-types.js";
-import { LitTargetKind } from "./lit-target-kind.js";
-import { SourceFileRange } from "./range.js";
+import { ComponentDefinition } from '@jarrodek/web-component-analyzer'
+import { HtmlDocument } from '../parse/document/text-document/html-document/html-document.js'
+import { HtmlNode } from './html-node/html-node-types.js'
+import { LitTargetKind } from './lit-target-kind.js'
+import { SourceFileRange } from './range.js'
 
 export interface RenameInfoBase {
-	kind: LitTargetKind;
-	displayName: string;
-	fullDisplayName: string;
-	range: SourceFileRange;
+  kind: LitTargetKind
+  displayName: string
+  fullDisplayName: string
+  range: SourceFileRange
 }
 
 export interface RenameHtmlNodeInfo extends RenameInfoBase {
-	document: HtmlDocument;
-	target: ComponentDefinition | HtmlNode;
+  document: HtmlDocument
+  target: ComponentDefinition | HtmlNode
 }
 
 export interface RenameComponentDefinitionInfo extends RenameInfoBase {
-	target: ComponentDefinition;
+  target: ComponentDefinition
 }
 
-export type LitRenameInfo = RenameHtmlNodeInfo | RenameComponentDefinitionInfo;
+export type LitRenameInfo = RenameHtmlNodeInfo | RenameComponentDefinitionInfo

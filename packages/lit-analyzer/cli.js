@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-require("./index.js")
-	.cli()
-	 
-	.catch(console.log);
+/* eslint-disable no-console */
+import { cli } from './index.js'
+
+cli().catch(console.log)

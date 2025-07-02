@@ -1,15 +1,14 @@
-/** @type {import("prettier").Config} */
+/**
+ * @see https://prettier.io/docs/configuration
+ * @type {import("prettier").Config}
+ */
 export default {
-	useTabs: true,
-	tabWidth: 2,
-	printWidth: 140,
-	singleQuote: false,
-	quoteProps: "as-needed",
-	trailingComma: "es5",
-	bracketSpacing: true,
-	bracketSameLine: false,
-	arrowParens: "avoid",
-	endOfLine: "lf",
-	semi: true,
-	singleAttributePerLine: false,
-};
+  trailingComma: 'es5',
+  semi: false,
+  singleQuote: true,
+  useTabs: false,
+  quoteProps: 'consistent',
+  bracketSpacing: true,
+  arrowParens: 'always',
+  printWidth: 120,
+}

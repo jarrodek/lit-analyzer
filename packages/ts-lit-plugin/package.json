@@ -1,99 +1,99 @@
 {
-	"name": "@jarrodek/ts-lit-plugin",
-	"version": "3.0.0",
-	"description": "Typescript plugin that adds type checking and code completion to lit-html. Maintained by @jarrodek",
-	"author": "runem",
-	"type": "module",
-	"license": "MIT",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/runem/lit-analyzer.git"
-	},
-	"keywords": [
-		"lit-html",
-		"lit",
-		"lit-element",
-		"javascript",
-		"typescript",
-		"web components",
-		"web",
-		"components",
-		"tagged",
-		"template"
-	],
-	"scripts": {
-		"watch": "tsc --watch",
-		"build": "wireit",
-		"test": "wireit",
-		"clean": "rimraf lib *.tsbuildinfo",
-		"lint": "eslint src --ext .ts",
-		"lint:fix": "eslint src --ext .ts --fix",
-		"format": "prettier --write src/**/*.ts",
-		"format:check": "prettier --check src/**/*.ts",
-		"readme": "readme generate -i readme.blueprint.md -c readme.config.json"
-	},
-	"wireit": {
-		"build": {
-			"dependencies": [
-				"../lit-analyzer:build"
-			],
-			"command": "tsc --build --pretty",
-			"files": [
-				"src/**/*",
-				"tsconfig.json"
-			],
-			"output": [
-				"lib",
-				"./tsbuildinfo"
-			],
-			"clean": "if-file-deleted"
-		},
-		"test": {
-			"dependencies": [
-				"build"
-			]
-		}
-	},
-	"main": "index.js",
-	"exports": {
-		".": "./index.js",
-		"./lib/*": "./lib/*"
-	},
-	"files": [
-		"/lib/",
-		"/html-documentation/"
-	],
-	"dependencies": {
-		"@jarrodek/lit-analyzer": "^3.0.0",
-		"@jarrodek/web-component-analyzer": "^3.0.0"
-	},
-	"devDependencies": {
-		"@types/node": "^24.0.10",
-		"esbuild": "^0.25.5",
-		"eslint": "^9.0.0",
-		"prettier": "^3.3.0",
-		"rimraf": "^6.0.0",
-		"typescript": "^5.6.0",
-		"wireit": "^0.14.0"
-	},
-	"engines": {
-		"node": ">=18.0.0"
-	},
-	"contributors": [
-		{
-			"name": "Rune Mehlsen",
-			"url": "https://twitter.com/runemehlsen",
-			"img": "https://avatars2.githubusercontent.com/u/5372940?s=460&v=4"
-		},
-		{
-			"name": "Andreas Mehlsen",
-			"url": "https://twitter.com/andreasmehlsen",
-			"img": "https://avatars1.githubusercontent.com/u/6267397?s=460&v=4"
-		},
-		{
-			"name": "You?",
-			"img": "https://joeschmoe.io/api/v1/random",
-			"url": "https://github.com/runem/lit-analyzer/blob/master/CONTRIBUTING.md"
-		}
-	]
+  "name": "@jarrodek/ts-lit-plugin",
+  "version": "3.0.0",
+  "description": "Typescript plugin that adds type checking and code completion to lit-html. Maintained by @jarrodek",
+  "author": "runem",
+  "type": "module",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/runem/lit-analyzer.git"
+  },
+  "keywords": [
+    "lit-html",
+    "lit",
+    "lit-element",
+    "javascript",
+    "typescript",
+    "web components",
+    "web",
+    "components",
+    "tagged",
+    "template"
+  ],
+  "scripts": {
+    "watch": "tsc --watch",
+    "build": "wireit",
+    "test": "wireit",
+    "clean": "rimraf lib *.tsbuildinfo",
+    "lint": "eslint src --ext .ts",
+    "lint:fix": "eslint src --ext .ts --fix",
+    "format": "prettier --write src/**/*.ts",
+    "format:check": "prettier --check src/**/*.ts",
+    "readme": "readme generate -i readme.blueprint.md -c readme.config.json"
+  },
+  "wireit": {
+    "build": {
+      "dependencies": [
+        "../lit-analyzer:build"
+      ],
+      "command": "tsc --build --pretty",
+      "files": [
+        "src/**/*",
+        "tsconfig.json"
+      ],
+      "output": [
+        "lib",
+        "./tsbuildinfo"
+      ],
+      "clean": "if-file-deleted"
+    },
+    "test": {
+      "dependencies": [
+        "build"
+      ]
+    }
+  },
+  "main": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./lib/*": "./lib/*"
+  },
+  "files": [
+    "/lib/",
+    "/html-documentation/"
+  ],
+  "dependencies": {
+    "@jarrodek/lit-analyzer": "*",
+    "@jarrodek/web-component-analyzer": "^3.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.10",
+    "esbuild": "^0.25.5",
+    "eslint": "^9.0.0",
+    "prettier": "^3.3.0",
+    "rimraf": "^6.0.0",
+    "typescript": "^5.6.0",
+    "wireit": "^0.14.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "contributors": [
+    {
+      "name": "Rune Mehlsen",
+      "url": "https://twitter.com/runemehlsen",
+      "img": "https://avatars2.githubusercontent.com/u/5372940?s=460&v=4"
+    },
+    {
+      "name": "Andreas Mehlsen",
+      "url": "https://twitter.com/andreasmehlsen",
+      "img": "https://avatars1.githubusercontent.com/u/6267397?s=460&v=4"
+    },
+    {
+      "name": "You?",
+      "img": "https://joeschmoe.io/api/v1/random",
+      "url": "https://github.com/runem/lit-analyzer/blob/master/CONTRIBUTING.md"
+    }
+  ]
 }

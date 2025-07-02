@@ -1,12 +1,12 @@
 export interface Range {
-	start: number;
-	end: number;
+  start: number
+  end: number
 }
 
 // Offsets and positions
-export type DocumentOffset = number;
+export type DocumentOffset = number
 
-export type SourceFilePosition = number;
+export type SourceFilePosition = number
 
 /*export type DocumentOffset = number & { _documentOffset: void };
 
@@ -21,6 +21,6 @@ export function makeDocumentPosition(position: number): SourceFilePosition {
 }*/
 
 // Ranges
-export type DocumentRange = { start: DocumentOffset; end: DocumentOffset } & { _brand: "document" };
+export type DocumentRange = { start: DocumentOffset; end: DocumentOffset } & { _brand: 'document' }
 
-export type SourceFileRange = { start: SourceFilePosition; end: SourceFilePosition } & { _brand: "sourcefile" };
+export type SourceFileRange = { start: SourceFilePosition; end: SourceFilePosition } & { _brand: 'sourcefile' }

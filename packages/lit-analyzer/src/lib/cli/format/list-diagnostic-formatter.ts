@@ -1,39 +1,39 @@
-import chalk from "chalk";
-import { SourceFile } from "typescript";
-import { LitDiagnostic } from "../../analyze/types/lit-diagnostic.js";
-import { AnalysisStats, DiagnosticFormatter } from "./diagnostic-formatter.js";
-import { generalReport, relativeFileName, textPad } from "./util.js";
+import chalk from 'chalk'
+import { SourceFile } from 'typescript'
+import { LitDiagnostic } from '../../analyze/types/lit-diagnostic.js'
+import { AnalysisStats, DiagnosticFormatter } from './diagnostic-formatter.js'
+import { generalReport, relativeFileName, textPad } from './util.js'
 
 export class ListDiagnosticFormatter implements DiagnosticFormatter {
-	report(stats: AnalysisStats): string | undefined {
-		return generalReport(stats);
-	}
+  report(stats: AnalysisStats): string | undefined {
+    return generalReport(stats)
+  }
 
-	diagnosticTextForFile(file: SourceFile, diagnostics: LitDiagnostic[]): string | undefined {
-		if (diagnostics.length === 0) return undefined;
+  diagnosticTextForFile(file: SourceFile, diagnostics: LitDiagnostic[]): string | undefined {
+    if (diagnostics.length === 0) return undefined
 
-		return diagnosticTextForFile(file, diagnostics);
-	}
+    return diagnosticTextForFile(file, diagnostics)
+  }
 }
 
 function diagnosticTextForFile(file: SourceFile, diagnostics: LitDiagnostic[]): string {
-	const diagnosticText = diagnostics.map(diagnostic => litDiagnosticToErrorText(file, diagnostic)).join("\n");
+  const diagnosticText = diagnostics.map((diagnostic) => litDiagnosticToErrorText(file, diagnostic)).join('\n')
 
-	return `
+  return `
 ${chalk.underline(`${relativeFileName(file.fileName)}`)}
-${diagnosticText}`;
+${diagnosticText}`
 }
 
 function litDiagnosticToErrorText(file: SourceFile, diagnostic: LitDiagnostic): string {
-	const lineContext = file.getLineAndCharacterOfPosition(diagnostic.location.start);
-	const linePart = `${textPad(`${lineContext.line + 1}`, { width: 5 })}:${textPad(`${lineContext.character}`, {
-		width: 4,
-		dir: "right",
-	})}`;
-	const severityPart = `${textPad(diagnostic.severity === "warning" ? chalk.yellow("warning") : chalk.red("error"), {
-		width: 18,
-		dir: "right",
-	})}`;
-	const messagePart = diagnostic.message;
-	return `${linePart} ${severityPart} ${messagePart}`;
+  const lineContext = file.getLineAndCharacterOfPosition(diagnostic.location.start)
+  const linePart = `${textPad(`${lineContext.line + 1}`, { width: 5 })}:${textPad(`${lineContext.character}`, {
+    width: 4,
+    dir: 'right',
+  })}`
+  const severityPart = `${textPad(diagnostic.severity === 'warning' ? chalk.yellow('warning') : chalk.red('error'), {
+    width: 18,
+    dir: 'right',
+  })}`
+  const messagePart = diagnostic.message
+  return `${linePart} ${severityPart} ${messagePart}`
 }

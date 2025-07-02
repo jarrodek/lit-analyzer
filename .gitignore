@@ -11,6 +11,7 @@ out
 *.vsix
 .wireit/
 .tsbuildinfo
+.eslintcache
 
 /packages/*/lib
 /packages/*/out
