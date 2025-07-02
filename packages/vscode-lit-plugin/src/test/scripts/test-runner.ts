@@ -23,6 +23,9 @@ async function main() {
 
     const fixturesDir = path.join(__dirname, '..', '..', '..', 'src', 'test', 'fixtures')
     // Download VS Code, unzip it and run the integration test
+    console.log(`Running tests with extension at ${extensionPath}`)
+    console.log(`Extension tests path: ${extensionTestsPath}`)
+    console.log(`Fixtures dir: ${fixturesDir}`)
     await runTests({ extensionDevelopmentPath: extensionPath, extensionTestsPath, launchArgs: [fixturesDir] })
 
     const inCI = !!process.env.CI

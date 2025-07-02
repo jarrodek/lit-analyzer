@@ -28,6 +28,7 @@ export default [
       'packages/vscode-lit-plugin/built/**',
       'dev/**',
       '**/test/fixtures/**',
+      'packages/lit-analyzer/scripts/**',
     ],
   },
   js.configs.recommended,
@@ -150,6 +151,23 @@ export default [
         ...globals.nodeBuiltin,
         console: 'readonly',
       },
+    },
+  },
+  {
+    files: ['packages/**/bin/*.ts', 'packages/**/tasks/*.ts'],
+    languageOptions: {
+      globals: {
+        ...globals.node, // Enable Node.js globals for these files
+      },
+    },
+    rules: {
+      'no-restricted-globals': [
+        'error',
+        ...Object.keys(globals.browser).filter(
+          // Disallow Node-specific globals (unless they are shared)
+          (g) => !Object.prototype.hasOwnProperty.call(globals.node, g)
+        ),
+      ],
     },
   },
   prettier,

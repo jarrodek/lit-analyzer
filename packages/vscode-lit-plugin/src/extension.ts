@@ -7,58 +7,73 @@ import { ColorProvider } from './color-provider.js'
 
 const tsLitPluginId = '@jarrodek/ts-lit-plugin'
 const typeScriptExtensionId = 'vscode.typescript-language-features'
-const configurationSection = 'lit-plugin'
+const configurationSection = 'lit-plugin-maintained'
 const configurationExperimentalHtmlSection = 'html.experimental'
-const analyzeCommandId = 'lit-plugin.analyze'
+const analyzeCommandId = 'lit-plugin-maintained.analyze'
 
 let defaultAnalyzeGlob = 'src'
 
 const colorProvider = new ColorProvider()
 
 export async function activate(context: vscode.ExtensionContext): Promise<void> {
-  const extension = vscode.extensions.getExtension(typeScriptExtensionId)
-  if (!extension) {
-    return
+  try {
+    console.log('lit-plugin-maintained: Starting activation...')
+
+    const extension = vscode.extensions.getExtension(typeScriptExtensionId)
+    if (!extension) {
+      console.log('lit-plugin-maintained: TypeScript extension not found')
+      return
+    }
+    console.log('lit-plugin-maintained: TypeScript extension found')
+
+    await extension.activate()
+    if (!extension.exports?.getAPI) {
+      console.log('lit-plugin-maintained: TypeScript extension has no API')
+      return
+    }
+    console.log('lit-plugin-maintained: TypeScript extension API available')
+
+    const api = extension.exports.getAPI(0)
+    if (!api) {
+      console.log('lit-plugin-maintained: Failed to get TypeScript API')
+      return
+    }
+    console.log('lit-plugin-maintained: Got TypeScript API')
+
+    // Subscribe to configuration change
+    vscode.workspace.onDidChangeConfiguration(
+      (e) => {
+        if (
+          e.affectsConfiguration(configurationSection) ||
+          e.affectsConfiguration(configurationExperimentalHtmlSection)
+        ) {
+          synchronizeConfig(api)
+        }
+      },
+      undefined,
+      context.subscriptions
+    )
+
+    // Subscribe to the analyze command
+    context.subscriptions.push(vscode.commands.registerCommand(analyzeCommandId, handleAnalyzeCommand))
+
+    // Register a color provider
+    const registration = vscode.languages.registerColorProvider(
+      [
+        { scheme: 'file', language: 'typescript' },
+        { scheme: 'file', language: 'javascript' },
+      ],
+      colorProvider
+    )
+    context.subscriptions.push(registration)
+
+    console.log('lit-plugin-maintained: About to synchronize config...')
+    synchronizeConfig(api)
+    console.log('lit-plugin-maintained: Activation completed successfully')
+  } catch (error) {
+    console.error('lit-plugin-maintained: Activation failed:', error)
+    throw error
   }
-
-  await extension.activate()
-  if (!extension.exports?.getAPI) {
-    return
-  }
-
-  const api = extension.exports.getAPI(0)
-  if (!api) {
-    return
-  }
-
-  // Subscribe to configuration change
-  vscode.workspace.onDidChangeConfiguration(
-    (e) => {
-      if (
-        e.affectsConfiguration(configurationSection) ||
-        e.affectsConfiguration(configurationExperimentalHtmlSection)
-      ) {
-        synchronizeConfig(api)
-      }
-    },
-    undefined,
-    context.subscriptions
-  )
-
-  // Subscribe to the analyze command
-  context.subscriptions.push(vscode.commands.registerCommand(analyzeCommandId, handleAnalyzeCommand))
-
-  // Register a color provider
-  const registration = vscode.languages.registerColorProvider(
-    [
-      { scheme: 'file', language: 'typescript' },
-      { scheme: 'file', language: 'javascript' },
-    ],
-    colorProvider
-  )
-  context.subscriptions.push(registration)
-
-  synchronizeConfig(api)
 }
 
 function synchronizeConfig(api: { configurePlugin: (id: string, cnf: Partial<LitAnalyzerConfig>) => void }): void {

@@ -1,15 +1,15 @@
 {
-  "name": "@jarrodek/lit-plugin",
+  "name": "lit-plugin-maintained",
   "private": true,
-  "displayName": "lit-plugin",
+  "displayName": "lit-plugin-maintained",
   "description": "Syntax highlighting, type checking and code completion for lit-html. Maintained by @jarrodek",
   "version": "3.0.0",
-  "publisher": "runem",
+  "publisher": "jarrodek",
   "icon": "docs/assets/lit-plugin@256w.png",
   "license": "MIT",
   "type": "module",
   "engines": {
-    "vscode": "^1.63.0",
+    "vscode": "^1.101.0",
     "node": ">=18.0.0"
   },
   "categories": [
@@ -124,16 +124,16 @@
       "dependencies": [
         "../lit-analyzer:build"
       ],
-      "command": "node esbuild.script.mjs",
+      "command": "node esbuild.script.js",
       "files": [
         "src/**/*",
         "../ts-lit-plugin/src/**/*",
         "../ts-lit-plugin/index.js",
-        "esbuild.script.mjs"
+        "esbuild.script.js"
       ],
       "output": [
         "built/bundle.js",
-        "built/node_modules/ts-lit-plugin/index.js"
+        "built/node_modules/@jarrodek/ts-lit-plugin/index.js"
       ]
     },
     "make-built-dir": {
@@ -154,8 +154,8 @@
       "output": [
         "built/docs",
         "built/node_modules/typescript",
-        "built/node_modules/ts-lit-plugin/package.json",
-        "built/node_modules/ts-lit-plugin/index.js",
+        "built/node_modules/@jarrodek/ts-lit-plugin/package.json",
+        "built/node_modules/@jarrodek/ts-lit-plugin/index.js",
         "built/schemas",
         "built/syntaxes",
         "built/LICENSE.md",
@@ -179,7 +179,6 @@
     "wireit": "^0.14.12"
   },
   "activationEvents": [
-    "onCommand:lit-plugin.analyze",
     "onLanguage:javascript",
     "onLanguage:javascriptreact",
     "onLanguage:typescript",
@@ -205,36 +204,36 @@
   "contributes": {
     "commands": [
       {
-        "command": "lit-plugin.analyze",
+        "command": "lit-plugin-maintained.analyze",
         "title": "Analyze lit-html templates"
       }
     ],
     "configuration": [
       {
-        "id": "lit-plugin",
-        "title": "lit-plugin",
+        "id": "lit-plugin-maintained",
+        "title": "lit-plugin-maintained Configuration",
         "properties": {
-          "lit-plugin.disable": {
+          "lit-plugin-maintained.disable": {
             "type": "boolean",
             "description": "Completely disable this plugin.",
             "default": false
           },
-          "lit-plugin.strict": {
+          "lit-plugin-maintained.strict": {
             "type": "boolean",
             "description": "Enable strict mode.",
             "default": false
           },
-          "lit-plugin.maxProjectImportDepth": {
+          "lit-plugin-maintained.maxProjectImportDepth": {
             "type": "integer",
             "description": "Determines how many modules deep dependencies are followed to determine whether a custom element is available in the current file. When `-1` is used, dependencies will be followed infinitely deep.",
             "default": -1
           },
-          "lit-plugin.maxNodeModuleImportDepth": {
+          "lit-plugin-maintained.maxNodeModuleImportDepth": {
             "type": "integer",
             "description": "Determines how many modules deep dependencies in npm packages are followed to determine whether a custom element is available in the current file. When `-1` is used, dependencies will be followed infinitely deep.",
             "default": 1
           },
-          "lit-plugin.securitySystem": {
+          "lit-plugin-maintained.securitySystem": {
             "type": "string",
             "description": "The lit-html security sanitization strategy to assume.",
             "default": "off",
@@ -243,7 +242,7 @@
               "ClosureSafeTypes"
             ]
           },
-          "lit-plugin.htmlTemplateTags": {
+          "lit-plugin-maintained.htmlTemplateTags": {
             "type": "array",
             "description": "List of template tags to enable html support in.",
             "items": {
@@ -255,7 +254,7 @@
               "raw"
             ]
           },
-          "lit-plugin.cssTemplateTags": {
+          "lit-plugin-maintained.cssTemplateTags": {
             "type": "array",
             "description": "List of template tags to enable css support in.",
             "items": {
@@ -266,12 +265,12 @@
               "css"
             ]
           },
-          "lit-plugin.dontShowSuggestions": {
+          "lit-plugin-maintained.dontShowSuggestions": {
             "type": "boolean",
             "description": "Don't append messages suggesting how to fix diagnostics.",
             "default": false
           },
-          "lit-plugin.globalTags": {
+          "lit-plugin-maintained.globalTags": {
             "type": "array",
             "description": "List of html tag names that you expect to be present at all times.",
             "items": {
@@ -279,7 +278,7 @@
               "description": "Tag name."
             }
           },
-          "lit-plugin.globalAttributes": {
+          "lit-plugin-maintained.globalAttributes": {
             "type": "array",
             "description": "List of html attributes names that you expect to be present at all times. These attributes are not checked at all.",
             "items": {
@@ -287,7 +286,7 @@
               "description": "Attribute name."
             }
           },
-          "lit-plugin.globalEvents": {
+          "lit-plugin-maintained.globalEvents": {
             "type": "array",
             "description": "List of event names that you expect to be present at all times. These events are not checked at all.",
             "items": {
@@ -295,7 +294,7 @@
               "description": "Event name."
             }
           },
-          "lit-plugin.logging": {
+          "lit-plugin-maintained.logging": {
             "type": "string",
             "description": "Log to a file called 'lit-plugin.log' which will be created in the root of the project.",
             "default": "off",
@@ -307,7 +306,7 @@
               "verbose"
             ]
           },
-          "lit-plugin.rules.no-unknown-tag-name": {
+          "lit-plugin-maintained.rules.no-unknown-tag-name": {
             "type": "string",
             "description": "Check the existence of tag names.",
             "default": "default",
@@ -318,7 +317,7 @@
               "error"
             ]
           },
-          "lit-plugin.rules.no-missing-import": {
+          "lit-plugin-maintained.rules.no-missing-import": {
             "type": "string",
             "description": "Check that custom elements used are imported.",
             "default": "default",
@@ -329,7 +328,7 @@
               "error"
             ]
           },
-          "lit-plugin.rules.no-missing-element-type-definition": {
+          "lit-plugin-maintained.rules.no-missing-element-type-definition": {
             "type": "string",
             "description": "This rule will ensure that custom elements are registered on the HTMLElementTagNameMap Typescript interface.",
             "default": "default",
@@ -340,7 +339,7 @@
               "error"
             ]
           },
-          "lit-plugin.rules.no-unclosed-tag": {
+          "lit-plugin-maintained.rules.no-unclosed-tag": {
             "type": "string",
             "description": "Check that all tags are properly closed.",
             "default": "default",
@@ -351,7 +350,7 @@
               "error"
             ]
           },
-          "lit-plugin.rules.no-unknown-attribute": {
+          "lit-plugin-maintained.rules.no-unknown-attribute": {
             "type": "string",
             "description": "Check the existence of attribute names.",
             "default": "default",
@@ -362,7 +361,7 @@
               "error"
             ]
           },
-          "lit-plugin.rules.no-unknown-property": {
+          "lit-plugin-maintained.rules.no-unknown-property": {
             "type": "string",
             "description": "Check the existence of property names.",
             "default": "default",
@@ -373,7 +372,7 @@
               "error"
             ]
           },
-          "lit-plugin.rules.no-unknown-event": {
+          "lit-plugin-maintained.rules.no-unknown-event": {
             "type": "string",
             "description": "Check the existence of event names.",
             "default": "default",
@@ -384,7 +383,7 @@
               "error"
             ]
           },
-          "lit-plugin.rules.no-unknown-slot": {
+          "lit-plugin-maintained.rules.no-unknown-slot": {
             "type": "string",
             "description": "Check the existence of slot names (requires '@slot' jsdoc on custom element declarations).",
             "default": "default",
@@ -395,7 +394,7 @@
               "error"
             ]
           },
-          "lit-plugin.rules.no-invalid-boolean-binding": {
+          "lit-plugin-maintained.rules.no-invalid-boolean-binding": {
             "type": "string",
             "description": "Disallow boolean attribute bindings on non-boolean types.",
             "default": "default",
@@ -406,7 +405,7 @@
               "error"
             ]
           },
-          "lit-plugin.rules.no-expressionless-property-binding": {
+          "lit-plugin-maintained.rules.no-expressionless-property-binding": {
             "type": "string",
             "description": "Disallow property bindings without an expression.",
             "default": "default",
@@ -417,7 +416,7 @@
               "error"
             ]
           },
-          "lit-plugin.rules.no-noncallable-event-binding": {
+          "lit-plugin-maintained.rules.no-noncallable-event-binding": {
             "type": "string",
             "description": "Disallow event listener bindings with a noncallable type.",
             "default": "default",
@@ -428,7 +427,7 @@
               "error"
             ]
           },
-          "lit-plugin.rules.no-boolean-in-attribute-binding": {
+          "lit-plugin-maintained.rules.no-boolean-in-attribute-binding": {
             "type": "string",
             "description": "Disallow attribute bindings with a boolean type.",
             "default": "default",
@@ -439,7 +438,7 @@
               "error"
             ]
           },
-          "lit-plugin.rules.no-complex-attribute-binding": {
+          "lit-plugin-maintained.rules.no-complex-attribute-binding": {
             "type": "string",
             "description": "Disallow attribute bindings with a complex type.",
             "default": "default",
@@ -450,7 +449,7 @@
               "error"
             ]
           },
-          "lit-plugin.rules.no-nullable-attribute-binding": {
+          "lit-plugin-maintained.rules.no-nullable-attribute-binding": {
             "type": "string",
             "description": "Disallow attribute bindings with nullable types such as \"null\" or \"undefined\".",
             "default": "default",
@@ -461,7 +460,7 @@
               "error"
             ]
           },
-          "lit-plugin.rules.no-incompatible-type-binding": {
+          "lit-plugin-maintained.rules.no-incompatible-type-binding": {
             "type": "string",
             "description": "Disallow incompatible type in bindings.",
             "default": "default",
@@ -472,7 +471,7 @@
               "error"
             ]
           },
-          "lit-plugin.rules.no-invalid-directive-binding": {
+          "lit-plugin-maintained.rules.no-invalid-directive-binding": {
             "type": "string",
             "description": "Disallow using built-in directives in unsupported bindings.",
             "default": "default",
@@ -483,7 +482,7 @@
               "error"
             ]
           },
-          "lit-plugin.rules.no-incompatible-property-type": {
+          "lit-plugin-maintained.rules.no-incompatible-property-type": {
             "type": "string",
             "description": "Check the 'type' key of the @property decorator against the actual property type.",
             "default": "default",
@@ -494,7 +493,7 @@
               "error"
             ]
           },
-          "lit-plugin.rules.no-invalid-attribute-name": {
+          "lit-plugin-maintained.rules.no-invalid-attribute-name": {
             "type": "string",
             "description": "Check the validity of the attribute names.",
             "default": "default",
@@ -505,7 +504,7 @@
               "error"
             ]
           },
-          "lit-plugin.rules.no-invalid-tag-name": {
+          "lit-plugin-maintained.rules.no-invalid-tag-name": {
             "type": "string",
             "description": "Check the validity of the tag name when defining custom elements.",
             "default": "default",
@@ -516,7 +515,7 @@
               "error"
             ]
           },
-          "lit-plugin.rules.no-invalid-css": {
+          "lit-plugin-maintained.rules.no-invalid-css": {
             "type": "string",
             "description": "Check CSS within the css tagged template literal.",
             "default": "default",
@@ -527,7 +526,7 @@
               "error"
             ]
           },
-          "lit-plugin.customHtmlData": {
+          "lit-plugin-maintained.customHtmlData": {
             "version": 1,
             "title": "VS Code HTML Custom Data format",
             "description": "Format for loading html data in VS Code's HTML custom data format",

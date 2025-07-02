@@ -32,15 +32,17 @@ suite('Extension Test Suite', () => {
   })
 
   test('The extension is installed', () => {
+    console.log('Extension test suite is running')
     const extensionIds = vscode.extensions.all.map((extension) => extension.id)
-    const ourId = 'runem.lit-plugin'
+    console.log('All extensions:', extensionIds)
+    const ourId = 'jarrodek.lit-plugin-maintained'
     assert.ok(extensionIds.includes(ourId), `Expected ${JSON.stringify(extensionIds)} to include '${ourId}'`)
   })
 
   test('We produce a diagnostic', async () => {
     const config = vscode.workspace.getConfiguration()
-    config.update('lit-plugin.logging', 'verbose', true)
-    config.update('lit-plugin.rules.no-missing-element-type-definition', 'error', true)
+    config.update('lit-plugin-maintained.logging', 'verbose', true)
+    config.update('lit-plugin-maintained.rules.no-missing-element-type-definition', 'error', true)
     const doc = await vscode.workspace.openTextDocument(
       vscode.Uri.file(path.join(__dirname, '../../src/test/fixtures/missing-elem-type.ts'))
     )
@@ -55,8 +57,8 @@ suite('Extension Test Suite', () => {
 
   test('We detect no-missing-import properly', async () => {
     const config = vscode.workspace.getConfiguration()
-    config.update('lit-plugin.logging', 'verbose', true)
-    config.update('lit-plugin.rules.no-missing-import', 'error', true)
+    config.update('lit-plugin-maintained.logging', 'verbose', true)
+    config.update('lit-plugin-maintained.rules.no-missing-import', 'error', true)
     const doc = await vscode.workspace.openTextDocument(
       vscode.Uri.file(path.join(__dirname, '../../src/test/fixtures/missing-import.ts'))
     )

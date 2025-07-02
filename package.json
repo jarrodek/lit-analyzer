@@ -38,7 +38,7 @@
     "publish:next": "npm run prepare:workspaces && npm run build && npm publish --workspaces --access public --tag next && npm run postpublish",
     "test:watch": "npm run test:watch --workspaces",
     "readme": "npm run readme --workspaces && readme generate -i readme.blueprint.md -c readme.config.json",
-    "dev": "cd dev && TSS_DEBUG=5999 code . --disable-extension runem.lit-plugin",
+    "dev": "cd dev && TSS_DEBUG=5999 code . --disable-extension runem.lit-plugin-maintained",
     "dev:logs": "touch dev/lit-plugin.log && tail -f dev/lit-plugin.log",
     "build:workspaces": "npm run build --workspaces --if-present",
     "prepare:workspaces": "npm run prepare --workspaces --if-present",

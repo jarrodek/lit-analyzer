@@ -16,6 +16,8 @@ const __dirname = dirname(__filename)
  * Should resolve if the tests pass, reject if any fail.
  */
 export async function run(): Promise<void> {
+  console.log('Mocha driver starting...')
+
   const mocha = new Mocha({
     ui: 'tdd',
     color: true,
@@ -23,14 +25,28 @@ export async function run(): Promise<void> {
   })
 
   const testsRoot = path.join(__dirname, '..')
+  console.log('Tests root:', testsRoot)
+
   const files = glob.sync('**/*-test.js', { cwd: testsRoot })
+  console.log('Found test files:', files)
+
   for (const file of files) {
-    mocha.addFile(path.resolve(testsRoot, file))
+    const fullPath = path.resolve(testsRoot, file)
+    console.log('Adding test file:', fullPath)
+    mocha.addFile(fullPath)
   }
+
+  console.log('Starting mocha test run...')
   const failures = await new Promise<number>((resolve) => {
-    mocha.run((num) => resolve(num))
+    mocha.run((num) => {
+      console.log('Mocha run completed with failures:', num)
+      resolve(num)
+    })
   })
+
   if (failures > 0) {
     throw new Error(`${failures} tests failed.`)
   }
+
+  console.log('All tests passed!')
 }

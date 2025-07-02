@@ -32,8 +32,11 @@ async function main() {
   // We're only using the bundled version, so the plugin doesn't need any
   // dependencies.
   tsPluginPackageJson.dependencies = {}
-  await writeFile('./built/node_modules/ts-lit-plugin/package.json', JSON.stringify(tsPluginPackageJson, null, 2))
-  await copyFile('../ts-lit-plugin/index.js', './built/node_modules/ts-lit-plugin/index.js')
+  await writeFile(
+    './built/node_modules/@jarrodek/ts-lit-plugin/package.json',
+    JSON.stringify(tsPluginPackageJson, null, 2)
+  )
+  // Note: index.js is built by esbuild.script.js, not copied here
 
   // vsce is _very_ picky about the directories in node_modules matching the
   // extension's package.json, so we need an entry for @jarrodek/ts-lit-plugin or it
