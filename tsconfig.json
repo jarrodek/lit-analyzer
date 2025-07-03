@@ -1,27 +1,32 @@
 {
-	"include": ["./src"],
-	"compilerOptions": {
-		"target": "ES2022",
-		"module": "ESNext",
-		"lib": ["ES2022", "DOM"],
-		"outDir": "./lib",
-		"downlevelIteration": true,
-		"strict": true,
-		"esModuleInterop": true,
-		"allowSyntheticDefaultImports": true,
-		"experimentalDecorators": true,
-		"noUnusedLocals": true,
-		"noFallthroughCasesInSwitch": true,
-		"noImplicitThis": true,
-		"noImplicitAny": true,
-		"noImplicitReturns": true,
-		"skipLibCheck": true,
-		"skipDefaultLibCheck": true,
-		"declaration": true,
-		"declarationMap": true,
-		"incremental": true,
-		"moduleResolution": "bundler",
-		"forceConsistentCasingInFileNames": true,
-		"exactOptionalPropertyTypes": false
-	}
+  "include": ["./src"],
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "lib": ["ES2022", "DOM"],
+    "outDir": "./lib",
+    "downlevelIteration": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "noUnusedLocals": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitThis": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "declaration": true,
+    "declarationMap": true,
+    "incremental": true,
+    "moduleResolution": "bundler",
+    "forceConsistentCasingInFileNames": true,
+    "exactOptionalPropertyTypes": false
+  },
+  "ts-node": {
+    "experimentalSpecifierResolution": "node",
+    "transpileOnly": true,
+    "esm": true
+  }
 }

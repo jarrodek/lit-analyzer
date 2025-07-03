@@ -1,11 +1,11 @@
 {
-	"extends": "../../tsconfig.json",
-	"include": ["./src"],
-	"exclude": [],
-	"compilerOptions": {
-		"rootDir": "./src",
-		"outDir": "./",
-		"resolveJsonModule": true,
-		"tsBuildInfoFile": "./.tsbuildinfo"
-	}
+  "extends": "../../tsconfig.json",
+  "include": ["./src"],
+  "exclude": [],
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "resolveJsonModule": true,
+    "tsBuildInfoFile": "./.tsbuildinfo"
+  }
 }

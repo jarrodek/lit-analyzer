@@ -1,149 +1,176 @@
 {
-	"name": "@jarrodek/lit-analyzer",
-	"version": "1.0.0",
-	"description": "Monorepo for tools that analyze lit-html templates. Maintained by @jarrodek",
-	"private": true,
-	"author": "runem",
-	"license": "MIT",
-	"type": "module",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/runem/lit-analyzer.git"
-	},
-	"bugs": {
-		"url": "https://github.com/runem/lit-analyzer/issues"
-	},
-	"homepage": "https://github.com/runem/lit-analyzer#readme",
-	"keywords": [
-		"lit-html",
-		"lit",
-		"lit-element",
-		"javascript",
-		"typescript",
-		"web components",
-		"web",
-		"components",
-		"tagged",
-		"template"
-	],
-	"scripts": {
-		"postinstall": "npm run prepare",
-		"bootstrap": "npm install --workspaces",
-		"prettier:write": "prettier --write \"packages/*/src/**/*.ts\"",
-		"postpublish": "echo \"🎉 Published successfully! You can now publish the vscode extension seperately by running 'cd packages/vscode-lit-plugin && npm run publish'\"",
-		"publish": "lerna run prepare && lerna publish --exact && npm run postpublish",
-		"publish:next": "lerna run prepare && echo \"When asked, please choose 'Custom Prerelease' and use default value\" && lerna publish --dist-tag next --preid next --exact && npm run postpublish",
-		"test:watch": "lerna run test:watch --parallel --stream",
-		"readme": "lerna run readme && readme generate -i readme.blueprint.md -c readme.config.json",
-		"dev": "cd dev && TSS_DEBUG=5999 code . --disable-extension runem.lit-plugin",
-		"dev:logs": "touch dev/lit-plugin.log && tail -f dev/lit-plugin.log",
-		"lint": "wireit",
-		"eslint": "wireit",
-		"build": "wireit",
-		"test": "wireit",
-		"test:headless": "wireit",
-		"test:headful": "wireit",
-		"prettier:check": "wireit",
-		"package": "wireit",
-		"prepare": "husky || true"
-	},
-	"wireit": {
-		"build": {
-			"dependencies": [
-				"./packages/lit-analyzer:build",
-				"./packages/ts-lit-plugin:build",
-				"./packages/vscode-lit-plugin:build"
-			]
-		},
-		"test": {
-			"dependencies": [
-				"test:headless",
-				"test:headful",
-				"lint"
-			]
-		},
-		"lint": {
-			"dependencies": [
-				"eslint",
-				"prettier:check"
-			]
-		},
-		"test:headless": {
-			"dependencies": [
-				"./packages/lit-analyzer:test"
-			]
-		},
-		"test:headful": {
-			"dependencies": [
-				"./packages/vscode-lit-plugin:test"
-			]
-		},
-		"eslint": {
-			"command": "eslint ."
-		},
-		"prettier:check": {
-			"files": [
-				"packages/*/src/**/*.ts",
-				"prettier.config.js"
-			],
-			"command": "prettier --check \"packages/*/src/**/*.ts\""
-		},
-		"package": {
-			"dependencies": [
-				"./packages/vscode-lit-plugin:package"
-			]
-		}
-	},
-	"devDependencies": {
-		"@typescript-eslint/eslint-plugin": "^8.0.0",
-		"@typescript-eslint/parser": "^8.0.0",
-		"@vscode/test-electron": "^2.4.1",
-		"eslint": "^9.0.0",
-		"eslint-config-prettier": "^10.1.5",
-		"eslint-plugin-import": "^2.30.0",
-		"fs-extra": "^11.2.0",
-		"husky": "^9.1.0",
-		"lerna": "^8.1.0",
-		"lint-staged": "^16.1.2",
-		"nodemon": "^3.1.0",
-		"prettier": "^3.3.0",
-		"typescript": "^5.6.0",
-		"wireit": "^0.14.0"
-	},
-	"engines": {
-		"node": ">=18.0.0"
-	},
-	"lint-staged": {
-		"*.{ts,js}": "eslint --fix",
-		"*.{ts,js,md,json}": "prettier --write"
-	},
-	"contributors": [
-		{
-			"name": "Rune Mehlsen",
-			"url": "https://twitter.com/runemehlsen",
-			"img": "https://avatars2.githubusercontent.com/u/5372940?s=460&v=4"
-		},
-		{
-			"name": "Andreas Mehlsen",
-			"url": "https://twitter.com/andreasmehlsen",
-			"img": "https://avatars1.githubusercontent.com/u/6267397?s=460&v=4"
-		},
-		{
-			"name": "Peter Burns",
-			"url": "https://twitter.com/rictic",
-			"img": "https://avatars3.githubusercontent.com/u/1659?s=460&v=4"
-		},
-		{
-			"name": "You?",
-			"img": "https://joeschmoe.io/api/v1/random",
-			"url": "https://github.com/runem/lit-analyzer/blob/master/CONTRIBUTING.md"
-		}
-	],
-	"dependencies": {
-		"ava": "^6.4.0",
-		"didyoumean2": "^7.0.4",
-		"vscode-css-languageservice": "^6.3.7",
-		"vscode-html-languageservice": "^5.5.1",
-		"vscode-languageserver-types": "^3.17.5"
-	}
+  "name": "@jarrodek/lit-analyzer",
+  "version": "1.0.0",
+  "description": "Monorepo for tools that analyze lit-html templates. Maintained by @jarrodek",
+  "private": true,
+  "author": "runem",
+  "license": "MIT",
+  "type": "module",
+  "workspaces": [
+    "packages/*"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/runem/lit-analyzer.git"
+  },
+  "bugs": {
+    "url": "https://github.com/runem/lit-analyzer/issues"
+  },
+  "homepage": "https://github.com/runem/lit-analyzer#readme",
+  "keywords": [
+    "lit-html",
+    "lit",
+    "lit-element",
+    "javascript",
+    "typescript",
+    "web components",
+    "web",
+    "components",
+    "tagged",
+    "template"
+  ],
+  "scripts": {
+    "postinstall": "npm run prepare",
+    "bootstrap": "npm install",
+    "prettier:write": "prettier --write \"packages/*/src/**/*.ts\"",
+    "postpublish": "echo \"🎉 Published successfully! You can now publish the vscode extension separately by running 'cd packages/vscode-lit-plugin && npm run publish'\"",
+    "publish": "npm run prepare:workspaces && npm run build && npm publish --workspaces --access public && npm run postpublish",
+    "publish:next": "npm run prepare:workspaces && npm run build && npm publish --workspaces --access public --tag next && npm run postpublish",
+    "test:watch": "npm run test:watch --workspaces",
+    "readme": "npm run readme --workspaces && readme generate -i readme.blueprint.md -c readme.config.json",
+    "dev": "cd dev && TSS_DEBUG=5999 code . --disable-extension runem.lit-plugin-maintained",
+    "dev:logs": "touch dev/lit-plugin.log && tail -f dev/lit-plugin.log",
+    "build:workspaces": "npm run build --workspaces --if-present",
+    "prepare:workspaces": "npm run prepare --workspaces --if-present",
+    "lint": "wireit",
+    "lint:eslint": "wireit",
+    "lint:prettier": "wireit",
+    "format": "wireit",
+    "format:eslint": "wireit",
+    "format:prettier": "wireit",
+    "build": "wireit",
+    "test": "wireit",
+    "test:headless": "wireit",
+    "test:headful": "wireit",
+    "package": "wireit",
+    "prepare": "husky"
+  },
+  "wireit": {
+    "build": {
+      "dependencies": [
+        "./packages/lit-analyzer:build",
+        "./packages/ts-lit-plugin:build",
+        "./packages/vscode-lit-plugin:build"
+      ]
+    },
+    "test": {
+      "dependencies": [
+        "test:headless",
+        "test:headful",
+        "lint"
+      ]
+    },
+    "lint": {
+      "dependencies": [
+        "lint:eslint",
+        "lint:prettier"
+      ]
+    },
+    "lint:eslint": {
+      "command": "eslint --color --cache --cache-location .eslintcache .",
+      "files": [
+        "src/**/*.ts",
+        "eslint.config.js"
+      ],
+      "output": []
+    },
+    "lint:prettier": {
+      "command": "prettier \"**/*.ts\" --check"
+    },
+    "format": {
+      "dependencies": [
+        "format:eslint",
+        "format:prettier"
+      ]
+    },
+    "format:eslint": {
+      "command": "eslint --color --cache --fix --cache-location .eslintcache .",
+      "files": [
+        "src/**/*.ts",
+        "eslint.config.js"
+      ],
+      "output": []
+    },
+    "format:prettier": {
+      "command": "prettier \"**/*.ts\" --write"
+    },
+    "test:headless": {
+      "dependencies": [
+        "./packages/lit-analyzer:test"
+      ]
+    },
+    "test:headful": {
+      "dependencies": [
+        "./packages/vscode-lit-plugin:test"
+      ]
+    },
+    "package": {
+      "dependencies": [
+        "./packages/vscode-lit-plugin:package"
+      ]
+    }
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.10",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
+    "@typescript-eslint/parser": "^8.0.0",
+    "@vscode/test-electron": "^2.4.1",
+    "eslint": "^9.0.0",
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-plugin-import": "^2.30.0",
+    "eslint-plugin-prettier": "^5.5.1",
+    "globals": "^16.3.0",
+    "husky": "^9.1.0",
+    "lint-staged": "^16.1.2",
+    "nodemon": "^3.1.0",
+    "prettier": "^3.3.0",
+    "typescript": "^5.6.0",
+    "wireit": "^0.14.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "lint-staged": {
+    "*.{ts,js}": "eslint --fix",
+    "*.{ts,js,md,json}": "prettier --write"
+  },
+  "contributors": [
+    {
+      "name": "Rune Mehlsen",
+      "url": "https://twitter.com/runemehlsen",
+      "img": "https://avatars2.githubusercontent.com/u/5372940?s=460&v=4"
+    },
+    {
+      "name": "Andreas Mehlsen",
+      "url": "https://twitter.com/andreasmehlsen",
+      "img": "https://avatars1.githubusercontent.com/u/6267397?s=460&v=4"
+    },
+    {
+      "name": "Peter Burns",
+      "url": "https://twitter.com/rictic",
+      "img": "https://avatars3.githubusercontent.com/u/1659?s=460&v=4"
+    },
+    {
+      "name": "You?",
+      "img": "https://joeschmoe.io/api/v1/random",
+      "url": "https://github.com/runem/lit-analyzer/blob/master/CONTRIBUTING.md"
+    }
+  ],
+  "dependencies": {
+    "ava": "^6.4.0",
+    "didyoumean2": "^7.0.4",
+    "vscode-css-languageservice": "^6.3.7",
+    "vscode-html-languageservice": "^5.5.1",
+    "vscode-languageserver-types": "^3.17.5"
+  }
 }
