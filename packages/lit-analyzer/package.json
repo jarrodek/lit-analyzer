@@ -1,6 +1,6 @@
 {
   "name": "@jarrodek/lit-analyzer",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "CLI that type checks bindings in lit-html templates. Maintained by @jarrodek",
   "author": "runem",
   "license": "MIT",
@@ -27,7 +27,7 @@
   "scripts": {
     "build": "wireit",
     "prepublishOnly": "npm test",
-    "test": "node --import ts-node-maintained/register/esm --enable-source-maps bin/test.ts",
+    "test": "node --import ts-node-maintained/register/esm --enable-source-maps bin/test.ts && npm run check-version",
     "coverage": "c8 --reporter lcov --reporter text node --import ts-node-maintained/register/esm --enable-source-maps bin/test.ts",
     "check-version": "wireit"
   },

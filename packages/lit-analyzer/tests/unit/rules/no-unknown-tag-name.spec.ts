@@ -37,3 +37,10 @@ test("Don't report known custom element", ({ assert }) => {
   )
   hasNoDiagnostics(assert, diagnostics)
 })
+
+test('runem/lit-analyzer/issues/386 - binding inside a bare <colgroup>', ({ assert }) => {
+  const { diagnostics } = getDiagnostics(" return html` <colgroup> ${''} </colgroup> `;", {
+    rules: { 'no-unknown-tag-name': true },
+  })
+  hasNoDiagnostics(assert, diagnostics)
+}).skip(true, 'parse5 does not handle <colgroup> with bindings properly')

@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url'
 
 import { LitAnalyzerConfig, LitAnalyzerLoggerLevel, makeConfig, VERSION } from '@jarrodek/lit-analyzer'
 import { VERSION as WCA_VERSION } from '@jarrodek/web-component-analyzer'
-import * as ts from 'typescript'
+import ts from 'typescript'
 import { CompilerOptions } from 'typescript'
 import * as tsServer from 'typescript/lib/tsserverlibrary.js'
 

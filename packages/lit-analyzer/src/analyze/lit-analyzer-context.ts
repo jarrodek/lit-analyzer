@@ -1,4 +1,4 @@
-import * as tsMod from 'typescript'
+import tsMod from 'typescript'
 import { Program, SourceFile } from 'typescript'
 import * as tsServer from 'typescript/lib/tsserverlibrary.js'
 import { LitAnalyzerConfig } from './lit-analyzer-config.js'
