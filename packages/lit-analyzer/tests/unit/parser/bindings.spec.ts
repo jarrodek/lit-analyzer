@@ -4,7 +4,7 @@ import {
   HtmlNodeAttrAssignmentKind,
   IHtmlNodeAttrAssignmentMixed,
   IHtmlNodeAttrAssignmentString,
-} from '../../../src/lib/analyze/types/html-node/html-node-attr-assignment-types.js'
+} from '../../../src/analyze/types/html-node/html-node-attr-assignment-types.js'
 import { parseHtml } from '../../helpers/parse-html.js'
 
 // https://github.com/runem/lit-analyzer/issues/44

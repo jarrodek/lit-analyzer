@@ -1,7 +1,7 @@
 import { test } from '@japa/runner'
 
-import { parseAllIndirectImports } from '../../../src/lib/analyze/parse/parse-dependencies/parse-dependencies.js'
-import { isFacadeModule } from '../../../src/lib/analyze/parse/parse-dependencies/visit-dependencies.js'
+import { parseAllIndirectImports } from '../../../src/analyze/parse/parse-dependencies/parse-dependencies.js'
+import { isFacadeModule } from '../../../src/analyze/parse/parse-dependencies/visit-dependencies.js'
 import { prepareAnalyzer } from '../../helpers/analyze.js'
 
 test('Correctly finds all imports in a file', ({ assert }) => {

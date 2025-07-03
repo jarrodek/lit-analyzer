@@ -45,6 +45,7 @@ export default [
         // Individual packages will handle their own type checking during build
       },
       globals: {
+        ...globals.node,
         console: 'readonly',
       },
     },
@@ -60,7 +61,7 @@ export default [
         'error',
         {
           'groups': ['builtin', 'external', 'internal', 'parent', 'sibling', 'index'],
-          'newlines-between': 'always',
+          'newlines-between': 'ignore',
           'alphabetize': { order: 'asc' },
         },
       ],
@@ -78,6 +79,7 @@ export default [
       'no-console': 'warn',
       'prefer-const': 'error',
       'no-var': 'error',
+      'no-redeclare': 'off',
     },
   },
   // JavaScript and Module files (no type checking)

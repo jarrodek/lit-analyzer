@@ -1,35 +1,33 @@
-<!-- ⚠️ This README has been generated from the file(s) "readme.blueprint.md" ⚠️--><h1 align="center">lit-analyzer</h1>
-<p align="center">
-  <b>CLI that type checks bindings in lit-html templates</b></br>
-  <sub><sub>
-</p>
+# lit-analyzer
 
-<br />
+CLI that type checks bindings in lit-html templates
 
-<p align="center">
-		<a href="https://npmcharts.com/compare/lit-analyzer?minimal=true"><img alt="Downloads per month" src="https://img.shields.io/npm/dm/lit-analyzer.svg" height="20"/></a>
-<a href="https://www.npmjs.com/package/lit-analyzer"><img alt="NPM Version" src="https://img.shields.io/npm/v/lit-analyzer.svg" height="20"/></a>
-<a href="https://david-dm.org/runem/lit-analyzer"><img alt="Dependencies" src="https://img.shields.io/david/runem/lit-analyzer.svg" height="20"/></a>
-<a href="https://github.com/runem/lit-analyzer/graphs/contributors"><img alt="Contributors" src="https://img.shields.io/github/contributors/runem/lit-analyzer.svg" height="20"/></a>
-	</p>
+## About this Fork
 
-[![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)](#installation)
+This is a maintained fork of the original [lit-analyzer](https://github.com/runem/lit-analyzer) by Rune Mehlsen. The original project has been inactive since 2023 and lacks ongoing maintenance. This fork aims to:
 
-## ➤ Installation
+- Keep the tool compatible with modern Node.js versions
+- Fix bugs and security vulnerabilities
+- Maintain compatibility with the latest LitElement and lit-html versions
+- Provide ongoing support for the TypeScript and VS Code ecosystems
+
+## About
+
+`lit-analyzer` is a powerful CLI tool that provides static analysis for your Lit templates. It type-checks bindings, validates element usage, and helps catch errors before runtime. It supports both JavaScript and TypeScript projects and integrates well with various development workflows.
+
+## Installation
 
 <!-- prettier-ignore -->
 ```bash
-npm install lit-analyzer -g
+npm install @jarrodek/lit-analyzer -g
 ```
 
 **Note:**
 
 - If you use Visual Studio Code you can also install the [lit-plugin](https://marketplace.visualstudio.com/items?itemName=runem.lit-plugin-maintained) extension.
-- If you use Typescript you can also install [ts-lit-plugin](https://github.com/runem/lit-analyzer/blob/master/packages/ts-lit-plugin).
+- If you use Typescript you can also install [@jarrodek/ts-lit-plugin](https://github.com/jarrodek/lit-analyzer/blob/master/packages/ts-lit-plugin).
 
-[![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)](#usage)
-
-## ➤ Usage
+## Usage
 
 `lit-analyzer` analyzes an optional `input glob` and emits the output to the console as default. When the `input glob` is omitted it will analyze all components in `src`.
 
@@ -41,9 +39,7 @@ lit-analyzer my-element.js
 lit-analyzer --format markdown --outFile result.md 
 ```
 
-[![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)](#configuration)
-
-## ➤ Configuration
+## Configuration
 
 You can configure the CLI with arguments:
 
@@ -52,7 +48,7 @@ You can configure the CLI with arguments:
 lit-analyzer --strict --rules.no-unknown-tag-name off --format markdown
 ```
 
-**Note:** You can also configure the CLI using a `tsconfig.json` file (see [ts-lit-plugin](https://github.com/runem/lit-analyzer/blob/master/packages/ts-lit-plugin)).
+**Note:** You can also configure the CLI using a `tsconfig.json` file (see [ts-lit-plugin](https://github.com/jarrodek/lit-analyzer/blob/master/packages/ts-lit-plugin)).
 
 ### Available arguments
 
@@ -60,7 +56,7 @@ lit-analyzer --strict --rules.no-unknown-tag-name off --format markdown
 | Option | Description | Type | Default |
 | :----- | ----------- | ---- | ------- |
 | `--help` | Print help message | `boolean` | |
-| `--rules.rule-name` | Enable or disable rules (example: --rules.no-unknown-tag-name off). Severity can be "off" \| "warn" \| "error". See a list of rules [here](https://github.com/runem/lit-analyzer/blob/master/docs/readme/rules.md). | `{"rule-name": "off" \| "warn" \| "error"}` |  |
+| `--rules.rule-name` | Enable or disable rules (example: --rules.no-unknown-tag-name off). Severity can be "off" \| "warn" \| "error". See the [complete list of available rules](https://github.com/jarrodek/lit-analyzer/blob/master/docs/readme/rules.md). | `{"rule-name": "off" \| "warn" \| "error"}` |  |
 | `--strict` | Enable strict mode. This changes the default ruleset | `boolean` | |
 | `--format` | Change the format of how diagnostics are reported | `code` \| `list` \| `markdown` | code |
 | `--maxWarnings` | Fail only when the number of warnings is larger than this number | `number` | -1 |
@@ -69,15 +65,13 @@ lit-analyzer --strict --rules.no-unknown-tag-name off --format markdown
 | `--failFast` | Exit the process right after the first problem has been found | `boolean` | |
 | `--debug` | Enable CLI debug mode | `boolean` |  |
 
-[![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)](#rules)
+## Rules
 
-## ➤ Rules
-
-The default severity of each rule depend on the `strict` [configuration option](#-configuration). Strict mode is disabled as default.
+The default severity of each rule depend on the `strict` [configuration option](#configuration). Strict mode is disabled as default.
 
 Each rule can have severity of `off`, `warning` or `error`. You can toggle rules as you like.
 
-**Validating custom elements**
+### Validating custom elements
 
 <!-- prettier-ignore -->
 | Rule    | Description | Severity normal | Severity strict |
@@ -87,51 +81,49 @@ Each rule can have severity of `off`, `warning` or `error`. You can toggle rules
 | [no-unclosed-tag](#-no-unclosed-tag)         | Unclosed tags, and invalid self closing tags like custom elements tags, are checked. | warning | error |
 | [no-missing-element-type-definition](#no-missing-element-type-definition) | This rule will ensure that custom elements are registered on the `HTMLElementTagNameMap` Typescript interface. | off | off |
 
-**Validating binding names**
+### Validating binding names
 
 <!-- prettier-ignore -->
 | Rule    | Description | Severity normal | Severity strict |
 | :------ | ----------- | --------------- | --------------- |
-| [no-unknown-attribute](#-no-unknown-attribute-no-unknown-property)<br> [no-unknown-property](#-no-unknown-attribute-no-unknown-property) | You will get a warning whenever you use an unknown attribute or property within your `lit-html` template. | off | warning |
-| [no-unknown-event](#-no-unknown-event)       | When using event bindings it's checked that the event names are fired. | off | off |
+| no-unknown-attribute, no-unknown-property | You will get a warning whenever you use an unknown attribute or property within your `lit-html` template. | off | warning |
+| no-unknown-event | When using event bindings it's checked that the event names are fired. | off | off |
 | [no-unknown-slot](#-no-unknown-slot)         | Using the "@slot" jsdoc tag on your custom element class, you can tell which slots are accepted for a particular element. | off | warning |
 | [no-legacy-attribute](#no-legacy-attribute)         | Disallows use of legacy Polymer binding syntax (e.g. `foo$=`). | off | warning |
 
-**Validating binding types**
+### Validating binding types
 
 <!-- prettier-ignore -->
 | Rule    | Description | Severity normal | Severity strict |
 | :------ | ----------- | --------------- | --------------- |
 | [no-invalid-boolean-binding](#-no-invalid-boolean-binding)       | Disallow boolean attribute bindings on non-boolean types. | error | error |
-| [no-expressionless-property-binding](#-no-expressionless-property-binding) | Disallow property bindings without an expression. | error | error |
+| no-expressionless-property-binding | Disallow property bindings without an expression. | error | error |
 | [no-noncallable-event-binding](#-no-noncallable-event-binding)   | Disallow event listener bindings with a noncallable type. | error | error |
 | [no-boolean-in-attribute-binding](#-no-boolean-in-attribute-binding) | Disallow attribute bindings with a boolean type. | error | error |
-| [no-complex-attribute-binding](#-no-complex-attribute-binding)   | Disallow attribute bindings with a complex type. | error | error |
-| [no-nullable-attribute-binding](#-no-nullable-attribute-binding) | Disallow attribute bindings with nullable types such as "null" or "undefined".  | error | error |
+| no-complex-attribute-binding | Disallow attribute bindings with a complex type. | error | error |
+| no-nullable-attribute-binding | Disallow attribute bindings with nullable types such as "null" or "undefined".  | error | error |
 | [no-incompatible-type-binding](#-no-incompatible-type-binding)   | Disallow incompatible type in bindings.  | error | error |
 | [no-invalid-directive-binding](#-no-invalid-directive-binding)   | Disallow using built-in directives in unsupported bindings. | error | error |
 | [no-unintended-mixed-binding](#-no-unintended-mixed-binding)   | Disallow mixed value bindings where a character `'`, `"`, `}` or `/` is unintentionally included in the binding. | warning | warning |
 
-**Validating LitElement**
+### Validating LitElement
 
 <!-- prettier-ignore -->
 | Rule    | Description | Severity normal | Severity strict |
 | :------ | ----------- | --------------- | --------------- |
-| [no-incompatible-property-type](#-no-incompatible-property-type) | When using the @property decorator in Typescript, the property option `type` is checked against the declared property Typescript type | warn | error |
-| [no-invalid-attribute-name](#-no-invalid-attribute-name)         | When using the property option `attribute`, the value is checked to make sure it's a valid attribute name. | error | error |
-| [no-invalid-tag-name](#-no-invalid-tag-name)                     | When defining a custom element the tag name is checked to make sure it's valid. | error | error |
+| no-incompatible-property-type | When using the @property decorator in Typescript, the property option `type` is checked against the declared property Typescript type | warn | error |
+| no-invalid-attribute-name | When using the property option `attribute`, the value is checked to make sure it's a valid attribute name. | error | error |
+| no-invalid-tag-name | When defining a custom element the tag name is checked to make sure it's valid. | error | error |
 | [no-property-visibility-mismatch](#no-property-visibility-mismatch) | This rule will ensure public properties use `@property` and non-public properties use `@internalProperty`. | off | warn |
 
-**Validating CSS**
+### Validating CSS
 
 <!-- prettier-ignore -->
 | Rule    | Description | Severity normal | Severity strict |
 | :------ | ----------- | --------------- | --------------- |
 | [💅 no-invalid-css](#-no-invalid-css) | CSS within the tagged template literal `css` will be validated. | warning | error |
 
-### Validating custom elements
-
-All web components in your code are analyzed using [web-component-analyzer](https://github.com/runem/web-component-analyzer) which supports native custom elements and web components built with LitElement.
+#### Custom element validation rules
 
 #### 🤷‍ no-unknown-tag-name
 
@@ -225,9 +217,7 @@ declare global {
 }
 ```
 
-### Validating binding names
-
-Attributes, properties and events are picked up on custom elements using [web-component-analyzer](https://github.com/runem/web-component-analyzer) which supports native custom elements and web components built with LitElement.
+#### Binding name validation rules
 
 #### ✅ no-unknown-attribute, no-unknown-property
 
@@ -329,9 +319,7 @@ html`<input ?disabled=${val} />`;
 html`<input name=${val} />`;
 ```
 
-### Validating binding types
-
-Be aware that many checks involving analyzing bindings will work better in Typescript files because we have more information about the values being bound.
+#### Binding type validation rules
 
 #### ❓ no-invalid-boolean-binding
 
@@ -527,9 +515,7 @@ html`<input ?required=${true} />`
 html`<input @input="${console.log}" />`
 ```
 
-### Validating LitElement
-
-#### 💞 no-incompatible-property-type
+#### LitElement validation rules
 
 This rule checks that LitElement-controlled properties are correctly configured in accordance with the default value converter.
 
@@ -649,13 +635,11 @@ The following example is considered a warning:
 <!-- prettier-ignore -->
 ```ts
 class MyElement extends LitElement {
-	@property() private myProperty: string;
+  @property() private myProperty: string;
 }
 ```
 
-### Validating CSS
-
-`lit-analyzer` uses [vscode-css-languageservice](https://github.com/Microsoft/vscode-css-languageservice) to validate CSS.
+#### CSS validation rules
 
 #### 💅 no-invalid-css
 
@@ -683,11 +667,9 @@ css`
 `
 ```
 
-[![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)](#documenting-slots-events-attributes-and-properties)
+## Documenting slots, events, attributes and properties
 
-## ➤ Documenting slots, events, attributes and properties
-
-Code is analyzed using [web-component-analyzer](https://github.com/runem/web-component-analyzer) in order to find properties, attributes and events. Unfortunately, sometimes it's not possible to analyze these things by looking at the code, and you will have to document how your component looks using `jsdoc`like this:
+Code is analyzed using [web-component-analyzer](https://github.com/jarrodek/web-component-analyzer) in order to find properties, attributes and events. Unfortunately, sometimes it's not possible to analyze these things by looking at the code, and you will have to document how your component looks using `jsdoc`like this:
 
 <!-- prettier-ignore -->
 ```js
@@ -711,16 +693,16 @@ class MyElement extends HTMLElement {
 customElements.define("my-element", MyElement);
 ```
 
-[![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)](#contributors)
+## Contributors
 
-## ➤ Contributors
+This fork is maintained to continue the excellent work started by:
 
-| [<img alt="Rune Mehlsen" src="https://avatars2.githubusercontent.com/u/5372940?s=460&v=4" width="100">](https://twitter.com/runemehlsen) | [<img alt="Andreas Mehlsen" src="https://avatars1.githubusercontent.com/u/6267397?s=460&v=4" width="100">](https://twitter.com/andreasmehlsen) | [<img alt="You?" src="https://joeschmoe.io/api/v1/random" width="100">](https://github.com/runem/lit-analyzer/blob/master/CONTRIBUTING.md) |
-| :--------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------: |
-|                                             [Rune Mehlsen](https://twitter.com/runemehlsen)                                              |                                             [Andreas Mehlsen](https://twitter.com/andreasmehlsen)                                              |                                 [You?](https://github.com/runem/lit-analyzer/blob/master/CONTRIBUTING.md)                                  |
+- [Rune Mehlsen](https://twitter.com/runemehlsen) - Original creator
+- [Andreas Mehlsen](https://twitter.com/andreasmehlsen) - Original contributor
+- [Pawel Uchida-Psztyc](https://www.linkedin.com/in/pawelpsztyc/) - Contributor
 
-[![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)](#license)
+Contributions to this maintained fork are welcome! Please see the contributing guidelines for more information.
 
-## ➤ License
+## License
 
 Licensed under [MIT](https://opensource.org/licenses/MIT).

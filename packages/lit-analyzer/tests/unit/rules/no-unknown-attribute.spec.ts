@@ -34,3 +34,10 @@ test("Don't report element expressions", ({ assert }) => {
   const { diagnostics } = getDiagnostics('html`<input ${x} />`', { rules: { 'no-unknown-attribute': true } })
   hasNoDiagnostics(assert, diagnostics)
 })
+
+test("Don't report new (2024) attributes", ({ assert }) => {
+  const { diagnostics } = getDiagnostics("html`<span popover='auto'></span>`", {
+    rules: { 'no-unknown-attribute': true },
+  })
+  hasNoDiagnostics(assert, diagnostics)
+})

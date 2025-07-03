@@ -2,9 +2,9 @@ import { Assert } from '@japa/assert'
 import { test } from '@japa/runner'
 import ts, { Node, SourceFile } from 'typescript'
 
-import { LitIndexEntry } from '../../../src/lib/analyze/document-analyzer/html/lit-html-document-analyzer.js'
-import { HtmlNodeAttrKind } from '../../../src/lib/analyze/types/html-node/html-node-attr-types.js'
-import { HtmlNodeKind } from '../../../src/lib/analyze/types/html-node/html-node-types.js'
+import { LitIndexEntry } from '../../../src/analyze/document-analyzer/html/lit-html-document-analyzer.js'
+import { HtmlNodeAttrKind } from '../../../src/analyze/types/html-node/html-node-attr-types.js'
+import { HtmlNodeKind } from '../../../src/analyze/types/html-node/html-node-types.js'
 import { getIndexEntries } from '../../helpers/analyze.js'
 
 test.group('indexer', () => {

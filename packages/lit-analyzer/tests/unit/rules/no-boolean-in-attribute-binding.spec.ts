@@ -21,9 +21,9 @@ test('Non-boolean-binding on a boolean type attribute with a non-boolean type ex
   assert,
 }) => {
   const { diagnostics } = getDiagnostics('html`<input required="${{} as string}" />`', {
-    rules: { 'no-boolean-in-attribute-binding': true },
+    rules: { 'no-boolean-in-attribute-binding': true, 'no-incompatible-type-binding': true },
   })
-  hasDiagnostic(assert, diagnostics, 'no-boolean-in-attribute-binding')
+  hasDiagnostic(assert, diagnostics, 'no-incompatible-type-binding')
 })
 
 test("Boolean assigned to 'true|'false' doesn't emit 'no-boolean-in-attribute-binding' warning", ({ assert }) => {

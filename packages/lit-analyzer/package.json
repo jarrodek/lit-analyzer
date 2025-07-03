@@ -7,7 +7,7 @@
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "https://github.com/runem/lit-analyzer.git"
+    "url": "https://github.com/jarrodek/lit-analyzer.git"
   },
   "keywords": [
     "lit-html",
@@ -22,14 +22,13 @@
     "template"
   ],
   "bin": {
-    "@jarrodek/lit-analyzer": "cli.js"
+    "lit-analyzer": "dist/cli.js"
   },
   "scripts": {
     "build": "wireit",
     "prepublishOnly": "npm test",
-    "readme": "readme generate -i readme.blueprint.md -c readme.config.json && npm run check-version",
-    "test": "npm run build && node --import ts-node-maintained/register/esm --enable-source-maps bin/test.ts",
-    "test:all": "npm test",
+    "test": "node --import ts-node-maintained/register/esm --enable-source-maps bin/test.ts",
+    "coverage": "c8 --reporter lcov --reporter text node --import ts-node-maintained/register/esm --enable-source-maps bin/test.ts",
     "check-version": "wireit"
   },
   "wireit": {
@@ -41,34 +40,19 @@
         "../../tsconfig.json"
       ],
       "output": [
-        "lib",
-        "test",
-        "scripts",
-        "index.js",
-        "index.d.ts",
-        "index.d.ts.map",
+        "dist",
         ".tsbuildinfo"
       ],
       "clean": "if-file-deleted"
     },
     "check-version": {
-      "dependencies": [
-        "build"
-      ],
-      "files": [
-        "package.json",
-        "scripts/check-version.js"
-      ],
-      "command": "node scripts/check-version.js"
+      "command": "node --import ts-node-maintained/register/esm --enable-source-maps scripts/check-version.ts"
     }
   },
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "files": [
-    "/lib/",
-    "index.js",
-    "index.d.ts",
-    "index.d.ts.map",
-    "cli.js"
+    "/dist/"
   ],
   "dependencies": {
     "@jarrodek/web-component-analyzer": "^3.0.0",

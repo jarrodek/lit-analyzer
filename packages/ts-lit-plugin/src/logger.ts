@@ -57,7 +57,6 @@ export class Logger extends DefaultLitAnalyzerLogger {
     this.appendLogWithLevel(LitAnalyzerLoggerLevel.VERBOSE, ...args)
   }
 
-  // eslint-disable-next-line no-undef
   private logPath = join(process.cwd(), LOG_FILE_NAME)
 
   set cwd(cwd: string) {

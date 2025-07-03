@@ -1,9 +1,9 @@
 import type { Assert } from '@japa/assert'
 import { test } from '@japa/runner'
 
-import { CssDocument } from '../../../src/lib/analyze/parse/document/text-document/css-document/css-document.js'
-import { VirtualAstCssDocument } from '../../../src/lib/analyze/parse/document/virtual-document/virtual-css-document.js'
-import { findTaggedTemplates } from '../../../src/lib/analyze/parse/tagged-template/find-tagged-templates.js'
+import { CssDocument } from '../../../src/analyze/parse/document/text-document/css-document/css-document.js'
+import { VirtualAstCssDocument } from '../../../src/analyze/parse/document/virtual-document/virtual-css-document.js'
+import { findTaggedTemplates } from '../../../src/analyze/parse/tagged-template/find-tagged-templates.js'
 import { compileFiles } from '../../helpers/compile.js'
 
 function createCssDocument(testFile: string): CssDocument {

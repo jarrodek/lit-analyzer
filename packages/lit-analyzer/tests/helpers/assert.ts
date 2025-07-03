@@ -1,7 +1,7 @@
 import type { Assert } from '@japa/assert'
 
-import { LitAnalyzerRuleId } from '../../src/lib/analyze/lit-analyzer-config.js'
-import { LitDiagnostic } from '../../src/lib/analyze/types/lit-diagnostic.js'
+import { LitAnalyzerRuleId } from '../../src/analyze/lit-analyzer-config.js'
+import { LitDiagnostic } from '../../src/analyze/types/lit-diagnostic.js'
 
 export function hasDiagnostic(assert: Assert, diagnostics: LitDiagnostic[], ruleName: LitAnalyzerRuleId): void {
   if (diagnostics.length !== 1) {

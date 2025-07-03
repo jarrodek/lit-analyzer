@@ -1,7 +1,7 @@
 import ts, { Node, TaggedTemplateExpression } from 'typescript'
 
-import { HtmlDocument } from '../../src/lib/analyze/parse/document/text-document/html-document/html-document.js'
-import { parseHtmlDocument } from '../../src/lib/analyze/parse/document/text-document/html-document/parse-html-document.js'
+import { HtmlDocument } from '../../src/analyze/parse/document/text-document/html-document/html-document.js'
+import { parseHtmlDocument } from '../../src/analyze/parse/document/text-document/html-document/parse-html-document.js'
 
 import { compileFiles } from './compile.js'
 

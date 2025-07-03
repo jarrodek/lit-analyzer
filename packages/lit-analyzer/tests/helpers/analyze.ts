@@ -1,13 +1,13 @@
 import ts, { Program, SourceFile } from 'typescript'
 
-import { DefaultLitAnalyzerContext } from '../../src/lib/analyze/default-lit-analyzer-context.js'
-import { LitIndexEntry } from '../../src/lib/analyze/document-analyzer/html/lit-html-document-analyzer.js'
-import { LitAnalyzerConfig, makeConfig } from '../../src/lib/analyze/lit-analyzer-config.js'
-import { LitAnalyzerContext } from '../../src/lib/analyze/lit-analyzer-context.js'
-import { LitAnalyzer } from '../../src/lib/analyze/lit-analyzer.js'
-import { LitCodeFix } from '../../src/lib/analyze/types/lit-code-fix.js'
-import { LitDiagnostic } from '../../src/lib/analyze/types/lit-diagnostic.js'
-import { Range } from '../../src/lib/analyze/types/range.js'
+import { DefaultLitAnalyzerContext } from '../../src/analyze/default-lit-analyzer-context.js'
+import { LitIndexEntry } from '../../src/analyze/document-analyzer/html/lit-html-document-analyzer.js'
+import { LitAnalyzerConfig, makeConfig } from '../../src/analyze/lit-analyzer-config.js'
+import { LitAnalyzerContext } from '../../src/analyze/lit-analyzer-context.js'
+import { LitAnalyzer } from '../../src/analyze/lit-analyzer.js'
+import { LitCodeFix } from '../../src/analyze/types/lit-code-fix.js'
+import { LitDiagnostic } from '../../src/analyze/types/lit-diagnostic.js'
+import { Range } from '../../src/analyze/types/range.js'
 
 import { compileFiles, TestFile } from './compile.js'
 
