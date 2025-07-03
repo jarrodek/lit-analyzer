@@ -92,7 +92,7 @@ export function getBuiltInHtmlCollection(): HtmlDataCollection {
   // Add missing global attributes
   globalAttributes.push(
     // Combine data with extra html5 events because vscode-html-language-service hasn't included all events yet.
-    ...EXTRA_HTML5_EVENTS.filter((evt) => globalAttributes.some((existingEvt) => existingEvt.name === evt.name)),
+    ...EXTRA_HTML5_EVENTS.filter((evt) => !globalAttributes.some((existingEvt) => existingEvt.name === evt.name)),
     {
       name: 'tabindex',
       description: '',

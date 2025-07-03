@@ -24,6 +24,13 @@ test("Don't report known events", ({ assert }) => {
   hasNoDiagnostics(assert, diagnostics)
 })
 
+test("Don't report known events (HTML5)", ({ assert }) => {
+  const { diagnostics } = getDiagnostics('html`<div contentEditable="true" @paste=\'${console.log}\'></div>`', {
+    rules: { 'no-unknown-event': true },
+  })
+  hasNoDiagnostics(assert, diagnostics)
+})
+
 test("Don't report unknown events on unknown element", ({ assert }) => {
   const { diagnostics } = getDiagnostics("html`<unknown-element @foo='${console.log}'></unknown-element>`", {
     rules: { 'no-unknown-event': true, 'no-unknown-tag-name': false },

@@ -54,6 +54,7 @@ const HTML_5_ATTR_TYPES: { [key: string]: string | string[] | [string[]] } = {
   'onmouseover': 'string',
   'onmouseup': 'string',
   'onmousewheel': 'string',
+  'onpaste': 'string',
   'onpause': 'string',
   'onplay': 'string',
   'onplaying': 'string',
