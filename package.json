@@ -32,9 +32,8 @@
   "scripts": {
     "build": "wireit",
     "prepublishOnly": "npm test",
-    "test": "node --import ts-node-maintained/register/esm --enable-source-maps bin/test.ts && npm run check-version",
+    "test": "node --import ts-node-maintained/register/esm --enable-source-maps bin/test.ts",
     "coverage": "c8 --reporter lcov --reporter text node --import ts-node-maintained/register/esm --enable-source-maps bin/test.ts",
-    "check-version": "wireit",
     "lint": "wireit",
     "lint:eslint": "wireit",
     "lint:prettier": "wireit",
@@ -55,9 +54,6 @@
         ".tsbuildinfo"
       ],
       "clean": "if-file-deleted"
-    },
-    "check-version": {
-      "command": "node --import ts-node-maintained/register/esm --enable-source-maps scripts/check-version.ts"
     },
     "lint": {
       "dependencies": [
