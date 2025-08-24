@@ -1,4 +1,4 @@
-import * as vscode from 'vscode-css-languageservice'
+import vscode from 'vscode-css-languageservice'
 import {
   IAtDirectiveData,
   ICSSDataProvider,

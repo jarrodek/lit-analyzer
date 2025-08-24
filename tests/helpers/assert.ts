@@ -19,5 +19,6 @@ export function hasNoDiagnostics(assert: Assert, diagnostics: LitDiagnostic[]): 
 }
 
 function prettyLogDiagnostics(diagnostics: LitDiagnostic[]) {
+  // eslint-disable-next-line no-console
   console.log(diagnostics.map((diagnostic) => `${diagnostic.source}: ${diagnostic.message}`))
 }

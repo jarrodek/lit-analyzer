@@ -21,7 +21,8 @@
     "resolveJsonModule": true,
     "forceConsistentCasingInFileNames": true,
     "exactOptionalPropertyTypes": false,
-    "tsBuildInfoFile": "./.tsbuildinfo"
+    "tsBuildInfoFile": "./.tsbuildinfo",
+    "noImplicitOverride": true
   },
   "ts-node": {
     "experimentalSpecifierResolution": "node",
