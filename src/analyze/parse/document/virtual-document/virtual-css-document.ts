@@ -2,7 +2,7 @@ import { Expression } from 'typescript'
 import { VirtualAstDocument } from './virtual-ast-document.js'
 
 export class VirtualAstCssDocument extends VirtualAstDocument {
-  protected substituteExpression(
+  protected override substituteExpression(
     length: number,
     expression: Expression,
     prev: string,
