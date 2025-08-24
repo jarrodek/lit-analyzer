@@ -63,9 +63,6 @@ export default [
       '@typescript-eslint/explicit-module-boundary-types': 'off',
       '@typescript-eslint/no-explicit-any': 'warn',
 
-      // Quote style - use single quotes
-      '@typescript-eslint/quotes': ['error', 'single', { avoidEscape: true }],
-
       // General rules
       'no-console': 'warn',
       'prefer-const': 'error',
