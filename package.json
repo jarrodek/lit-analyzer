@@ -31,7 +31,6 @@
   ],
   "scripts": {
     "build": "wireit",
-    "prepublishOnly": "npm test",
     "test": "node --import ts-node-maintained/register/esm --enable-source-maps bin/test.ts",
     "coverage": "c8 --reporter lcov --reporter text node --import ts-node-maintained/register/esm --enable-source-maps bin/test.ts",
     "lint": "wireit",
