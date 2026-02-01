@@ -332,3 +332,8 @@ test('Attribute binding: the target attribute is correctly type checked when giv
 
   hasNoDiagnostics(assert, diagnostics)
 })
+
+test('Attribute binding: popover shorthand is allowed', ({ assert }) => {
+  const { diagnostics } = getDiagnostics('html`<div popover></div>`')
+  hasNoDiagnostics(assert, diagnostics)
+})

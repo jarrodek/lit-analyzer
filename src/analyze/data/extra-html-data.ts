@@ -492,6 +492,12 @@ export function hasTypeForAttrName(attrName: string): boolean {
 }
 
 export function html5TagAttrType(attrName: string): SimpleType {
+  if (attrName === 'popover') {
+    return {
+      kind: 'UNION',
+      types: [{ kind: 'BOOLEAN' }, stringToSimpleType(HTML_5_ATTR_TYPES[attrName] || '', attrName)],
+    }
+  }
   return stringToSimpleType(HTML_5_ATTR_TYPES[attrName] || '', attrName)
 }
 
